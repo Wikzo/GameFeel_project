@@ -54,10 +54,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        ApplyGravity();
+        //ApplyGravity();
 
         CheckInput();
-        Move(_velocity * Time.deltaTime);
+        //Move(_velocity * Time.deltaTime);
 
     }
 
@@ -65,6 +65,14 @@ public class Player : MonoBehaviour
     {
         InputJump();
         InputLeftRight();
+
+        if (_velocity.x > MaxVelocityX)
+            _velocity.x = MaxVelocityX;
+        else if (_velocity.x < -MaxVelocityX)
+            _velocity.x = -MaxVelocityX;
+
+        transform.position += new Vector3(_velocity.x, _velocity.y, 0) * Time.deltaTime;
+
     }
 
     void InputJump()
@@ -75,6 +83,12 @@ public class Player : MonoBehaviour
 
     private float moveSpeedX = 2;
 
+    public static bool NearlyEqual(float f1, float f2)
+    {
+        // Equal if they are within 0.00001 of each other
+        return Math.Abs(f1 - f2) < 0.00001;
+    }
+
     void InputLeftRight()
     {
         int movingDirection = 0;
@@ -83,26 +97,81 @@ public class Player : MonoBehaviour
         // press
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            _velocity.x += moveSpeedX * Time.deltaTime;
+            if (acc == false && acc2 == false)
+            {
+                acc = true;
+                acc2 = true;
+
+                v_acc = MaxVelocityX;
+                v0_acc = _velocity.x;
+                a_acc = (v_acc - v0_acc) / t_ac;
+            }
+
+            _velocity.x = a_acc * Time.deltaTime;
             movingDirection = 1;
+            timer_acc += Time.deltaTime;
+
+            if (_velocity.x >= MaxVelocityX)
+            {
+                _velocity.x = MaxVelocityX;
+
+                if (acc)
+                {
+                    Debug.Log("Time to reach right acc: " + timer_acc);
+                    timer_acc = 0;
+                    acc = false;
+                }
+
+            }
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _velocity.x -= moveSpeedX * Time.deltaTime;
+            if (acc == false && acc2 == false)
+            {
+                acc = true;
+                acc2 = true;
+
+                v_acc = -MaxVelocityX;
+                v0_acc = _velocity.x;
+                a_acc = (v_acc - v0_acc) / t_ac;
+            }
+
+            _velocity.x += a_acc * Time.deltaTime;
             movingDirection = -1;
+
+            timer_acc += Time.deltaTime;
+
+            if (_velocity.x <= -MaxVelocityX && acc)
+            {
+                _velocity.x = -MaxVelocityX;
+
+                if (acc)
+                {
+                    Debug.Log("Time to reach left acc: " + timer_acc);
+                    timer_acc = 0;
+                    acc = false;
+                }
+            }
         }
+        
+        if (Input.GetKeyUp(KeyCode.RightArrow) && Input.GetKeyUp(KeyCode.LeftArrow))
+            acc2 = false;
+        
+
+        
 
 
         // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
-        // Given v, v0 and t calculate a
+        // Given v_deacc, v0_deacc and t_deac calculate a_deacc
         // Given velocity, initial velocity and time calculate the acceleration.
-        // a = (v - v0)/t
+        // a_deacc = (v_deacc - v0_deacc)/t_deac
         // release
         if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
         {
-            if (Math.Abs(_velocity.x) < 0.001f)
+            if (NearlyEqual(_velocity.x, 0f))
             {
                 deacc = false;
+                Debug.Log("still");
                 return;
             }
 
@@ -110,18 +179,27 @@ public class Player : MonoBehaviour
             {
                 deacc = true;
 
-                v = 0;
-                v0 = _velocity.x;
-                t = 0.2f;
-                a = (v - v0)/t;
+                v_deacc = 0;
+                v0_deacc = _velocity.x;
+                a_deacc = (v_deacc - v0_deacc)/t_deac;
             }
 
             if (deacc == true)
             {
                 //if (_velocity.x > 0.01f) // going right
-                  //  _velocity.x -= a*Time.deltaTime;
-                 if (_velocity.x < 0.01f)
-                    _velocity.x += a*Time.deltaTime;
+                  //  _velocity.x -= a_deacc*Time.deltaTime;
+                if (_velocity.x < 0.01f)
+                {
+                    _velocity.x += a_deacc*Time.deltaTime;
+                    timer_deacc += Time.deltaTime;
+                }
+                else
+                {
+                    _velocity.x = 0f;
+                    deacc = false;
+                    Debug.Log("Time to reach left deacc: "+ timer_deacc);
+                    timer_deacc = 0;
+                }
             }
 
 
@@ -130,9 +208,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float v, v0, t, a = 0;
-    
-    private bool deacc;
+    private float v_deacc, v0_deacc, a_deacc = 0;
+    private float timer_deacc = 0;
+    public float t_deac = 5;
+
+    private bool deacc, acc, acc2;
+
+    private float v_acc, v0_acc, a_acc = 0;
+    private float timer_acc = 0;
+    public float t_ac = 5;
+
     void OnGUI()
     {
         GUI.Label(new Rect((int)Screen.width/2, (int)Screen.height/2, 200,200), "Velocity Y:\n" + _velocity);

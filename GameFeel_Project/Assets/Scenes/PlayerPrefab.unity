@@ -471,6 +471,8 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
+  t_deac: .600000024
+  t_ac: .600000024
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
