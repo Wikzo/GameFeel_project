@@ -4,10 +4,16 @@ using System.Collections;
 
 // http://mpolney.galineer.com/smb.html
 
-public enum State
+
+public enum HorizontalMovementState
 {
-    IsGrounded,
-    IsInAir
+    StandingStill,
+    Attacking_Left,
+    Attacking_Right,
+    Sustain_Left,
+    Sustain_Right,
+    Decaying_Left,
+    Decaying_Right
 }
 
 public class Player : MonoBehaviour
@@ -26,8 +32,9 @@ public class Player : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
 
     // behind-the-scenes state data
-    private State _state;
+    private CollisionState _collisionState;
     private Vector3 _velocity = new Vector3(0, 0, 0);
+    private HorizontalMovementState _horizontalMovementState;
 
     // collision detection via rays
     private float _verticalDistanceBetweenRays, _horizontalDistanceBetweenRays;
@@ -42,6 +49,8 @@ public class Player : MonoBehaviour
         _localScale = transform.localScale;
         _boxCollider2D = GetComponent<BoxCollider2D>();
 
+        _collisionState = new CollisionState();
+
         // horizontal collision rays
         float colliderWidth = _boxCollider2D.size.x*Mathf.Abs(_localScale.x) - (2*SkinWidth);
         _horizontalDistanceBetweenRays = colliderWidth / (TotalVerticalRays - 1);
@@ -52,12 +61,15 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Update()
+    void Update()
     {
-        //ApplyGravity();
-
         CheckInput();
-        //Move(_velocity * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        ApplyGravity();
+        Move(_velocity * Time.deltaTime);
 
     }
 
@@ -65,13 +77,14 @@ public class Player : MonoBehaviour
     {
         InputJump();
         InputLeftRight();
+        InputHorizontalDirections();
 
         if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;
         else if (_velocity.x < -MaxVelocityX)
             _velocity.x = -MaxVelocityX;
 
-        transform.position += new Vector3(_velocity.x, _velocity.y, 0) * Time.deltaTime;
+        //transform.position += new Vector3(_velocity.x, _velocity.y, 0) * Time.deltaTime;
 
     }
 
@@ -87,6 +100,67 @@ public class Player : MonoBehaviour
     {
         // Equal if they are within 0.00001 of each other
         return Math.Abs(f1 - f2) < 0.00001;
+    }
+
+    private void InputHorizontalDirections()
+    {
+        if (Input.GetKey(KeyCode.RightArrow)) // right pressed
+        {
+            switch (_horizontalMovementState)
+            {
+                case HorizontalMovementState.Attacking_Left:
+                case HorizontalMovementState.Sustain_Left:
+                case HorizontalMovementState.Decaying_Left:
+                case HorizontalMovementState.StandingStill:
+                    _horizontalMovementState = HorizontalMovementState.Attacking_Right;
+                    break;
+
+                //case HorizontalMovementState.Attacking_Right:
+                  //  _horizontalMovementState = HorizontalMovementState.Sustain_Right;
+                    //break;
+            }
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow)) // left pressed
+        {
+            switch (_horizontalMovementState)
+            {
+                case HorizontalMovementState.Attacking_Right:
+                case HorizontalMovementState.Sustain_Right:
+                case HorizontalMovementState.Decaying_Right:
+                case HorizontalMovementState.StandingStill:
+                    _horizontalMovementState = HorizontalMovementState.Attacking_Left;
+                    break;
+
+                //case HorizontalMovementState.Attacking_Left:
+                  //  _horizontalMovementState = HorizontalMovementState.Sustain_Left;
+                    //break;
+            }
+        }
+        else
+        {
+            if (!Input.GetKey(KeyCode.RightArrow)) // right released
+            {
+                switch (_horizontalMovementState)
+                {
+                    case HorizontalMovementState.Attacking_Right:
+                    case HorizontalMovementState.Sustain_Right:
+                        _horizontalMovementState = HorizontalMovementState.Decaying_Right;
+                        break;
+                }
+            }
+            if (!Input.GetKey(KeyCode.LeftArrow)) // left released
+            {
+                switch (_horizontalMovementState)
+                {
+                    case HorizontalMovementState.Attacking_Left:
+                    case HorizontalMovementState.Sustain_Left:
+                        _horizontalMovementState = HorizontalMovementState.Decaying_Left;
+                        break;
+                }
+            }
+            
+        }
+
     }
 
     void InputLeftRight()
@@ -107,7 +181,7 @@ public class Player : MonoBehaviour
                 a_acc = (v_acc - v0_acc) / t_ac;
             }
 
-            _velocity.x = a_acc * Time.deltaTime;
+            _velocity.x += a_acc * Time.deltaTime;
             movingDirection = 1;
             timer_acc += Time.deltaTime;
 
@@ -118,8 +192,11 @@ public class Player : MonoBehaviour
                 if (acc)
                 {
                     Debug.Log("Time to reach right acc: " + timer_acc);
+                    _horizontalMovementState = HorizontalMovementState.Sustain_Right;
+
                     timer_acc = 0;
                     acc = false;
+                    acc2 = false;
                 }
 
             }
@@ -148,8 +225,12 @@ public class Player : MonoBehaviour
                 if (acc)
                 {
                     Debug.Log("Time to reach left acc: " + timer_acc);
+                    _horizontalMovementState = HorizontalMovementState.Sustain_Left;
+
                     timer_acc = 0;
                     acc = false;
+                    acc2 = false;
+
                 }
             }
         }
@@ -198,6 +279,8 @@ public class Player : MonoBehaviour
                     _velocity.x = 0f;
                     deacc = false;
                     Debug.Log("Time to reach left deacc: "+ timer_deacc);
+                    _horizontalMovementState = HorizontalMovementState.StandingStill;
+
                     timer_deacc = 0;
                 }
             }
@@ -220,11 +303,16 @@ public class Player : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect((int)Screen.width/2, (int)Screen.height/2, 200,200), "Velocity Y:\n" + _velocity);
+        GUI.Label(new Rect((int)Screen.width/2, (int)Screen.height/2-30, 200,200), "Velocity:\n" + _velocity);
+
+        GUI.Label(new Rect((int)Screen.width / 2, (int)Screen.height / 2, 200, 200), "State: " + _horizontalMovementState);
     }
 
     void Move(Vector2 deltaMovement)
     {
+        var wasGrouned = _collisionState.IsCollidingBelow;
+        _collisionState.Reset();
+
         // calculate collision checks
         CalculateRayOrigins();
         if (Mathf.Abs(_velocity.x) > 0.01f)
@@ -232,8 +320,10 @@ public class Player : MonoBehaviour
         MoveVertically(ref deltaMovement);
 
 
+
         if (Time.deltaTime > 0) // update velocity
             _velocity = deltaMovement / Time.deltaTime;
+
 
         // clamp velocities
         if (_velocity.y < -MaxVelocityY)
@@ -245,6 +335,9 @@ public class Player : MonoBehaviour
             _velocity.x = -MaxVelocityX;
         else if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;
+
+        //Debug.Log("vel: " + _velocity + "\ndelta: " + deltaMovement);
+
 
         transform.position += new Vector3(deltaMovement.x, deltaMovement.y, 0);
 

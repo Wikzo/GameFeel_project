@@ -471,8 +471,8 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
-  t_deac: .600000024
-  t_ac: .600000024
+  t_deac: 9.99999975e-06
+  t_ac: 9.99999975e-06
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,8 +688,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2037964500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.4599991, y: -2.73000002, z: 0}
-  m_LocalScale: {x: 1.2421056, y: 3.43649554, z: 1}
+  m_LocalPosition: {x: -10.1499996, y: 6.4000001, z: 0}
+  m_LocalScale: {x: 1.2421056, y: 10.4813108, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
