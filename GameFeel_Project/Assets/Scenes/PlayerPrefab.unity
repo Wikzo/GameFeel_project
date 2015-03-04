@@ -417,7 +417,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 860285211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.97000003, y: -.119999997, z: 0}
+  m_LocalPosition: {x: -4, y: -2.5999999, z: 0}
   m_LocalScale: {x: .354974359, y: .354974359, z: .354974359}
   m_Children:
   - {fileID: 1803587637}
@@ -447,30 +447,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gravity: {x: 0, y: -9, z: 0}
   MaxVelocityY: 10
-  MaxVelocityX: 5
+  MaxVelocityX: 50
   JumpPower: 10
   ReducedHorizontalAirMovement: .5
-  ReleaseTime: .400000006
-  AttackTime: .400000006
-  UseCurveForHorizontalAttackVelocity: 1
-  UseCurveForHorizontalReleaseVelocity: 1
+  ReleaseTime: .5
+  AttackTime: .100000001
+  UseCurveForHorizontalAttackVelocity: 0
+  UseCurveForHorizontalReleaseVelocity: 0
   HorizontalVelocityCurvesAttack:
   - serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 5.21621752
-      outSlope: 5.21621752
+      inSlope: 1
+      outSlope: 1
       tangentMode: 10
-    - time: .0784315392
-      value: .40911597
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
     - time: 1
       value: 1
-      inSlope: .641172171
-      outSlope: .641172171
+      inSlope: 1
+      outSlope: 1
       tangentMode: 10
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -492,6 +487,10 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
+  _currentAttackTime: 0
+  _currentReleaseTime: 0
+  sum: 0
+  TurnAroundBoost: 30
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
