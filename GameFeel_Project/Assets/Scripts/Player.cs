@@ -180,24 +180,33 @@ public class Player : MonoBehaviour
                         _maxAcceleration = MaxVelocityX;
                         _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
 
-                        if (_previousHorizontalMovementState != HorizontalMovementState.Release_Right)
-                            _currentAttackTime = 0;
-                        else
-                            _currentAttackTime = sum;
-                    }
+                        
 
+                    }
+                    /*if (ChangedDirection())
+                    {
+                        _currentAcceleration = _velocity.x;
+                        _maxAcceleration = MaxVelocityX;
+                        _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
+                    }*/
 
                     if (UseCurveForHorizontalAttackVelocity)
                     {
                         _currentAttackTime += Time.deltaTime;
 
-                        float currentAttackingTimeNormalized = _currentAttackTime/AttackTime;
+                        float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
+                        float valueOriginal =
+                            HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                        _velocity.x = HorizontalVelocityCurvesAttack[0].Evaluate(currentAttackingTimeNormalized)*
-                                      MaxVelocityX;
+                        float valueScaled = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+
+                        //if (ChangedDirection())
+                          //  _currentAttackTime += 0.5f;
+
+                        _velocity.x = valueScaled;
                     }
                     else
-                        _velocity.x += _targetAcceleration*Time.deltaTime*_airDrag*CalculateTurnMultiplier();
+                        _velocity.x += _targetAcceleration*Time.deltaTime*_airDrag;
 
                     // begin sustain
                     if (_velocity.x >= MaxVelocityX)
@@ -224,6 +233,8 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.Attacking_Right:
                 case HorizontalMovementState.Sustain_Right:
                 {
+                    _currentAttackTime = 0;
+
                     _maxDeacceleration = 0;
                     _currentDeacceleration = _velocity.x;
                     _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime;
@@ -272,31 +283,47 @@ public class Player : MonoBehaviour
                 // begin attack
                 case HorizontalMovementState.StandingStill:
                 case HorizontalMovementState.Attacking_Left:
+                case HorizontalMovementState.Release_Left:
                 case HorizontalMovementState.Attacking_Right:
+                case HorizontalMovementState.Sustain_Right:
                 case HorizontalMovementState.Release_Right:
                     {
                         _currentHorizontalMovementState = HorizontalMovementState.Attacking_Left;
 
-                        if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill)
+                        if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill
+                            || _previousHorizontalMovementState == HorizontalMovementState.Release_Left)
+                        {
+                            _currentAcceleration = _velocity.x;
+                            _maxAcceleration = MaxVelocityX;
+                            _targetAcceleration = (_maxAcceleration - _currentAcceleration)/AttackTime;
+
+                        }
+
+                        /*if (ChangedDirection())
                         {
                             _currentAcceleration = _velocity.x;
                             _maxAcceleration = MaxVelocityX;
                             _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
-
-                            _currentAttackTime = 0;
-                        }
+                        }*/
 
                         if (UseCurveForHorizontalAttackVelocity)
                         {
-                            _currentAttackTime += Time.deltaTime;
 
-                            float currentAttackingTimeNormalized = _currentAttackTime/AttackTime;
+                            _currentAttackTime -= Time.deltaTime;
 
-                            _velocity.x = -1*HorizontalVelocityCurvesAttack[0].Evaluate(currentAttackingTimeNormalized)*
-                                          MaxVelocityX;
+                            float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
+                            float valueOriginal =
+                                HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
+
+                            float valueScaled = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+
+                            //if (ChangedDirection())
+                              //  _currentAttackTime -= 0.5f;
+
+                            _velocity.x = valueScaled;
                         }
                         else
-                            _velocity.x -= _targetAcceleration*Time.deltaTime*_airDrag*CalculateTurnMultiplier();
+                            _velocity.x -= _targetAcceleration*Time.deltaTime*_airDrag;
 
 
                         // begin sustain
@@ -323,7 +350,9 @@ public class Player : MonoBehaviour
                 // begin release right
                 case HorizontalMovementState.Attacking_Left:
                 case HorizontalMovementState.Sustain_Left:
-                    {
+                {
+                    _currentAttackTime = 0;
+
                         _maxDeacceleration = 0;
                         _currentDeacceleration = _velocity.x;
                         _targetDeacceleration = (_currentDeacceleration - _maxDeacceleration) / ReleaseTime;
@@ -372,9 +401,14 @@ public class Player : MonoBehaviour
 
     }
 
-    float CalculateTurnMultiplier()
+    float NormalizationMap(float value, float oldMin, float oldMax, float newMin, float newMax)
     {
-        float turnMultiplier = 1;
+        return (value - oldMin)*(newMax - newMin)/(oldMax - oldMin) + newMin;
+    }
+
+    bool ChangedDirection()
+    {
+        bool changeDirection = false;
 
         if (_previousHorizontalMovementState == HorizontalMovementState.Attacking_Left
             || _previousHorizontalMovementState == HorizontalMovementState.Sustain_Left
@@ -392,12 +426,11 @@ public class Player : MonoBehaviour
 
         if (signLast != signCurrent)
         {
-            turnMultiplier = TurnAroundBoost;
+            changeDirection = true;
+            Debug.Log("Changed direction");
 
-            Debug.Log("Use turn boost: " + turnMultiplier);
         }
-
-        return turnMultiplier;
+        return changeDirection;
     }
 
     private int signLast, signCurrent;
