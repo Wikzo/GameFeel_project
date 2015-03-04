@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
 
     }
 
-
+    public float Friction = 0.05f;
     void CheckInput()
     {
         InputJump();
@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
         //InputHorizontalDirections();
 
         MovementStates();
+        _velocity.x += -_velocity.x*Friction;
         
 
         if (_velocity.x > MaxVelocityX)
