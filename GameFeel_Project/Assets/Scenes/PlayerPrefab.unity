@@ -349,7 +349,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570806897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.79999995, y: 15.1000004, z: 0}
+  m_LocalPosition: {x: 23.7000008, y: 15.1000004, z: 0}
   m_LocalScale: {x: 1.58756816, y: 1.58756733, z: 1.58756733}
   m_Children: []
   m_Father: {fileID: 0}
@@ -447,13 +447,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gravity: {x: 0, y: -9, z: 0}
   MaxVelocityY: 10
-  MaxVelocityX: 10
+  MaxVelocityX: 5
   JumpPower: 10
+  ReducedHorizontalAirMovement: .5
+  ReleaseTime: .400000006
+  AttackTime: .400000006
+  UseCurveForHorizontalAttackVelocity: 1
+  UseCurveForHorizontalReleaseVelocity: 1
+  HorizontalVelocityCurvesAttack:
+  - serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 5.21621752
+      outSlope: 5.21621752
+      tangentMode: 10
+    - time: .0784315392
+      value: .40911597
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: .641172171
+      outSlope: .641172171
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  HorizontalVelocityCurvesRelease:
+  - serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    - time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
-  t_deac: .400000006
-  t_ac: .400000006
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +555,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1801412866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3900001, y: -2.73000002, z: 0}
+  m_LocalPosition: {x: 15.9499998, y: 5.48999977, z: 0}
   m_LocalScale: {x: 1.2421056, y: 3.43649554, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -31,6 +31,13 @@ public class Player : MonoBehaviour
     public float MaxVelocityY = -5f;
     public float MaxVelocityX = 15f;
     public float JumpPower = 10;
+    public float ReducedHorizontalAirMovement = 0.5f;
+    public float ReleaseTime = 0.4f;
+    public float AttackTime = 0.4f;
+    public bool UseCurveForHorizontalAttackVelocity = true;
+    public bool UseCurveForHorizontalReleaseVelocity = true;
+    public AnimationCurve[] HorizontalVelocityCurvesAttack;
+    public AnimationCurve[] HorizontalVelocityCurvesRelease;
 
     public LayerMask PlatformMask;
 
@@ -39,11 +46,20 @@ public class Player : MonoBehaviour
     private Vector3 _localScale;
     private BoxCollider2D _boxCollider2D;
 
+    private float _airDrag = 1;
+
+    // acceleration/deacceleration (attack/release)
+    private float _currentAttackTime = 0;
+    private float _currentReleaseTime = 0;
+    private float _maxDeacceleration, _currentDeacceleration, _targetDeacceleration = 0;
+    private float _maxAcceleration, _currentAcceleration, _targetAcceleration = 0;
+
+
     // behind-the-scenes state data
     private CollisionState _collisionState;
     private Vector3 _velocity = new Vector3(0, 0, 0);
-    public HorizontalMovementState _horizontalMovementState;
-    public HorizontalMovementState _previousHorizontalMovementState;
+    private HorizontalMovementState _horizontalMovementState;
+    private HorizontalMovementState _previousHorizontalMovementState;
 
     // collision detection via rays
     private float _verticalDistanceBetweenRays, _horizontalDistanceBetweenRays;
@@ -73,6 +89,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckInput();
+
     }
 
     private void LateUpdate()
@@ -114,6 +131,7 @@ public class Player : MonoBehaviour
         //InputHorizontalDirections();
 
         MovementStates();
+        
 
         if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;
@@ -138,82 +156,19 @@ public class Player : MonoBehaviour
         return Math.Abs(f1 - f2) < 0.00001;
     }
 
-    private void InputHorizontalDirections()
-    {
-        //if (Math.Abs(_velocity.x) < 0.01f)
-        if (_velocity.x == 0)
-        {
-            _horizontalMovementState = HorizontalMovementState.StandingStill;
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow)) // right pressed
-        {
-            switch (_horizontalMovementState)
-            {
-                case HorizontalMovementState.Attacking_Left:
-                case HorizontalMovementState.Sustain_Left:
-                case HorizontalMovementState.Release_Left:
-                case HorizontalMovementState.StandingStill:
-                    _horizontalMovementState = HorizontalMovementState.Attacking_Right;
-                    break;
-
-                //case HorizontalMovementState.Attacking_Right:
-                  //  _horizontalMovementState = HorizontalMovementState.Sustain_Right;
-                    //break;
-            }
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow)) // left pressed
-        {
-            switch (_horizontalMovementState)
-            {
-                case HorizontalMovementState.Attacking_Right:
-                case HorizontalMovementState.Sustain_Right:
-                case HorizontalMovementState.Release_Right:
-                case HorizontalMovementState.StandingStill:
-                    _horizontalMovementState = HorizontalMovementState.Attacking_Left;
-                    break;
-
-                //case HorizontalMovementState.Attacking_Left:
-                  //  _horizontalMovementState = HorizontalMovementState.Sustain_Left;
-                    //break;
-            }
-        }
-        else
-        {
-            if (!Input.GetKey(KeyCode.RightArrow)) // right released
-            {
-                switch (_horizontalMovementState)
-                {
-                    case HorizontalMovementState.Attacking_Right:
-                    case HorizontalMovementState.Sustain_Right:
-                        _horizontalMovementState = HorizontalMovementState.Release_Right;
-                        break;
-                }
-            }
-            if (!Input.GetKey(KeyCode.LeftArrow)) // left released
-            {
-                switch (_horizontalMovementState)
-                {
-                    case HorizontalMovementState.Attacking_Left:
-                    case HorizontalMovementState.Sustain_Left:
-                        _horizontalMovementState = HorizontalMovementState.Release_Left;
-                        break;
-                }
-            }
-            
-        }
-
-    }
-
-    private KeyInputState myKeyInputState;
-
-
     void MovementStates()
     {
         if (NearlyEqual(_velocity.x, 0f))
             _horizontalMovementState = HorizontalMovementState.StandingStill;
 
 
+        if (!_collisionState.IsGrounded)
+            _airDrag = ReducedHorizontalAirMovement;
+
+        // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
+        // Given _maxDeacceleration, _currentDeacceleration and ReleaseTime calculate _targetDeacceleration
+        // Given velocity, initial velocity and time calculate the acceleration.
+        // _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime
         if (Input.GetKey(KeyCode.RightArrow)) // right key DOWN
         {
             switch (_horizontalMovementState)
@@ -226,12 +181,23 @@ public class Player : MonoBehaviour
 
                     if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill)
                     {
-                        v0_acc = _velocity.x;
-                        v_acc = MaxVelocityX;
-                        attack_targetVelocity = (v_acc - v0_acc) / AttackTime;
+                        _currentAcceleration = _velocity.x;
+                        _maxAcceleration = MaxVelocityX;
+                        _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
+
+                        _currentAttackTime = 0;
                     }
 
-                    _velocity.x += attack_targetVelocity * Time.deltaTime;
+                    if (UseCurveForHorizontalAttackVelocity)
+                    {
+                        _currentAttackTime += Time.deltaTime;
+
+                        float currentAttackingTimeNormalized = _currentAttackTime/AttackTime;
+
+                        _velocity.x = HorizontalVelocityCurvesAttack[0].Evaluate(currentAttackingTimeNormalized)*MaxVelocityX;
+                    }
+                    else
+                        _velocity.x += _targetAcceleration * Time.deltaTime * _airDrag;
 
                     // begin sustain
                     if (_velocity.x >= MaxVelocityX)
@@ -257,18 +223,30 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.Attacking_Right:
                 case HorizontalMovementState.Sustain_Right:
                 {
-                    v_deacc = 0;
-                    v0_deacc = _velocity.x;
-                    a_deacc = (v_deacc - v0_deacc)/ReleaseTime;
+                    _maxDeacceleration = 0;
+                    _currentDeacceleration = _velocity.x;
+                    _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime;
 
                     _horizontalMovementState = HorizontalMovementState.Release_Right;
 
+                    if (UseCurveForHorizontalReleaseVelocity)
+                    {
+                        _currentReleaseTime = ReleaseTime;
+                        _targetDeacceleration = _velocity.x;
+                    }
                     break;
                 }
 
                 case HorizontalMovementState.Release_Right:
                 {
-                    _velocity.x += a_deacc * Time.deltaTime;
+                    if (UseCurveForHorizontalReleaseVelocity)
+                    {
+                        _currentReleaseTime -= Time.deltaTime;
+                        float currentReleaseTimeNormalized = _currentReleaseTime / ReleaseTime;
+                        _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
+                    }
+                    else
+                        _velocity.x += _targetDeacceleration * Time.deltaTime;
 
                     //if (NearlyEqual(_velocity.x, 0f))
                     if (_velocity.x <= 0)
@@ -283,147 +261,108 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (Input.GetKey(KeyCode.LeftArrow)) // left key DOWN
+        {
+            switch (_horizontalMovementState)
+            {
+                // begin attack
+                case HorizontalMovementState.StandingStill:
+                case HorizontalMovementState.Attacking_Left:
+                    {
+                        _horizontalMovementState = HorizontalMovementState.Attacking_Left;
+
+                        if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill)
+                        {
+                            _currentAcceleration = _velocity.x;
+                            _maxAcceleration = MaxVelocityX;
+                            _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
+
+                            _currentAttackTime = 0;
+                        }
+
+                        if (UseCurveForHorizontalAttackVelocity)
+                        {
+                            _currentAttackTime += Time.deltaTime;
+
+                            float currentAttackingTimeNormalized = _currentAttackTime / AttackTime;
+
+                            _velocity.x = -1 * HorizontalVelocityCurvesAttack[0].Evaluate(currentAttackingTimeNormalized) * MaxVelocityX;
+                        }
+                        else
+                            _velocity.x -= _targetAcceleration * Time.deltaTime * _airDrag;
+
+
+                        // begin sustain
+                        if (_velocity.x <= -MaxVelocityX)
+                        {
+                            _velocity.x = -MaxVelocityX;
+
+                            _horizontalMovementState = HorizontalMovementState.Sustain_Left;
+                        }
+                        break;
+                    }
+
+                case HorizontalMovementState.Sustain_Left:
+                    {
+                        _velocity.x = -MaxVelocityX;
+                        break;
+                    }
+            }
+        }
+        else if (!Input.GetKey(KeyCode.LeftArrow)) // right key UP
+        {
+            switch (_horizontalMovementState)
+            {
+                // begin release right
+                case HorizontalMovementState.Attacking_Left:
+                case HorizontalMovementState.Sustain_Left:
+                    {
+                        _maxDeacceleration = 0;
+                        _currentDeacceleration = _velocity.x;
+                        _targetDeacceleration = (_currentDeacceleration - _maxDeacceleration) / ReleaseTime;
+                        _targetDeacceleration *= -1; // invert
+
+                        _horizontalMovementState = HorizontalMovementState.Release_Left;
+
+                        if (UseCurveForHorizontalReleaseVelocity)
+                        {
+                            _currentReleaseTime = ReleaseTime;
+                            _targetDeacceleration = _velocity.x;
+                        }
+
+                        break;
+                    }
+
+                case HorizontalMovementState.Release_Left:
+                    {
+
+                        if (UseCurveForHorizontalReleaseVelocity)
+                        {
+                            _currentReleaseTime -= Time.deltaTime;
+                            float currentReleaseTimeNormalized = _currentReleaseTime / ReleaseTime;
+                            _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
+                        }
+                        else
+                            _velocity.x += _targetDeacceleration * Time.deltaTime;
+
+                        //if (NearlyEqual(_velocity.x, 0f))
+                        if (_velocity.x >= 0)
+                        {
+                            _velocity.x = 0;
+                            _horizontalMovementState = HorizontalMovementState.StandingStill;
+                        }
+
+                        break;
+                    }
+            }
+        }
+
         _previousHorizontalMovementState = _horizontalMovementState;
 
     }
 
-    void InputLeftRight()
-    {
-        int movingDirection = 0;
-        int lastMovingDirection = 0;
 
-        // press
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            if (acc == false && acc2 == false)
-            {
-                acc = true;
-                acc2 = true;
-
-                v_acc = MaxVelocityX;
-                v0_acc = _velocity.x;
-                attack_targetVelocity = (v_acc - v0_acc) / AttackTime;
-            }
-
-            _velocity.x += attack_targetVelocity * Time.deltaTime;
-            movingDirection = 1;
-            timer_acc += Time.deltaTime;
-
-            if (_velocity.x >= MaxVelocityX)
-            {
-                _velocity.x = MaxVelocityX;
-
-                if (acc)
-                {
-                    //Debug.Log("Time to reach right acc: " + timer_acc);
-                    _horizontalMovementState = HorizontalMovementState.Sustain_Right;
-
-                    timer_acc = 0;
-                    acc = false;
-                    acc2 = false;
-                }
-
-            }
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            if (acc == false && acc2 == false)
-            {
-                acc = true;
-                acc2 = true;
-
-                v_acc = -MaxVelocityX;
-                v0_acc = _velocity.x;
-                attack_targetVelocity = (v_acc - v0_acc) / AttackTime;
-            }
-
-            _velocity.x += attack_targetVelocity * Time.deltaTime;
-            movingDirection = -1;
-
-            timer_acc += Time.deltaTime;
-
-            if (_velocity.x <= -MaxVelocityX && acc)
-            {
-                _velocity.x = -MaxVelocityX;
-
-                if (acc)
-                {
-                    //Debug.Log("Time to reach left acc: " + timer_acc);
-                    _horizontalMovementState = HorizontalMovementState.Sustain_Left;
-
-                    timer_acc = 0;
-                    acc = false;
-                    acc2 = false;
-
-                }
-            }
-        }
-        
-        if (Input.GetKeyUp(KeyCode.RightArrow) && Input.GetKeyUp(KeyCode.LeftArrow))
-            acc2 = false;
-        
-
-        
-
-
-        // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
-        // Given v_deacc, v0_deacc and ReleaseTime calculate a_deacc
-        // Given velocity, initial velocity and time calculate the acceleration.
-        // a_deacc = (v_deacc - v0_deacc)/ReleaseTime
-        // release
-        if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
-        {
-            if (NearlyEqual(_velocity.x, 0f))
-            {
-                deacc = false;
-                //Debug.Log("still");
-                return;
-            }
-
-            if (deacc == false)
-            {
-                deacc = true;
-
-                v_deacc = 0;
-                v0_deacc = _velocity.x;
-                a_deacc = (v_deacc - v0_deacc)/ReleaseTime;
-            }
-
-            if (deacc == true)
-            {
-                //if (_velocity.x > 0.01f) // going right
-                  //  _velocity.x -= a_deacc*Time.deltaTime;
-                if (_velocity.x < 0.01f)
-                {
-                    _velocity.x += a_deacc*Time.deltaTime;
-                    timer_deacc += Time.deltaTime;
-                }
-                else
-                {
-                    _velocity.x = 0f;
-                    deacc = false;
-                    //Debug.Log("Time to reach left deacc: "+ timer_deacc);
-                    _horizontalMovementState = HorizontalMovementState.StandingStill;
-
-                    timer_deacc = 0;
-                }
-            }
-
-
-
-
-        }
-    }
-
-    private float v_deacc, v0_deacc, a_deacc = 0;
-    private float timer_deacc = 0;
-    public float ReleaseTime = 5;
-
-    private bool deacc, acc, acc2;
-
-    private float v_acc, v0_acc, attack_targetVelocity = 0;
-    private float timer_acc = 0;
-    public float AttackTime = 5;
+    
 
     void OnGUI()
     {
@@ -507,7 +446,7 @@ public class Player : MonoBehaviour
                 deltaMovement.x -= SkinWidth;
                 //State.IsCollidingRight = true;
 
-                Debug.Log("Hit right");
+                //Debug.Log("Hit right");
 
                 _horizontalMovementState = HorizontalMovementState.StandingStill;
 
@@ -518,7 +457,7 @@ public class Player : MonoBehaviour
                 deltaMovement.x += SkinWidth;
                 //State.IsCollidingLeft = true;
 
-                Debug.Log("Hit left");
+                //Debug.Log("Hit left");
 
                 _horizontalMovementState = HorizontalMovementState.StandingStill;
 
@@ -576,7 +515,7 @@ public class Player : MonoBehaviour
             {
                 deltaMovement.y += SkinWidth;
                // State.IsCollidingBelow = true;
-                //State.IsGrounded = true; // FIX: IsGrounded put in manually
+                _collisionState.IsGrounded = true; // FIX: IsGrounded put in manually
             }
 
             // stuck inside geometry?
