@@ -450,10 +450,11 @@ MonoBehaviour:
   MaxVelocityX: 10
   JumpPower: 10
   ReducedHorizontalAirMovement: .5
-  ReleaseTime: .300000012
-  AttackTime: .300000012
-  UseCurveForHorizontalAttackVelocity: 0
-  UseCurveForHorizontalReleaseVelocity: 0
+  ReleaseTime: 1
+  AttackTime: 1
+  UseCurveForHorizontalAttackVelocity: 1
+  UseCurveForHorizontalReleaseVelocity: 1
+  TurnAroundBoost: 0
   HorizontalVelocityCurvesAttack:
   - serializedVersion: 2
     m_Curve:
@@ -491,7 +492,6 @@ MonoBehaviour:
   _currentReleaseTime: 0
   sum: 0
   Friction: .0500000007
-  TurnAroundBoost: 30
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
