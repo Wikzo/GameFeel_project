@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class CenterOfMassTest : MonoBehaviour
 {
     public Vector3 Offset;
@@ -26,6 +27,6 @@ public class CenterOfMassTest : MonoBehaviour
         rigidbody.centerOfMass = Offset;
         CenterOfMass = rigidbody.centerOfMass;
 
-        Debug.Log(rigidbody.worldCenterOfMass);
+        //Debug.Log(rigidbody.worldCenterOfMass);
     }
 }

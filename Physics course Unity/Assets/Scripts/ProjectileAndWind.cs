@@ -11,10 +11,11 @@ public class ProjectileAndWind : MonoBehaviour
     // C_d = drag constant (Reynolds number)
     
     // simpler way:
-    // F_drag = -C*v^2*(v/|v|)
+    // F_drag = -C * v^2 * (v/|v|)
 
     public Vector3 WindVelocity;
     public float DragConstant;
+    public Vector3 MyVelocity;
 
     private Rigidbody _myRigidbody;
 
@@ -23,10 +24,12 @@ public class ProjectileAndWind : MonoBehaviour
         _myRigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         var relativeVelocity = _myRigidbody.velocity - WindVelocity;
         var dragForce = -DragConstant * relativeVelocity.sqrMagnitude * relativeVelocity.normalized;
+
+        MyVelocity = _myRigidbody.velocity;
 
         _myRigidbody.AddForce(dragForce);
     }

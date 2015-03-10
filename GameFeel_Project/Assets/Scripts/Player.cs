@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
     public bool UseCurveForHorizontalAttackVelocity = true;
     public bool UseCurveForHorizontalReleaseVelocity = true;
 
+    public bool UseGroundFriction = true;
+    public bool UseAirFriction = true;
+    [Range(0f, 0.8f)] public float Friction = 0.05f;
+
     [Range(0f, 1f)] public float TurnAroundBoost = 0f;
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
     public AnimationCurve[] HorizontalVelocityCurvesRelease;
@@ -57,6 +61,10 @@ public class Player : MonoBehaviour
     private float _maxDeacceleration, _currentDeacceleration, _targetDeacceleration = 0;
     private float _maxAcceleration, _currentAcceleration, _targetAcceleration = 0;
 
+    // animation stuff
+    private Animator _animator;
+    [Range(0f, 5f)] public float AnimationMaxSpeed = 1.4f;
+    private float _animationPlaybackSpeed = 1f;
 
     // behind-the-scenes state data
     private CollisionState _collisionState;
@@ -87,6 +95,9 @@ public class Player : MonoBehaviour
         float colliderHeight = _boxCollider2D.size.y * Mathf.Abs(transform.localScale.y) - (2 * SkinWidth);
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
+        _animator = this.GetComponent<Animator>();
+
+
     }
 
     public float sum = 0;
@@ -104,9 +115,10 @@ public class Player : MonoBehaviour
         ApplyGravity();
         Move(_velocity * Time.deltaTime);
 
+        PlayAnimation();
+
     }
 
-    public float Friction = 0.05f;
     void CheckInput()
     {
         InputJump();
@@ -115,8 +127,12 @@ public class Player : MonoBehaviour
         //InputHorizontalDirections();
 
         MovementStates();
-        //_velocity.x += -_velocity.x*Friction;
-        
+        if (UseGroundFriction)
+        {
+            if (_collisionState.IsGrounded)
+                _velocity.x += -_velocity.x*Friction;
+        }
+
 
         if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;
@@ -127,10 +143,60 @@ public class Player : MonoBehaviour
 
     }
 
+    public float MinimumJumpHeight = 0.5f;
+    public float ReleaseEarlyJumpVelocity = 0.5f;
+
+    private bool canReleaseEarly = true;
+    public float GravityMultiplier = 3;
+    private float _gravityMultiplier = 1;
+
     void InputJump()
     {
+        if (_collisionState.IsGrounded)
+        {
+            canReleaseEarly = true;
+            _gravityMultiplier = 1;
+
+        }
+
         if (_collisionState.IsGrounded && Input.GetKeyDown(KeyCode.Space))
             _velocity.y = JumpPower;
+        
+        else if (!_collisionState.IsGrounded)
+        {
+            // release early?
+            if (!Input.GetKey(KeyCode.Space))
+            {
+                if (_velocity.y < JumpPower - MinimumJumpHeight && canReleaseEarly)
+                {
+                    Debug.Log(_velocity.y);
+                    _velocity.y = ReleaseEarlyJumpVelocity;
+
+                    canReleaseEarly = false;
+                }
+            }
+            // apply gravity multiplier when hitting jump apex
+            if (_velocity.y <= 0)
+                _gravityMultiplier = GravityMultiplier;
+        }
+
+    }
+
+    
+
+    void PlayAnimation()
+    {
+        if (!_collisionState.IsGrounded)
+            _animator.SetBool("IsJumping", true);
+        else
+            _animator.SetBool("IsJumping", false);
+
+        _animator.SetFloat("Velocity", _velocity.x);
+
+        
+
+        _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MaxVelocityX, 0f, AnimationMaxSpeed);
+        _animator.speed = _animationPlaybackSpeed;
     }
 
     private float moveSpeedX = 10;
@@ -167,8 +233,13 @@ public class Player : MonoBehaviour
         }
 
 
-        if (!_collisionState.IsGrounded)
+        if (NearlyEqual(_velocity.y, 0f))
+            _velocity.y = 0;
+
+        if (!_collisionState.IsGrounded && UseAirFriction)
             _airDrag = ReducedHorizontalAirMovement;
+        else
+            _airDrag = 1;
 
         // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
         // Given _maxDeacceleration, _currentDeacceleration and ReleaseTime calculate _targetDeacceleration
@@ -220,7 +291,7 @@ public class Player : MonoBehaviour
                         _currentAttackTime += Time.deltaTime;
 
                         if (ChangedDirection())
-                            _currentAttackTime = turnMultiplier;
+                            _currentAttackTime += AttackTime * TurnAroundBoost;
 
                         float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
                         float valueOriginal =
@@ -295,7 +366,7 @@ public class Player : MonoBehaviour
                             _currentAttackTime -= Time.deltaTime;
 
                             if (ChangedDirection())
-                                _currentAttackTime = turnMultiplier;
+                                _currentAttackTime -= AttackTime * TurnAroundBoost;
 
                             float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
                             float valueOriginal =
@@ -458,9 +529,7 @@ public class Player : MonoBehaviour
         return (value - oldMin)*(newMax - newMin)/(oldMax - oldMin) + newMin;
     }
 
-
-    public float turnMultiplier = 100;
-    bool ChangedDirection()
+    private bool ChangedDirection()
     {
 
         // only do boost when changing frome one direction to another
@@ -485,6 +554,7 @@ public class Player : MonoBehaviour
         if (signLast != signCurrent)
         {
             Debug.Log("turnaround boost");
+            _animator.SetTrigger("IsTurning");
 
             return true;
         }
@@ -656,7 +726,7 @@ public class Player : MonoBehaviour
 
     void ApplyGravity()
     {
-        _velocity += Gravity * Time.deltaTime;
+        _velocity += (Gravity * _gravityMultiplier) * Time.deltaTime;
     }
 
     void CalculateRayOrigins()
