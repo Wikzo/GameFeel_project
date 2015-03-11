@@ -142,7 +142,7 @@ Transform:
   m_LocalScale: {x: 222.341782, y: .485723734, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!114 &91683126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &255004264
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ Transform:
   m_LocalScale: {x: 1.2421056, y: 3.43649554, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &570806897
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +353,7 @@ Transform:
   m_LocalScale: {x: 1.58756816, y: 1.58756733, z: 1.58756733}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &860285211
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,9 +420,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: -2.5999999, z: 0}
   m_LocalScale: {x: 3.79055738, y: 3.79055715, z: 3.79055715}
-  m_Children: []
+  m_Children:
+  - {fileID: 1803587637}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!61 &860285215
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -445,8 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ac5761728a13a42864c4a7e93c90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gravity: {x: 0, y: -9, z: 0}
-  MaxVelocityY: 10
+  Gravity: {x: 0, y: -10, z: 0}
+  TerminalVelocity: -30
   MaxVelocityX: 10
   JumpPower: 10
   ReducedHorizontalAirMovement: .5
@@ -454,23 +455,29 @@ MonoBehaviour:
   AttackTime: .600000024
   UseCurveForHorizontalAttackVelocity: 1
   UseCurveForHorizontalReleaseVelocity: 1
+  UseAnimation: 1
   UseGroundFriction: 1
   UseAirFriction: 1
   Friction: .0500000007
-  TurnAroundBoost: 0
+  TurnAroundBoostPercent: 53
   HorizontalVelocityCurvesAttack:
   - serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .0916792303
+      value: .241887152
+      inSlope: .466424972
+      outSlope: .466424972
+      tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   HorizontalVelocityCurvesRelease:
@@ -491,13 +498,10 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
-  _currentAttackTime: 0
-  _currentReleaseTime: 0
-  AnimationMaxSpeed: 1.39999998
-  sum: 0
-  MinimumJumpHeight: 1
+  AnimationMaxSpeed: 1.5
+  MinimumJumpHeight: 2
   ReleaseEarlyJumpVelocity: .5
-  GravityMultiplier: 20
+  GravityMultiplier: 3
 --- !u!95 &860285217
 Animator:
   serializedVersion: 3
@@ -580,7 +584,7 @@ Transform:
   m_LocalScale: {x: 47.9432602, y: 22.1067963, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &1640771050
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +683,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &1801412866
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +751,7 @@ Transform:
   m_LocalScale: {x: 1.2421056, y: 3.43649554, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1803587632
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,10 +832,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803587632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: -1.31859231, z: -106.783966}
-  m_LocalScale: {x: 10.6783972, y: 10.6783972, z: 10.6783972}
+  m_LocalPosition: {x: 0, y: 0, z: -28.1710491}
+  m_LocalScale: {x: 2.81710458, y: 2.81710505, z: 2.81710505}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 860285214}
   m_RootOrder: 0
 --- !u!114 &1803587638
 MonoBehaviour:
@@ -839,7 +843,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803587632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de7b4245a79655429773543d0c68f4e, type: 3}
   m_Name: 
@@ -915,4 +919,4 @@ Transform:
   m_LocalScale: {x: 1.2421056, y: 10.4813108, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
