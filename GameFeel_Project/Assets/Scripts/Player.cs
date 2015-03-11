@@ -37,12 +37,13 @@ public class Player : MonoBehaviour
     public float AttackTime = 0.4f;
     public bool UseCurveForHorizontalAttackVelocity = true;
     public bool UseCurveForHorizontalReleaseVelocity = true;
+    public bool UseAnimation = true;
 
     public bool UseGroundFriction = true;
     public bool UseAirFriction = true;
     [Range(0f, 0.8f)] public float Friction = 0.05f;
 
-    [Range(0f, 1f)] public float TurnAroundBoost = 0f;
+    [Range(0f, 200f)] public float TurnAroundBoostPercent = 0f;
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
     public AnimationCurve[] HorizontalVelocityCurvesRelease;
 
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour
 
     // animation stuff
     private Animator _animator;
-    [Range(0f, 5f)] public float AnimationMaxSpeed = 1.4f;
+    [Range(0.1f, 2f)] public float AnimationMaxSpeed = 1.4f;
     private float _animationPlaybackSpeed = 1f;
 
     // behind-the-scenes state data
@@ -96,18 +97,11 @@ public class Player : MonoBehaviour
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
         _animator = this.GetComponent<Animator>();
-
-
     }
 
-    public float sum = 0;
-
-    void Update()
+    void FixedUpdate()
     {
         CheckInput();
-
-        sum = _currentAttackTime - (1-_currentReleaseTime);
-
     }
 
     private void LateUpdate()
@@ -115,7 +109,8 @@ public class Player : MonoBehaviour
         ApplyGravity();
         Move(_velocity * Time.deltaTime);
 
-        PlayAnimation();
+        if (UseAnimation)
+            PlayAnimation();
 
     }
 
@@ -169,7 +164,7 @@ public class Player : MonoBehaviour
             {
                 if (_velocity.y < JumpPower - MinimumJumpHeight && canReleaseEarly)
                 {
-                    Debug.Log(_velocity.y);
+                    //Debug.Log(_velocity.y);
                     _velocity.y = ReleaseEarlyJumpVelocity;
 
                     canReleaseEarly = false;
@@ -222,14 +217,16 @@ public class Player : MonoBehaviour
     void MovementStates()
     {
 
-        if (NearlyEqual(_velocity.x, 0f))
+        if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && NearlyEqual(_velocity.x, 0f))
         {
             _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
             _currentReleaseTime = 0;
 
-            _currentAttackTime = NormalizationMap(0, -AttackTime, AttackTime, -1, 1);
+            _currentAttackTime = 0;//NormalizationMap(0, -AttackTime, AttackTime, -1, 1);
 
             _velocity.x = 0;
+
+            //Debug.Log("Reset speed");
         }
 
 
@@ -272,7 +269,7 @@ public class Player : MonoBehaviour
 
 
                     //if (ChangedDirection())
-                      //  _currentAttackTime += 2 * NormalizationMap(TurnAroundBoost, 0, 1, 0, AttackTime);
+                      //  _currentAttackTime += 2 * NormalizationMap(TurnAroundBoostPercent, 0, 1, 0, AttackTime);
 
 
                     if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill
@@ -288,23 +285,38 @@ public class Player : MonoBehaviour
 
                     if (UseCurveForHorizontalAttackVelocity)
                     {
-                        _currentAttackTime += Time.deltaTime;
+                        _currentAttackTime += Time.fixedDeltaTime;
+
 
                         if (ChangedDirection())
-                            _currentAttackTime += AttackTime * TurnAroundBoost;
+                            _currentAttackTime += AttackTime * TurnAroundBoostPercent/100;
 
-                        float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
-                        float valueOriginal =
-                            HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
+                        float valueScaled = 0;
+                        if (_currentAttackTime < 0) // left
+                        {
+                            float timeScaled = NormalizationMap(_currentAttackTime, 0, -AttackTime, 0, 1);
+                            float valueOriginal =
+                                HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                        float valueScaled = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+                            valueScaled = valueOriginal * -MaxVelocityX;
+                        }
 
-                        
+                        else if (_currentAttackTime > 0) // right 
+                        {
+                            float timeScaled = NormalizationMap(_currentAttackTime, 0, AttackTime, 0, 1);
+                            float valueOriginal =
+                                HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
+
+                            valueScaled = valueOriginal*MaxVelocityX;
+                                // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+                        }
+                        //Debug.Log("right time: " + _currentAttackTime + "; value: " + valueScaled);
+
 
                         _velocity.x = valueScaled;
                     }
                     else
-                        _velocity.x += _targetAcceleration*Time.deltaTime*_airDrag;
+                        _velocity.x += _targetAcceleration * Time.fixedDeltaTime * _airDrag;
 
                     // begin sustain
                     if (_velocity.x >= MaxVelocityX)
@@ -346,7 +358,7 @@ public class Player : MonoBehaviour
 
 
                         //if (ChangedDirection())
-                          //  _currentAttackTime -= 2*NormalizationMap(TurnAroundBoost, 0, 1, 0, AttackTime);
+                          //  _currentAttackTime -= 2*NormalizationMap(TurnAroundBoostPercent, 0, 1, 0, AttackTime);
 
 
 
@@ -363,23 +375,39 @@ public class Player : MonoBehaviour
                         if (UseCurveForHorizontalAttackVelocity)
                         {
 
-                            _currentAttackTime -= Time.deltaTime;
+                            _currentAttackTime -= Time.fixedDeltaTime;
 
                             if (ChangedDirection())
-                                _currentAttackTime -= AttackTime * TurnAroundBoost;
+                                _currentAttackTime -= AttackTime * TurnAroundBoostPercent/100;
 
-                            float timeScaled = NormalizationMap(_currentAttackTime, -AttackTime, AttackTime, 0, 1);
-                            float valueOriginal =
-                                HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
+                            float valueScaled = 0;
 
-                            float valueScaled = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+                            if (_currentAttackTime > 0) // right
+                            {
+                                float timeScaled = NormalizationMap(_currentAttackTime, 0, AttackTime, 0, 1);
+                                float valueOriginal =
+                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
+                                valueScaled = valueOriginal * MaxVelocityX;
+                            }
+
+                            else if (_currentAttackTime < 0) // left
+                            {
+
+                                float timeScaled = NormalizationMap(_currentAttackTime, 0, -AttackTime, 0, 1);
+                                float valueOriginal =
+                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
+
+                                valueScaled = valueOriginal*-MaxVelocityX;
+                                    // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
+                            }
+                            //Debug.Log("left time: " + _currentAttackTime + "; value: " + valueScaled);
                             
 
                             _velocity.x = valueScaled;
                         }
                         else
-                            _velocity.x -= _targetAcceleration * Time.deltaTime * _airDrag;
+                            _velocity.x -= _targetAcceleration * Time.fixedDeltaTime * _airDrag;
 
 
                         // begin sustain
@@ -429,17 +457,17 @@ public class Player : MonoBehaviour
                     if (UseCurveForHorizontalReleaseVelocity)
                     {
                         if (_currentAttackTime >= 0)
-                            _currentAttackTime -= Time.deltaTime;
+                            _currentAttackTime -= Time.fixedDeltaTime;
                         else
                             _currentAttackTime = 0;
 
 
-                        _currentReleaseTime -= Time.deltaTime;
+                        _currentReleaseTime -= Time.fixedDeltaTime;
                         float currentReleaseTimeNormalized = _currentReleaseTime / ReleaseTime;
                         _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
                     }
                     else
-                        _velocity.x += _targetDeacceleration * Time.deltaTime;
+                        _velocity.x += _targetDeacceleration * Time.fixedDeltaTime;
 
                     //if (NearlyEqual(_velocity.x, 0f))
                     if (_velocity.x <= 0)
@@ -488,18 +516,18 @@ public class Player : MonoBehaviour
                     if (UseCurveForHorizontalReleaseVelocity)
                     {
                         if (_currentAttackTime <= 0)
-                            _currentAttackTime += Time.deltaTime;
+                            _currentAttackTime += Time.fixedDeltaTime;
                         else
                             _currentAttackTime = 0;
 
 
-                        _currentReleaseTime -= Time.deltaTime;
+                        _currentReleaseTime -= Time.fixedDeltaTime;
                         float currentReleaseTimeNormalized = _currentReleaseTime/ReleaseTime;
                         _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized)*
                                       _targetDeacceleration;
                     }
                     else
-                        _velocity.x -= _targetDeacceleration*Time.deltaTime;
+                        _velocity.x -= _targetDeacceleration * Time.fixedDeltaTime;
 
                     //if (NearlyEqual(_velocity.x, 0f))
                     if (_velocity.x >= 0)
@@ -523,6 +551,9 @@ public class Player : MonoBehaviour
         _previousDirection = _currentDirection;
 
     }
+
+
+
 
     public static float NormalizationMap(float value, float oldMin, float oldMax, float newMin, float newMax)
     {
