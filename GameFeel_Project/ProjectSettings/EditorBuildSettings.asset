@@ -9,3 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/WebTest.unity
   - enabled: 1
     path: Assets/Scenes/PlayerPrefab.unity
+  - enabled: 1
+    path: Assets/Scenes/Duplicate.unity
+  - enabled: 1
+    path: Assets/Scenes/Duplicate2.unity

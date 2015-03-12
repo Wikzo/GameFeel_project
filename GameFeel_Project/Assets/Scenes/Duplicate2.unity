@@ -450,7 +450,7 @@ MonoBehaviour:
   TerminalVelocity: -30
   MaxVelocityX: 10
   JumpPower: 10
-  AirFrictionHorizontal: .5
+  ReducedHorizontalAirMovement: .5
   ReleaseTime: .600000024
   AttackTime: .600000024
   UseCurveForHorizontalAttackVelocity: 1
@@ -458,7 +458,7 @@ MonoBehaviour:
   UseAnimation: 1
   UseGroundFriction: 1
   UseAirFriction: 1
-  GroundFriction: .0500000007
+  Friction: .0500000007
   TurnAroundBoostPercent: 53
   HorizontalVelocityCurvesAttack:
   - serializedVersion: 2
@@ -502,7 +502,7 @@ MonoBehaviour:
   test: 
   MinimumJumpHeight: 2
   ReleaseEarlyJumpVelocity: .5
-  ApexGravityMultiplier: 3
+  GravityMultiplier: 3
 --- !u!95 &860285217
 Animator:
   serializedVersion: 3
@@ -853,46 +853,6 @@ MonoBehaviour:
   Margin: {x: 2.17000008, y: 2}
   Smoothing: {x: 2, y: 2}
   Bounds: {fileID: 880497161}
---- !u!1 &1985394678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1985394680}
-  - 114: {fileID: 1985394679}
-  m_Layer: 0
-  m_Name: ParameterManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1985394679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1985394678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b21964518bf9584bb9b532b11003bda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Index: 0
---- !u!4 &1985394680
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1985394678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.80076599, y: 1.83773589, z: -13.375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
 --- !u!1 &2037964500
 GameObject:
   m_ObjectHideFlags: 0

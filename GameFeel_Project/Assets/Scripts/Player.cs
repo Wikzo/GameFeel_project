@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public float TerminalVelocity = -5f;
     public float MaxVelocityX = 15f;
     public float JumpPower = 10;
-    public float ReducedHorizontalAirMovement = 0.5f;
+    [Range(0.1f, 1f)] public float AirFrictionHorizontal = 0.5f;
     public float ReleaseTime = 0.4f;
     public float AttackTime = 0.4f;
     public bool UseCurveForHorizontalAttackVelocity = true;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     public bool UseGroundFriction = true;
     public bool UseAirFriction = true;
-    [Range(0f, 0.8f)] public float Friction = 0.05f;
+    [Range(0f, 0.8f)] public float GroundFriction = 0.05f;
 
     [Range(0f, 200f)] public float TurnAroundBoostPercent = 0f;
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
     private Transform _transform;
     private Vector3 _localScale;
     private BoxCollider2D _boxCollider2D;
-
-    private float _airDrag = 1;
 
     // acceleration/deacceleration (attack/release)
     private float _currentAttackTime = 0;
@@ -93,8 +91,67 @@ public class Player : MonoBehaviour
         _animator = this.GetComponent<Animator>();
     }
 
+
+    void Start()
+    {
+        ChangeParameters();
+    }
+    public string test = "";
+
+    private bool startLevel = true;
+
+    void ChangeParameters()
+    {
+
+        //Debug.Log(ParameterManager.Instance.MyParameters[myIndex].TerminalVelocity);
+
+        Parameters p = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
+
+        this.Gravity = p.Gravity;
+        this.TerminalVelocity = p.TerminalVelocity;
+        this.MaxVelocityX = p.MaxVelocityX;
+        this.JumpPower = p.JumpPower;
+        this.AirFrictionHorizontal = p.AirFrictionHorizontal;
+        this.ReleaseTime = p.ReleaseTime;
+        this.AttackTime = p.AttackTime;
+        this.UseAnimation = p.UseAnimation;
+        this.UseGroundFriction = p.UseGroundFriction;
+        this.UseAirFriction = p.UseAirFriction;
+        this.GroundFriction = p.GroundFriction;
+        this.TurnAroundBoostPercent = p.TurnAroundBoost;
+        this.MinimumJumpHeight = p.MinimumJumpHeight;
+        this.ReleaseEarlyJumpVelocity = p.ReleaseEarlyJumpVelocity;
+        this.ApexGravityMultiplier = p.GravityMultiplier;
+    }
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Creating 5 new params");
+            ParameterManager.Instance.MakeParameters(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
+                ParameterManager.Instance.Index++;
+            else
+                ParameterManager.Instance.Index = 0;
+
+            ChangeParameters();
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (Application.loadedLevelName == "PlayerPrefab")
+                Application.LoadLevel("Duplicate");
+            else if (Application.loadedLevelName == "Duplicate")
+                Application.LoadLevel("Duplicate2");
+        }
+
+
         CheckInput();
     }
 
@@ -119,9 +176,11 @@ public class Player : MonoBehaviour
         if (UseGroundFriction)
         {
             if (_collisionState.IsGrounded)
-                _velocity.x += -_velocity.x*Friction;
+                _velocity.x += -_velocity.x*GroundFriction;
         }
 
+        if (!_collisionState.IsGrounded && UseAirFriction)
+            _velocity.x *= AirFrictionHorizontal;
 
         if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;
@@ -136,7 +195,7 @@ public class Player : MonoBehaviour
     public float ReleaseEarlyJumpVelocity = 0.5f;
 
     private bool canReleaseEarly = true;
-    public float GravityMultiplier = 3;
+    public float ApexGravityMultiplier = 3;
     private float _gravityMultiplier = 1;
     private bool _jumpHitApex = false;
 
@@ -170,7 +229,7 @@ public class Player : MonoBehaviour
             if (_velocity.y <= 0)
             {
                 _jumpHitApex = true;
-                _gravityMultiplier = GravityMultiplier;
+                _gravityMultiplier = ApexGravityMultiplier;
             }
         }
 
@@ -232,10 +291,7 @@ public class Player : MonoBehaviour
         if (NearlyEqual(_velocity.y, 0f))
             _velocity.y = 0;
 
-        if (!_collisionState.IsGrounded && UseAirFriction)
-            _airDrag = ReducedHorizontalAirMovement;
-        else
-            _airDrag = 1;
+
 
         // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
         // Given _maxDeacceleration, _currentDeacceleration and ReleaseTime calculate _targetDeacceleration
@@ -311,11 +367,10 @@ public class Player : MonoBehaviour
                         }
                         //Debug.Log("right time: " + _currentAttackTime + "; value: " + valueScaled);
 
-
                         _velocity.x = valueScaled;
                     }
                     else
-                        _velocity.x += _targetAcceleration * Time.deltaTime * _airDrag;
+                        _velocity.x += _targetAcceleration * Time.deltaTime;
 
                     // begin sustain
                     if (_velocity.x >= MaxVelocityX)
@@ -401,12 +456,12 @@ public class Player : MonoBehaviour
                                     // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
                             }
                             //Debug.Log("left time: " + _currentAttackTime + "; value: " + valueScaled);
-                            
+
 
                             _velocity.x = valueScaled;
                         }
                         else
-                            _velocity.x -= _targetAcceleration * Time.deltaTime * _airDrag;
+                            _velocity.x -= _targetAcceleration * Time.deltaTime;
 
 
                         // begin sustain
@@ -596,9 +651,10 @@ public class Player : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect((int)Screen.width/2, (int)Screen.height/2-30, 200,200), "Velocity:\n" + _velocity);
-
-        GUI.Label(new Rect((int)Screen.width / 2, (int)Screen.height / 2, 200, 200), "State: " + _currentHorizontalMovementState);
+        GUI.Label(new Rect(20, (int)Screen.height-100, 500,200), "Velocity: " + _velocity);
+        GUI.Label(new Rect(20, (int)Screen.height - 80, 500, 200), "State: " + _currentHorizontalMovementState);
+        GUI.Label(new Rect(20, (int)Screen.height - 60, 500, 200), "Index: " + ParameterManager.Instance.Index);
+        GUI.Label(new Rect(20, (int)Screen.height - 40, 500, 200), "Level: " + Application.loadedLevelName);
     }
 
     void Move(Vector2 deltaMovement)
