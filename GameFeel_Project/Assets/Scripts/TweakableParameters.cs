@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -62,6 +63,16 @@ public class TweakableParameters
 
     public override string ToString()
     {
-        return string.Format("Gravity: {0}\n JumpPower: {1}\n UseAirFriction: {2}\n AirFrictionHorizontal: {3}\n TerminalVelocity: {4}\n GhostJumpTime: {5}\n MinimumJumpHeight: {6}\n ReleaseEarlyJumpVelocity: {7}\n ApexGravityMultiplier: {8}\n MaxVelocityX: {9}\n UseGroundFriction: {10}\n GroundFrictionPercentage: {11}\n ReleaseTime: {12}\n AttackTime: {13}\n TurnAroundBoostPercent: {14}\n UseCurveForHorizontalAttackVelocity: {15}\n UseCurveForHorizontalReleaseVelocity: {16}\n UseAnimation: {17}\n AnimationMaxSpeed: {18}", Gravity, JumpPower, UseAirFriction, AirFrictionHorizontal, TerminalVelocity, GhostJumpTime, MinimumJumpHeight, ReleaseEarlyJumpVelocity, ApexGravityMultiplier, MaxVelocityX, UseGroundFriction, GroundFrictionPercentage, ReleaseTime, AttackTime, TurnAroundBoostPercent, UseCurveForHorizontalAttackVelocity, UseCurveForHorizontalReleaseVelocity, UseAnimation, AnimationMaxSpeed);
+            return string.Format("Gravity: {0}\n JumpPower: {1}\n UseAirFriction: {2}\n AirFrictionHorizontal: {3}\n TerminalVelocity: {4}\n GhostJumpTime: {5}\n MinimumJumpHeight: {6}\n ReleaseEarlyJumpVelocity: {7}\n ApexGravityMultiplier: {8}\n MaxVelocityX: {9}\n UseGroundFriction: {10}\n GroundFrictionPercentage: {11}\n ReleaseTime: {12}\n AttackTime: {13}\n TurnAroundBoostPercent: {14}\n UseCurveForHorizontalAttackVelocity: {15}\n UseCurveForHorizontalReleaseVelocity: {16}\n UseAnimation: {17}\n AnimationMaxSpeed: {18}", Gravity.y, JumpPower, Convert.ToInt32(UseAirFriction), AirFrictionHorizontal, TerminalVelocity, GhostJumpTime, MinimumJumpHeight, ReleaseEarlyJumpVelocity, ApexGravityMultiplier, MaxVelocityX, Convert.ToInt32(UseGroundFriction), GroundFrictionPercentage, ReleaseTime, AttackTime, TurnAroundBoostPercent, Convert.ToInt32(UseCurveForHorizontalAttackVelocity), Convert.ToInt32(UseCurveForHorizontalReleaseVelocity), Convert.ToInt32(UseAnimation), AnimationMaxSpeed);
     }
+
+    public string ToStringDatabaseFormat(bool useSeperators)
+    {
+        if (useSeperators)
+            return string.Format("&Gravity={0}&JumpPower={1}&UseAirFriction={2}&AirFrictionHorizontal={3}&TerminalVelocity={4}&GhostJumpTime={5}&MinimumJumpHeight={6}&ReleaseEarlyJumpVelocity={7}&ApexGravityMultiplier={8}&MaxVelocityX={9}&UseGroundFriction={10}&GroundFrictionPercentage={11}&ReleaseTime={12}&AttackTime={13}&TurnAroundBoostPercent={14}&UseCurveForHorizontalAttackVelocity={15}&UseCurveForHorizontalReleaseVelocity={16}&UseAnimation={17}&AnimationMaxSpeed={18}", Gravity.y, JumpPower, Convert.ToInt32(UseAirFriction), AirFrictionHorizontal, TerminalVelocity, GhostJumpTime, MinimumJumpHeight, ReleaseEarlyJumpVelocity, ApexGravityMultiplier, MaxVelocityX, Convert.ToInt32(UseGroundFriction), GroundFrictionPercentage, ReleaseTime, AttackTime, TurnAroundBoostPercent, Convert.ToInt32(UseCurveForHorizontalAttackVelocity), Convert.ToInt32(UseCurveForHorizontalReleaseVelocity), Convert.ToInt32(UseAnimation), AnimationMaxSpeed);
+        else
+            return string.Format(Gravity.y + JumpPower+Convert.ToInt32(UseAirFriction).ToString()+AirFrictionHorizontal+TerminalVelocity+GhostJumpTime+MinimumJumpHeight+ReleaseEarlyJumpVelocity+ApexGravityMultiplier+MaxVelocityX+Convert.ToInt32(UseGroundFriction).ToString()+GroundFrictionPercentage+ReleaseTime+AttackTime+TurnAroundBoostPercent+Convert.ToInt32(UseCurveForHorizontalAttackVelocity).ToString()+Convert.ToInt32(UseCurveForHorizontalReleaseVelocity).ToString()+Convert.ToInt32(UseAnimation).ToString()+AnimationMaxSpeed);
+    }
+
+
 }

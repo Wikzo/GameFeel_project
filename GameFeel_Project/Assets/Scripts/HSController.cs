@@ -24,12 +24,12 @@ public class HSController : MonoBehaviour
 
     void OnGUI()
     {
-        name = GUI.TextField(new Rect(Screen.width/2, Screen.height/2-50, 200, 20), name);
+        name = GUI.TextField(new Rect(Screen.width / 2, Screen.height / 2 - 50, 200, 20), name);
         scoreText = GUI.TextField(new Rect(Screen.width / 2, Screen.height / 2, 200, 20), scoreText);
 
         score = Convert.ToInt32(scoreText);
 
-        if (GUI.Button(new Rect(Screen.width/2, Screen.height/2+50, 100, 30), "Send data"))
+        if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2 + 50, 100, 30), "Send data"))
         {
             StartCoroutine(PostScores(name, score));
         }
@@ -49,11 +49,14 @@ public class HSController : MonoBehaviour
         //This connects to a server side php script that will add the name and score to a MySQL DB.
         // Supply it with a string representing the players name and the players score.
         string hash = MD5Test.Md5Sum(name + score + secretKey);
+        Debug.Log(hash);
 
         string post_url = addScoreURL + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
+        Debug.Log(post_url);
 
         // Post the URL to the site and create a download object to get the result.
         WWW hs_post = new WWW(post_url);
+        Debug.Log(hs_post.uploadProgress);
         yield return hs_post; // Wait until the download is done
 
         if (hs_post.error != null)

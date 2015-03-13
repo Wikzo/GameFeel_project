@@ -64,7 +64,7 @@ public class ParameterManager : MonoBehaviour
         {
             // Random.Range: min [inclusive], max [exclusive]
 
-            float gravity = Random.Range(-1, -30.1f);
+            float gravity = Random.Range(-5, -30.1f);
             float jumpPower = Random.Range(2, 20.1f);
             bool useAirFriction = true;
             float airFrictionHorizontal = Random.Range(0.1f, 1.1f);

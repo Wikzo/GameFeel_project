@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
 
     public LayerMask PlatformMask;
 
+    private PostDataOnline _myPostDataOnline;
+
     // alisasing some standard data
     private Transform _transform;
     private Vector3 _localScale;
@@ -83,6 +85,8 @@ public class Player : MonoBehaviour
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
         _animator = this.GetComponent<Animator>();
+
+        _myPostDataOnline = GetComponent<PostDataOnline>();
     }
 
     void Start()
@@ -630,9 +634,26 @@ public class Player : MonoBehaviour
             return false;
     }
 
-
+    private string name = "Write your name here";
+    private string feeling = "Describe this game feeling here";
     void OnGUI()
     {
+
+        GUI.Label(new Rect(Screen.width - (Screen.width * 0.35f), Screen.height - (Screen.height * 0.15f), 600, 60), "Move with ARROW KEYS and jump with SPACE KEY.\nUse NumPad-Plus and NumPad-Minus\nto cycle between parameters.", DebugGUIStyle);
+
+        name = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.99f), Screen.height - (Screen.height * 0.15f), 200, 20), name);
+        feeling = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.99f), Screen.height - (Screen.height * 0.08f), 200, 20), feeling);
+
+        if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.15f), 130, 20), "Send data"))
+        {
+            _myPostDataOnline.PostData(name, feeling, MyTweakableParameters.ToStringDatabaseFormat(false), MyTweakableParameters.ToStringDatabaseFormat(true));
+        }
+
+        if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.08f), 130, 20), "Look at the data"))
+        {
+            Application.OpenURL("http://tunnelvisiongames.com/unityserver/displayfeeling.php");
+        }
+
         if (!DrawDebugMenu)
             return;
 
