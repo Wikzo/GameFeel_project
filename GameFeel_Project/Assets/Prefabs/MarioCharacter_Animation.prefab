@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21262246}
   - 95: {fileID: 9562246}
   m_Layer: 0
-  m_Name: MarioCharacter
+  m_Name: MarioCharacter_Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

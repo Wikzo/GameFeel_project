@@ -4,6 +4,7 @@ using System.Collections;
 
 // http://mpolney.galineer.com/smb.html
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 
 public enum HorizontalMovementState
@@ -21,23 +22,11 @@ public enum HorizontalMovementState
 
 public class Player : MonoBehaviour
 {
-    // tweakable jump parameters
-    public Vector3 Gravity = new Vector3(0, -1f,0);
-    public float TerminalVelocity = -5f;
-    public float MaxVelocityX = 15f;
-    public float JumpPower = 10;
-    [Range(0.1f, 1f)] public float AirFrictionHorizontal = 0.5f;
-    public float ReleaseTime = 0.4f;
-    public float AttackTime = 0.4f;
-    public bool UseCurveForHorizontalAttackVelocity = true;
-    public bool UseCurveForHorizontalReleaseVelocity = true;
-    public bool UseAnimation = true;
+    public bool UseRandomValuesAtStart = false;
+    public bool DrawDebugMenu = true;
+    public GUIStyle DebugGUIStyle;
+    public TweakableParameters MyTweakableParameters;
 
-    public bool UseGroundFriction = true;
-    public bool UseAirFriction = true;
-    [Range(0f, 0.8f)] public float GroundFriction = 0.05f;
-
-    [Range(0f, 200f)] public float TurnAroundBoostPercent = 0f;
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
     public AnimationCurve[] HorizontalVelocityCurvesRelease;
 
@@ -56,7 +45,6 @@ public class Player : MonoBehaviour
 
     // animation stuff
     private Animator _animator;
-    [Range(0.1f, 2f)] public float AnimationMaxSpeed = 1.4f;
     private float _animationPlaybackSpeed = 1f;
 
     // behind-the-scenes state data
@@ -64,6 +52,12 @@ public class Player : MonoBehaviour
     private Vector3 _velocity = new Vector3(0, 0, 0);
     private HorizontalMovementState _currentHorizontalMovementState;
     private HorizontalMovementState _previousHorizontalMovementState;
+    private float _currentGhostJumpTime;
+    private int _signLast, _signCurrent;
+    private bool canReleaseEarly = true;
+    private float _gravityMultiplier = 1;
+    private bool _jumpHitApex = false;
+
 
     // collision detection via rays
     private float _verticalDistanceBetweenRays, _horizontalDistanceBetweenRays;
@@ -91,45 +85,27 @@ public class Player : MonoBehaviour
         _animator = this.GetComponent<Animator>();
     }
 
-
     void Start()
     {
-        ChangeParameters();
+        if (UseRandomValuesAtStart)
+            ChangeParameters();
     }
-    public string test = "";
-
-    private bool startLevel = true;
 
     void ChangeParameters()
     {
 
         //Debug.Log(ParameterManager.Instance.MyParameters[myIndex].TerminalVelocity);
 
-        Parameters p = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
+        MyTweakableParameters = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
 
-        this.Gravity = p.Gravity;
-        this.TerminalVelocity = p.TerminalVelocity;
-        this.MaxVelocityX = p.MaxVelocityX;
-        this.JumpPower = p.JumpPower;
-        this.AirFrictionHorizontal = p.AirFrictionHorizontal;
-        this.ReleaseTime = p.ReleaseTime;
-        this.AttackTime = p.AttackTime;
-        this.UseAnimation = p.UseAnimation;
-        this.UseGroundFriction = p.UseGroundFriction;
-        this.UseAirFriction = p.UseAirFriction;
-        this.GroundFriction = p.GroundFriction;
-        this.TurnAroundBoostPercent = p.TurnAroundBoost;
-        this.MinimumJumpHeight = p.MinimumJumpHeight;
-        this.ReleaseEarlyJumpVelocity = p.ReleaseEarlyJumpVelocity;
-        this.ApexGravityMultiplier = p.GravityMultiplier;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Creating 5 new params");
-            ParameterManager.Instance.MakeParameters(5);
+            Debug.Log("Creating 50 new params");
+            ParameterManager.Instance.MakeParameters(50);
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
@@ -138,6 +114,16 @@ public class Player : MonoBehaviour
                 ParameterManager.Instance.Index++;
             else
                 ParameterManager.Instance.Index = 0;
+
+            ChangeParameters();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            if (ParameterManager.Instance.Index - 1 >= 0)
+                ParameterManager.Instance.Index--;
+            else
+                ParameterManager.Instance.Index = ParameterManager.Instance.MyParameters.Count;
 
             ChangeParameters();
 
@@ -160,7 +146,7 @@ public class Player : MonoBehaviour
         ApplyGravity();
         Move(_velocity * Time.deltaTime);
 
-        if (UseAnimation)
+        if (MyTweakableParameters.UseAnimation)
             PlayAnimation();
 
     }
@@ -173,31 +159,25 @@ public class Player : MonoBehaviour
         //InputHorizontalDirections();
 
         MovementStates();
-        if (UseGroundFriction)
+        if (MyTweakableParameters.UseGroundFriction)
         {
             if (_collisionState.IsGrounded)
-                _velocity.x += -_velocity.x*GroundFriction;
+                _velocity.x += -_velocity.x * MyTweakableParameters.GroundFrictionPercentage/100;
         }
 
-        if (!_collisionState.IsGrounded && UseAirFriction)
-            _velocity.x *= AirFrictionHorizontal;
+        if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
+            _velocity.x *= MyTweakableParameters.AirFrictionHorizontal;
 
-        if (_velocity.x > MaxVelocityX)
-            _velocity.x = MaxVelocityX;
-        else if (_velocity.x < -MaxVelocityX)
-            _velocity.x = -MaxVelocityX;
+        if (_velocity.x > MyTweakableParameters.MaxVelocityX)
+            _velocity.x = MyTweakableParameters.MaxVelocityX;
+        else if (_velocity.x < -MyTweakableParameters.MaxVelocityX)
+            _velocity.x = -MyTweakableParameters.MaxVelocityX;
 
         //transform.position += new Vector3(_velocity.x, _velocity.y, 0) * Time.deltaTime;
 
     }
 
-    public float MinimumJumpHeight = 0.5f;
-    public float ReleaseEarlyJumpVelocity = 0.5f;
-
-    private bool canReleaseEarly = true;
-    public float ApexGravityMultiplier = 3;
-    private float _gravityMultiplier = 1;
-    private bool _jumpHitApex = false;
+    
 
     void InputJump()
     {
@@ -209,18 +189,21 @@ public class Player : MonoBehaviour
 
         }
 
-        if (_collisionState.IsGrounded && Input.GetKeyDown(KeyCode.Space))
-            _velocity.y = JumpPower;
-        
+        if ((_collisionState.IsGrounded || _currentGhostJumpTime > 0) && Input.GetKeyDown(KeyCode.Space))
+        {
+            _velocity.y = MyTweakableParameters.JumpPower;
+            _currentGhostJumpTime = -1;
+        }
+
         else if (!_collisionState.IsGrounded)
         {
             // release early?
             if (!Input.GetKey(KeyCode.Space))
             {
-                if ((_velocity.y < JumpPower - MinimumJumpHeight) && canReleaseEarly && !_jumpHitApex)
+                if ((_velocity.y < MyTweakableParameters.JumpPower - MyTweakableParameters.MinimumJumpHeight) && canReleaseEarly && !_jumpHitApex)
                 {
                     //Debug.Log(_velocity.y);
-                    _velocity.y = ReleaseEarlyJumpVelocity;
+                    _velocity.y = MyTweakableParameters.ReleaseEarlyJumpVelocity;
 
                     canReleaseEarly = false;
                 }
@@ -229,7 +212,7 @@ public class Player : MonoBehaviour
             if (_velocity.y <= 0)
             {
                 _jumpHitApex = true;
-                _gravityMultiplier = ApexGravityMultiplier;
+                _gravityMultiplier = MyTweakableParameters.ApexGravityMultiplier;
             }
         }
 
@@ -246,9 +229,9 @@ public class Player : MonoBehaviour
 
         _animator.SetFloat("Velocity", _velocity.x);
 
-        
 
-        _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MaxVelocityX, 0f, AnimationMaxSpeed);
+
+        _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MyTweakableParameters.MaxVelocityX, 0f, MyTweakableParameters.AnimationMaxSpeed);
         _animator.speed = _animationPlaybackSpeed;
     }
 
@@ -331,38 +314,38 @@ public class Player : MonoBehaviour
                         || _previousHorizontalMovementState == HorizontalMovementState.ReleaseRight)
                     {
                         _currentAcceleration = _velocity.x;
-                        _maxAcceleration = MaxVelocityX;
-                        _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
+                        _maxAcceleration = MyTweakableParameters.MaxVelocityX;
+                        _targetAcceleration = (_maxAcceleration - _currentAcceleration) / MyTweakableParameters.AttackTime;
 
                         
 
                     }
 
-                    if (UseCurveForHorizontalAttackVelocity)
+                    if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                     {
                         _currentAttackTime += Time.deltaTime;
 
 
                         if (ChangedDirection())
-                            _currentAttackTime += AttackTime * TurnAroundBoostPercent/100;
+                            _currentAttackTime += MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
 
                         float valueScaled = 0;
                         if (_currentAttackTime < 0) // left
                         {
-                            float timeScaled = NormalizationMap(_currentAttackTime, 0, -AttackTime, 0, 1);
+                            float timeScaled = NormalizationMap(_currentAttackTime, 0, -MyTweakableParameters.AttackTime, 0, 1);
                             float valueOriginal =
                                 HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                            valueScaled = valueOriginal * -MaxVelocityX;
+                            valueScaled = valueOriginal * -MyTweakableParameters.MaxVelocityX;
                         }
 
                         else if (_currentAttackTime > 0) // right 
                         {
-                            float timeScaled = NormalizationMap(_currentAttackTime, 0, AttackTime, 0, 1);
+                            float timeScaled = NormalizationMap(_currentAttackTime, 0, MyTweakableParameters.AttackTime, 0, 1);
                             float valueOriginal =
                                 HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                            valueScaled = valueOriginal*MaxVelocityX;
+                            valueScaled = valueOriginal * MyTweakableParameters.MaxVelocityX;
                                 // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
                         }
                         //Debug.Log("right time: " + _currentAttackTime + "; value: " + valueScaled);
@@ -373,10 +356,10 @@ public class Player : MonoBehaviour
                         _velocity.x += _targetAcceleration * Time.deltaTime;
 
                     // begin sustain
-                    if (_velocity.x >= MaxVelocityX)
+                    if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
                     {
-                        _velocity.x = MaxVelocityX;
-                        _currentAttackTime = AttackTime;
+                        _velocity.x = MyTweakableParameters.MaxVelocityX;
+                        _currentAttackTime = MyTweakableParameters.AttackTime;
                         _currentHorizontalMovementState = HorizontalMovementState.SustainRight;
                     }
                     break;
@@ -384,7 +367,7 @@ public class Player : MonoBehaviour
 
                 case HorizontalMovementState.SustainRight:
                 {
-                    _velocity.x = MaxVelocityX;
+                    _velocity.x = MyTweakableParameters.MaxVelocityX;
                     break;
                 }
             }
@@ -420,39 +403,39 @@ public class Player : MonoBehaviour
                             || _previousHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
                         {
                             _currentAcceleration = _velocity.x;
-                            _maxAcceleration = MaxVelocityX;
-                            _targetAcceleration = (_maxAcceleration - _currentAcceleration) / AttackTime;
+                            _maxAcceleration = MyTweakableParameters.MaxVelocityX;
+                            _targetAcceleration = (_maxAcceleration - _currentAcceleration) / MyTweakableParameters.AttackTime;
 
                         }
 
 
-                        if (UseCurveForHorizontalAttackVelocity)
+                        if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
 
                             _currentAttackTime -= Time.deltaTime;
 
                             if (ChangedDirection())
-                                _currentAttackTime -= AttackTime * TurnAroundBoostPercent/100;
+                                _currentAttackTime -= MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
 
                             float valueScaled = 0;
 
                             if (_currentAttackTime > 0) // right
                             {
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, AttackTime, 0, 1);
+                                float timeScaled = NormalizationMap(_currentAttackTime, 0, MyTweakableParameters.AttackTime, 0, 1);
                                 float valueOriginal =
                                     HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                                valueScaled = valueOriginal * MaxVelocityX;
+                                valueScaled = valueOriginal * MyTweakableParameters.MaxVelocityX;
                             }
 
                             else if (_currentAttackTime < 0) // left
                             {
 
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, -AttackTime, 0, 1);
+                                float timeScaled = NormalizationMap(_currentAttackTime, 0, -MyTweakableParameters.AttackTime, 0, 1);
                                 float valueOriginal =
                                     HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
-                                valueScaled = valueOriginal*-MaxVelocityX;
+                                valueScaled = valueOriginal * -MyTweakableParameters.MaxVelocityX;
                                     // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
                             }
                             //Debug.Log("left time: " + _currentAttackTime + "; value: " + valueScaled);
@@ -465,10 +448,10 @@ public class Player : MonoBehaviour
 
 
                         // begin sustain
-                        if (_velocity.x <= -MaxVelocityX)
+                        if (_velocity.x <= -MyTweakableParameters.MaxVelocityX)
                         {
-                            _velocity.x = -MaxVelocityX;
-                            _currentAttackTime = -AttackTime;
+                            _velocity.x = -MyTweakableParameters.MaxVelocityX;
+                            _currentAttackTime = -MyTweakableParameters.AttackTime;
                             _currentHorizontalMovementState = HorizontalMovementState.SustainLeft;
                         }
                         break;
@@ -476,7 +459,7 @@ public class Player : MonoBehaviour
 
                 case HorizontalMovementState.SustainLeft:
                     {
-                        _velocity.x = -MaxVelocityX;
+                        _velocity.x = -MyTweakableParameters.MaxVelocityX;
                         break;
                     }
             }
@@ -498,9 +481,9 @@ public class Player : MonoBehaviour
 
                     _currentHorizontalMovementState = HorizontalMovementState.ReleaseRight;
 
-                    if (UseCurveForHorizontalReleaseVelocity)
+                    if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                     {
-                        _currentReleaseTime = ReleaseTime;
+                        _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                         _targetDeacceleration = _velocity.x;
                     }
                     break;
@@ -508,7 +491,7 @@ public class Player : MonoBehaviour
 
                 case HorizontalMovementState.ReleaseRight:
                 {
-                    if (UseCurveForHorizontalReleaseVelocity)
+                    if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                     {
                         if (_currentAttackTime >= 0)
                             _currentAttackTime -= Time.deltaTime;
@@ -517,7 +500,7 @@ public class Player : MonoBehaviour
 
 
                         _currentReleaseTime -= Time.deltaTime;
-                        float currentReleaseTimeNormalized = _currentReleaseTime / ReleaseTime;
+                        float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
                         _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
                     }
                     else
@@ -527,7 +510,7 @@ public class Player : MonoBehaviour
                     if (_velocity.x <= 0)
                     {
                         _velocity.x = 0;
-                        _currentAttackTime = NormalizationMap(0, -AttackTime, AttackTime, 0, 1);
+                        _currentAttackTime = NormalizationMap(0, -MyTweakableParameters.AttackTime, MyTweakableParameters.AttackTime, 0, 1);
 
 
                         _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
@@ -557,9 +540,9 @@ public class Player : MonoBehaviour
 
                     _currentHorizontalMovementState = HorizontalMovementState.ReleaseLeft;
 
-                    if (UseCurveForHorizontalReleaseVelocity)
+                    if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                     {
-                        _currentReleaseTime = ReleaseTime;
+                        _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                         _targetDeacceleration = _velocity.x;
                     }
                     break;
@@ -567,7 +550,7 @@ public class Player : MonoBehaviour
 
                 case HorizontalMovementState.ReleaseLeft:
                 {
-                    if (UseCurveForHorizontalReleaseVelocity)
+                    if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                     {
                         if (_currentAttackTime <= 0)
                             _currentAttackTime += Time.deltaTime;
@@ -576,7 +559,7 @@ public class Player : MonoBehaviour
 
 
                         _currentReleaseTime -= Time.deltaTime;
-                        float currentReleaseTimeNormalized = _currentReleaseTime/ReleaseTime;
+                        float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
                         _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized)*
                                       _targetDeacceleration;
                     }
@@ -587,7 +570,7 @@ public class Player : MonoBehaviour
                     if (_velocity.x >= 0)
                     {
                         _velocity.x = 0;
-                        _currentAttackTime = NormalizationMap(0, -AttackTime, AttackTime, 0, 1);
+                        _currentAttackTime = NormalizationMap(0, -MyTweakableParameters.AttackTime, MyTweakableParameters.AttackTime, 0, 1);
 
 
                         _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
@@ -625,20 +608,20 @@ public class Player : MonoBehaviour
         if (_previousHorizontalMovementState == HorizontalMovementState.AttackingLeft
             || _previousHorizontalMovementState == HorizontalMovementState.SustainLeft
             || _previousHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
-            signLast = -1;
+            _signLast = -1;
         else
-            signLast = 1;
+            _signLast = 1;
 
         if (_currentHorizontalMovementState == HorizontalMovementState.AttackingLeft
             || _currentHorizontalMovementState == HorizontalMovementState.SustainLeft
             || _currentHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
-            signCurrent = -1;
+            _signCurrent = -1;
         else
-            signCurrent = 1;
+            _signCurrent = 1;
 
-        if (signLast != signCurrent && _collisionState.IsGrounded)
+        if (_signLast != _signCurrent && _collisionState.IsGrounded)
         {
-            Debug.Log("turnaround boost");
+            //Debug.Log("turnaround boost");
             _animator.SetTrigger("IsTurning");
 
             return true;
@@ -647,14 +630,29 @@ public class Player : MonoBehaviour
             return false;
     }
 
-    private int signLast, signCurrent;
 
     void OnGUI()
     {
-        GUI.Label(new Rect(20, (int)Screen.height-100, 500,200), "Velocity: " + _velocity);
-        GUI.Label(new Rect(20, (int)Screen.height - 80, 500, 200), "State: " + _currentHorizontalMovementState);
-        GUI.Label(new Rect(20, (int)Screen.height - 60, 500, 200), "Index: " + ParameterManager.Instance.Index);
-        GUI.Label(new Rect(20, (int)Screen.height - 40, 500, 200), "Level: " + Application.loadedLevelName);
+        if (!DrawDebugMenu)
+            return;
+
+        // show parameters
+        GUILayout.BeginArea(new Rect(Screen.width - (Screen.width * 0.3f), 0, Screen.width * 0.3f, Screen.height * 0.8f));
+        {
+            GUILayout.BeginVertical(); // also can put width in here
+            {
+                GUILayout.Label(MyTweakableParameters.ToString(), DebugGUIStyle);
+            }
+            GUILayout.EndVertical();
+        }
+        GUILayout.EndArea();
+
+
+
+        GUI.Label(new Rect(10, 0, 180, 20), "Velocity: " + _velocity, DebugGUIStyle);
+        GUI.Label(new Rect(10, 20, 180, 20), "State: " + _currentHorizontalMovementState, DebugGUIStyle);
+        GUI.Label(new Rect(10, 40, 180, 20), "Index: " + ParameterManager.Instance.Index + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
+        GUI.Label(new Rect(10, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
     }
 
     void Move(Vector2 deltaMovement)
@@ -668,6 +666,15 @@ public class Player : MonoBehaviour
             MoveHorizontally(ref deltaMovement);
         MoveVertically(ref deltaMovement);
 
+        if (!_collisionState.IsGrounded) // ghost jump timer when leaving ground
+        {
+            if (_currentGhostJumpTime > -1)
+                _currentGhostJumpTime -= Time.deltaTime;
+        }
+        else if (_collisionState.IsGrounded) // on ground
+        {
+            _currentGhostJumpTime = MyTweakableParameters.GhostJumpTime;
+        }
 
         //CorrectHorizontalPlacement(ref deltaMovement, true); // when hitting moving platforms
         //CorrectHorizontalPlacement(ref deltaMovement, false); // left
@@ -699,10 +706,10 @@ public class Player : MonoBehaviour
         else if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;*/
 
-        _velocity.x = Mathf.Min(_velocity.x, MaxVelocityX);
+        _velocity.x = Mathf.Min(_velocity.x, MyTweakableParameters.MaxVelocityX);
 
-        if (_velocity.y < TerminalVelocity)
-            _velocity.y = TerminalVelocity;
+        if (_velocity.y < MyTweakableParameters.TerminalVelocity)
+            _velocity.y = MyTweakableParameters.TerminalVelocity;
 
 
     }
@@ -814,7 +821,7 @@ public class Player : MonoBehaviour
 
     void ApplyGravity()
     {
-        _velocity += (Gravity * _gravityMultiplier) * Time.deltaTime;
+        _velocity += (MyTweakableParameters.Gravity * _gravityMultiplier) * Time.deltaTime;
     }
 
     void CalculateRayOrigins()
