@@ -192,5 +192,6 @@ public class ParameterGUIInterface : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.5f, 20, 180, 20), "State: " + _player._currentHorizontalMovementState, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + ParameterManager.Instance.Index + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "Stars: " + _player.StarsCollected + " / 10", DebugGUIStyle);
     }
 }

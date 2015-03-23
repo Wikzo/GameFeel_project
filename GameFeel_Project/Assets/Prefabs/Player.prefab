@@ -29,6 +29,7 @@ GameObject:
   - 61: {fileID: 6150682}
   - 114: {fileID: 11450682}
   - 95: {fileID: 9550682}
+  - 82: {fileID: 8258596}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -85,8 +86,66 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .319999963, y: .639999986}
+  m_Size: {x: .600000024, y: .600000024}
   m_Center: {x: 0, y: 0}
+--- !u!82 &8258596
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150682}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9550682
 Animator:
   serializedVersion: 3
@@ -94,7 +153,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150682}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3e59ba2623d4bc64899c456c030a071d, type: 2}
   m_CullingMode: 0
@@ -114,13 +173,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseRandomValuesAtStart: 1
-  BallGraphic: {fileID: 0}
+  BallGraphic: {fileID: 410080}
   MyTweakableParameters:
     Gravity: {x: 0, y: -10, z: 0}
-    JumpPower: 10
+    JumpPower: 20
     UseAirFriction: 1
     AirFrictionHorizontalPercentage: 80
-    TerminalVelocity: -5
+    TerminalVelocity: -10
     GhostJumpTime: .400000006
     MinimumJumpHeight: .5
     ReleaseEarlyJumpVelocity: .5
@@ -171,6 +230,13 @@ MonoBehaviour:
     m_Bits: 256
   _velocity: {x: 0, y: 0, z: 0}
   _currentHorizontalMovementState: 0
+  StarsCollected: 0
+  StarPickupSounds:
+  - {fileID: 8300000, guid: 072978cdc6cda9a49a209326dd003b37, type: 3}
+  - {fileID: 8300000, guid: 28797794d2c8b7a4193de9642f023086, type: 3}
+  - {fileID: 8300000, guid: 48781a71a42e8384089303ac54f7a8e4, type: 3}
+  - {fileID: 8300000, guid: aa8d67a18b802244dbe36608fe32aefe, type: 3}
+  - {fileID: 8300000, guid: 6b0dff95fc4eb584fb04545192c3c3bb, type: 3}
 --- !u!212 &21210080
 SpriteRenderer:
   m_ObjectHideFlags: 1

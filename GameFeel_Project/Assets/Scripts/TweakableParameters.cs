@@ -91,7 +91,7 @@ public class TweakableParameters
 
     // air
     public Vector3 Gravity = new Vector3(0, -10f, 0);
-    public float JumpPower = 10;
+    public float JumpPower = 15;
     public bool UseAirFriction = true;
     public float AirFrictionHorizontalPercentage = 80f;
     public float TerminalVelocity = -5f;

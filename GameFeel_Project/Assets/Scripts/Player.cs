@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using System.Collections;
 
@@ -52,10 +53,6 @@ public class Player : MonoBehaviour
     private int _previousDirection = 0;
     private bool _isFacingRight = true;
 
-    // audio stuff
-    private bool _playingJumpSound = false;
-    private AudioSource _audioSource;
-
     // behind-the-scenes state data
     private CollisionState _collisionState;
     public Vector3 _velocity = new Vector3(0, 0, 0);
@@ -66,6 +63,8 @@ public class Player : MonoBehaviour
     private bool canReleaseEarly = true;
     private float _gravityMultiplier = 1;
     private bool _jumpHitApex = false;
+
+    private AudioSource _audioSource;
 
 
     // collision detection via rays
@@ -164,10 +163,6 @@ public class Player : MonoBehaviour
             canReleaseEarly = true;
             _gravityMultiplier = 1;
             _jumpHitApex = false;
-            _audioSource.pitch = 1;
-            _playingJumpSound = false;
-            _audioSource.Stop();
-
 
         }
 
@@ -176,27 +171,6 @@ public class Player : MonoBehaviour
         {
             _velocity.y = MyTweakableParameters.JumpPower;
             _currentGhostJumpTime = -1;
-
-            if (!_playingJumpSound)
-            {
-                _audioSource.pitch = 1;
-                //audio.PlayOneShot(JumpSound);
-                _playingJumpSound = true;
-            }
-
-            
-        }
-
-        // continuing holding jump button
-        if (!_collisionState.IsGrounded && Input.GetKey(KeyCode.Space) && _playingJumpSound)
-        {
-            Debug.Log("(sound");
-            
-            if (!_audioSource.isPlaying)
-                _audioSource.Play();
-
-            //if (_audioSource.pitch < 1.15f)
-                //_audioSource.pitch += Time.deltaTime;
         }
 
         // release early
@@ -205,9 +179,8 @@ public class Player : MonoBehaviour
             // release early?
             if (!Input.GetKey(KeyCode.Space))
             {
-                _playingJumpSound = false;
-
-                if ((_velocity.y < MyTweakableParameters.JumpPower - MyTweakableParameters.MinimumJumpHeight) && canReleaseEarly && !_jumpHitApex)
+                if ((_velocity.y < MyTweakableParameters.JumpPower - MyTweakableParameters.MinimumJumpHeight) &&
+                    canReleaseEarly && !_jumpHitApex)
                 {
                     //Debug.Log(_velocity.y);
                     _velocity.y = MyTweakableParameters.ReleaseEarlyJumpVelocity;
@@ -218,21 +191,20 @@ public class Player : MonoBehaviour
             // apply gravity multiplier when hitting jump apex
             if (_velocity.y <= 0)
             {
-                _audioSource.Stop();
-                _playingJumpSound = false;
                 _jumpHitApex = true;
                 _gravityMultiplier = MyTweakableParameters.ApexGravityMultiplier;
             }
-
-            
         }
-
     }
-
-    
 
     void PlayAnimation()
     {
+        BallGraphic.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
+
+        return;
+
+
+        // old animation stuff for Mario sprite ...
         if (!_collisionState.IsGrounded)
             _animator.SetBool("IsJumping", true);
         else
@@ -240,7 +212,6 @@ public class Player : MonoBehaviour
 
         _animator.SetFloat("Velocity", _velocity.x);
 
-        BallGraphic.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
 
         _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MyTweakableParameters.MaxVelocityX, 0f, MyTweakableParameters.AnimationMaxSpeed);
         _animator.speed = _animationPlaybackSpeed;
@@ -821,6 +792,32 @@ public class Player : MonoBehaviour
         _raycastBottomRight = transform.position + new Vector3(centerOfBoxCollider.x + sizeOfBoxCollider.x - SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
         _raycastBottomLeft = transform.position + new Vector3(centerOfBoxCollider.x - sizeOfBoxCollider.x + SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
     }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "Star")
+        {
+            
+            int random = Random.Range(0, StarPickupSounds.Count());
+            int tries = 0;
+
+            while (random == _starPickupIndex && tries < 3)
+            {
+                random = Random.Range(0, StarPickupSounds.Count());
+                tries++;
+            }
+
+            _starPickupIndex = random;
+
+            _audioSource.PlayOneShot(StarPickupSounds[_starPickupIndex]);
+            Destroy(coll.gameObject);
+            StarsCollected++;
+        }
+    }
+
+    public int StarsCollected;
+    public AudioClip[] StarPickupSounds;
+    private int _starPickupIndex = 0;
 
     private void CorrectHorizontalPlacement(ref Vector2 deltaMovement, bool isRight) // for when platforms move into player
     {
