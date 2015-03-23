@@ -6,19 +6,19 @@ using System.Collections;
 public class TweakableParameters
 {
     static public Vector2 GravityRange = new Vector2(-5f,-30.1f);
-    static public Vector2 TerminalVelocityRange = new Vector2(-5,-30.1f);
+    static public Vector2 TerminalVelocityRange = new Vector2(-5,-60.1f);
     static public Vector2 JumpPowerRange = new Vector2(2f,20.1f);
     static public Vector2 AirFrictionHorizontalPercentageRange = new Vector2(0, 99.1f);
     static public Vector2 GhostJumpTimeRange = new Vector2(0f,2.1f);
     static public Vector2 MinimumJumpHeightRange = new Vector2(0.1f, 5.1f);
-    static public Vector2 ReleaseEarlyJumpVelocityRange = new Vector2(0f, 1.1f);
-    static public Vector2 ApexGravityMultiplierRange = new Vector2(1f, 5.1f);
+    static public Vector2 ReleaseEarlyJumpVelocityRange = new Vector2(0f, 3.1f);
+    static public Vector2 ApexGravityMultiplierRange = new Vector2(1f, 15.1f);
     static public Vector2 MaxVelocityXRange = new Vector2(1, 20.1f);
     static public Vector2 GroundFrictionPercentageRange = new Vector2(0f, 99.1f);
     static public Vector2 ReleaseTimeRange = new Vector2(0.001f, 3.1f);
     static public Vector2 AttackTimeRange = new Vector2(0.001f, 3.1f);
     static public Vector2 TurnAroundBoostPercentRange = new Vector2(0f, 200.1f);
-    static public Vector2 AnimationMaxSpeedRange = new Vector2(0.1f, 3f);
+    static public Vector2 AnimationMaxSpeedRange = new Vector2(20f, 300f);
 
 
     public TweakableParameters(float? gravity, float? jumpPower, bool? useAirFriction, float? airFrictionHorizontal,
@@ -115,7 +115,7 @@ public class TweakableParameters
 
     // animation
     public bool UseAnimation = true;
-    public float AnimationMaxSpeed = 1.4f;
+    public float AnimationMaxSpeed = 100f;
 
     // extra
     public int IsDuplicate;
@@ -134,6 +134,7 @@ public class TweakableParameters
         return lines;
     }
 
+    // TODO: remember to remove ground friction (and more)
     public string ToStringDatabaseFormat(bool useSeperators)
     {
         if (useSeperators)

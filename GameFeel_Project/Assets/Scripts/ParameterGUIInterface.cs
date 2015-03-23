@@ -147,7 +147,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
             GUILayout.Label("ReleaseEarlyJumpVelocity: " + _parameters.ReleaseEarlyJumpVelocity, DebugGUIStyle);
             _parameters.ReleaseEarlyJumpVelocity = GUILayout.HorizontalSlider(_parameters.ReleaseEarlyJumpVelocity, TweakableParameters.ReleaseEarlyJumpVelocityRange.x,
-                TweakableParameters.GravityRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
+                TweakableParameters.ReleaseEarlyJumpVelocityRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
 
             GUILayout.Label("ApexGravityMultiplier: " + _parameters.ApexGravityMultiplier, DebugGUIStyle);
             _parameters.ApexGravityMultiplier = GUILayout.HorizontalSlider(_parameters.ApexGravityMultiplier, TweakableParameters.ApexGravityMultiplierRange.x,
@@ -160,9 +160,9 @@ public class ParameterGUIInterface : MonoBehaviour
             //GUILayout.Label("UseGroundFriction: " + _parameters.UseGroundFriction, DebugGUIStyle);
             //_parameters.UseGroundFriction = GUILayout.Toggle(_parameters.UseGroundFriction, "UseGroundFriction");
 
-            GUILayout.Label("GroundFrictionPercent: " + _parameters.GroundFrictionPercentage, DebugGUIStyle);
-            _parameters.GroundFrictionPercentage = GUILayout.HorizontalSlider(_parameters.MaxVelocityX, TweakableParameters.GroundFrictionPercentageRange.x,
-                TweakableParameters.GroundFrictionPercentageRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
+            //GUILayout.Label("GroundFrictionPercent: " + _parameters.GroundFrictionPercentage, DebugGUIStyle);
+            //_parameters.GroundFrictionPercentage = GUILayout.HorizontalSlider(_parameters.GroundFrictionPercentage, TweakableParameters.GroundFrictionPercentageRange.x,
+            //   TweakableParameters.GroundFrictionPercentageRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
 
             GUILayout.Label("AttackTime: " + _parameters.AttackTime, DebugGUIStyle);
             _parameters.AttackTime = GUILayout.HorizontalSlider(_parameters.AttackTime, TweakableParameters.AttackTimeRange.x,

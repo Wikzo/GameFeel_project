@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 {
     public bool UseRandomValuesAtStart = false;
 
+    public Transform BallGraphic;
+
     public TweakableParameters MyTweakableParameters;
 
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
@@ -49,6 +51,10 @@ public class Player : MonoBehaviour
     private int _currentDirection = 0;
     private int _previousDirection = 0;
     private bool _isFacingRight = true;
+
+    // audio stuff
+    private bool _playingJumpSound = false;
+    private AudioSource _audioSource;
 
     // behind-the-scenes state data
     private CollisionState _collisionState;
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
         _animator = this.GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -105,6 +112,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
         CheckInput();
     }
 
@@ -126,14 +134,16 @@ public class Player : MonoBehaviour
         //InputHorizontalDirections();
 
         MovementStates();
-        if (MyTweakableParameters.UseGroundFriction)
+        /*if (MyTweakableParameters.UseGroundFriction)
         {
             if (_collisionState.IsGrounded)
                 _velocity.x += -_velocity.x * MyTweakableParameters.GroundFrictionPercentage/100;
-        }
-
+        }*/
+        
         if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
-            _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
+        {
+            _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage/100;
+        }
 
         if (_velocity.x > MyTweakableParameters.MaxVelocityX)
             _velocity.x = MyTweakableParameters.MaxVelocityX;
@@ -148,25 +158,55 @@ public class Player : MonoBehaviour
 
     void InputJump()
     {
+        // grounded
         if (_collisionState.IsGrounded)
         {
             canReleaseEarly = true;
             _gravityMultiplier = 1;
             _jumpHitApex = false;
+            _audioSource.pitch = 1;
+            _playingJumpSound = false;
+            _audioSource.Stop();
+
 
         }
 
+        // initial jump button
         if ((_collisionState.IsGrounded || _currentGhostJumpTime > 0) && Input.GetKeyDown(KeyCode.Space))
         {
             _velocity.y = MyTweakableParameters.JumpPower;
             _currentGhostJumpTime = -1;
+
+            if (!_playingJumpSound)
+            {
+                _audioSource.pitch = 1;
+                //audio.PlayOneShot(JumpSound);
+                _playingJumpSound = true;
+            }
+
+            
         }
 
-        else if (!_collisionState.IsGrounded)
+        // continuing holding jump button
+        if (!_collisionState.IsGrounded && Input.GetKey(KeyCode.Space) && _playingJumpSound)
+        {
+            Debug.Log("(sound");
+            
+            if (!_audioSource.isPlaying)
+                _audioSource.Play();
+
+            //if (_audioSource.pitch < 1.15f)
+                //_audioSource.pitch += Time.deltaTime;
+        }
+
+        // release early
+        if (!_collisionState.IsGrounded)
         {
             // release early?
             if (!Input.GetKey(KeyCode.Space))
             {
+                _playingJumpSound = false;
+
                 if ((_velocity.y < MyTweakableParameters.JumpPower - MyTweakableParameters.MinimumJumpHeight) && canReleaseEarly && !_jumpHitApex)
                 {
                     //Debug.Log(_velocity.y);
@@ -178,9 +218,13 @@ public class Player : MonoBehaviour
             // apply gravity multiplier when hitting jump apex
             if (_velocity.y <= 0)
             {
+                _audioSource.Stop();
+                _playingJumpSound = false;
                 _jumpHitApex = true;
                 _gravityMultiplier = MyTweakableParameters.ApexGravityMultiplier;
             }
+
+            
         }
 
     }
@@ -195,6 +239,8 @@ public class Player : MonoBehaviour
             _animator.SetBool("IsJumping", false);
 
         _animator.SetFloat("Velocity", _velocity.x);
+
+        BallGraphic.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
 
         _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MyTweakableParameters.MaxVelocityX, 0f, MyTweakableParameters.AnimationMaxSpeed);
         _animator.speed = _animationPlaybackSpeed;
@@ -211,7 +257,9 @@ public class Player : MonoBehaviour
 
     private void Flip()
     {
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.y);
+        //transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.y);
+        BallGraphic.localScale = new Vector3(-BallGraphic.localScale.x, BallGraphic.localScale.y, BallGraphic.localScale.y);
+
         _isFacingRight = transform.localScale.x > 0;
     }
 
@@ -245,6 +293,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
         {
+
             _currentDirection = 1;
 
             if (!_isFacingRight)

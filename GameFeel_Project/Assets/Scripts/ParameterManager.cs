@@ -109,14 +109,14 @@ public class ParameterManager : MonoBehaviour
             MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
-                useAnimation, animationMaxSpeed, null));
+                useAnimation, null, null));
 
             if (makeDuplicates)
             {
                 MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
-                useAnimation, animationMaxSpeed, 1));
+                useAnimation, null, 1));
             }
             
         }
