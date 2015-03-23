@@ -23,8 +23,7 @@ public enum HorizontalMovementState
 public class Player : MonoBehaviour
 {
     public bool UseRandomValuesAtStart = false;
-    public bool DrawDebugMenu = true;
-    public GUIStyle DebugGUIStyle;
+
     public TweakableParameters MyTweakableParameters;
 
     public AnimationCurve[] HorizontalVelocityCurvesAttack;
@@ -32,7 +31,6 @@ public class Player : MonoBehaviour
 
     public LayerMask PlatformMask;
 
-    private PostDataOnline _myPostDataOnline;
 
     // alisasing some standard data
     private Transform _transform;
@@ -48,11 +46,14 @@ public class Player : MonoBehaviour
     // animation stuff
     private Animator _animator;
     private float _animationPlaybackSpeed = 1f;
+    private int _currentDirection = 0;
+    private int _previousDirection = 0;
+    private bool _isFacingRight = true;
 
     // behind-the-scenes state data
     private CollisionState _collisionState;
-    private Vector3 _velocity = new Vector3(0, 0, 0);
-    private HorizontalMovementState _currentHorizontalMovementState;
+    public Vector3 _velocity = new Vector3(0, 0, 0);
+    public HorizontalMovementState _currentHorizontalMovementState;
     private HorizontalMovementState _previousHorizontalMovementState;
     private float _currentGhostJumpTime;
     private int _signLast, _signCurrent;
@@ -85,8 +86,6 @@ public class Player : MonoBehaviour
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
         _animator = this.GetComponent<Animator>();
-
-        _myPostDataOnline = GetComponent<PostDataOnline>();
     }
 
     void Start()
@@ -95,7 +94,7 @@ public class Player : MonoBehaviour
             ChangeParameters();
     }
 
-    void ChangeParameters()
+    public void ChangeParameters()
     {
 
         //Debug.Log(ParameterManager.Instance.MyParameters[myIndex].TerminalVelocity);
@@ -106,42 +105,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Creating 50 new params");
-            ParameterManager.Instance.MakeParameters(50);
-        }
-
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
-                ParameterManager.Instance.Index++;
-            else
-                ParameterManager.Instance.Index = 0;
-
-            ChangeParameters();
-
-        }
-        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
-        {
-            if (ParameterManager.Instance.Index - 1 >= 0)
-                ParameterManager.Instance.Index--;
-            else
-                ParameterManager.Instance.Index = ParameterManager.Instance.MyParameters.Count;
-
-            ChangeParameters();
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (Application.loadedLevelName == "PlayerPrefab")
-                Application.LoadLevel("Duplicate");
-            else if (Application.loadedLevelName == "Duplicate")
-                Application.LoadLevel("Duplicate2");
-        }
-
-
         CheckInput();
     }
 
@@ -170,7 +133,7 @@ public class Player : MonoBehaviour
         }
 
         if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
-            _velocity.x *= MyTweakableParameters.AirFrictionHorizontal;
+            _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
 
         if (_velocity.x > MyTweakableParameters.MaxVelocityX)
             _velocity.x = MyTweakableParameters.MaxVelocityX;
@@ -233,13 +196,10 @@ public class Player : MonoBehaviour
 
         _animator.SetFloat("Velocity", _velocity.x);
 
-
-
         _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MyTweakableParameters.MaxVelocityX, 0f, MyTweakableParameters.AnimationMaxSpeed);
         _animator.speed = _animationPlaybackSpeed;
     }
 
-    private float moveSpeedX = 10;
 
     public static bool NearlyEqual(float f1, float f2)
     {
@@ -247,11 +207,7 @@ public class Player : MonoBehaviour
         return Math.Abs(f1 - f2) < 0.05;
     }
 
-    private bool useTurnMultiplier = false;
-    private int _currentDirection = 0;
-    private int _previousDirection = 0;
-    private bool _changedDirection = false;
-    private bool _isFacingRight;
+    
 
     private void Flip()
     {
@@ -636,45 +592,7 @@ public class Player : MonoBehaviour
 
     private string name = "Write your name here";
     private string feeling = "Describe this game feeling here";
-    void OnGUI()
-    {
-
-        GUI.Label(new Rect(Screen.width - (Screen.width * 0.35f), Screen.height - (Screen.height * 0.15f), 600, 60), "Move with ARROW KEYS and jump with SPACE KEY.\nUse NumPad-Plus and NumPad-Minus\nto cycle between parameters.", DebugGUIStyle);
-
-        name = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.99f), Screen.height - (Screen.height * 0.15f), 200, 20), name);
-        feeling = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.99f), Screen.height - (Screen.height * 0.08f), 200, 20), feeling);
-
-        if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.15f), 130, 20), "Send data"))
-        {
-            _myPostDataOnline.PostData(name, feeling, MyTweakableParameters.ToStringDatabaseFormat(false), MyTweakableParameters.ToStringDatabaseFormat(true));
-        }
-
-        if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.08f), 130, 20), "Look at the data"))
-        {
-            Application.OpenURL("http://tunnelvisiongames.com/unityserver/displayfeeling.php");
-        }
-
-        if (!DrawDebugMenu)
-            return;
-
-        // show parameters
-        GUILayout.BeginArea(new Rect(Screen.width - (Screen.width * 0.3f), 0, Screen.width * 0.3f, Screen.height * 0.8f));
-        {
-            GUILayout.BeginVertical(); // also can put width in here
-            {
-                GUILayout.Label(MyTweakableParameters.ToString(), DebugGUIStyle);
-            }
-            GUILayout.EndVertical();
-        }
-        GUILayout.EndArea();
-
-
-
-        GUI.Label(new Rect(10, 0, 180, 20), "Velocity: " + _velocity, DebugGUIStyle);
-        GUI.Label(new Rect(10, 20, 180, 20), "State: " + _currentHorizontalMovementState, DebugGUIStyle);
-        GUI.Label(new Rect(10, 40, 180, 20), "Index: " + ParameterManager.Instance.Index + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
-        GUI.Label(new Rect(10, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
-    }
+    
 
     void Move(Vector2 deltaMovement)
     {

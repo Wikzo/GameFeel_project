@@ -6,8 +6,25 @@ using UnityEngine;
 public class ParameterManager : MonoBehaviour
 {
     public List<TweakableParameters> MyParameters;
-
+    
     public int Index = 0;
+
+    public bool UseRandomGravity = false;
+    public bool UseRandomJumpPower = false;
+    public bool UseRandomUseAirFriction = true;
+    public bool UseRandomAirFrictionHorizontal = true;
+    public bool UseRandomTerminalVelocity = false;
+    public bool UseRandomGhostJumpTime = true;
+    public bool UseRandomMinimumJumpHeight = true;
+    public bool UseRandomReleaseEarlyJumpVelocity = true;
+    public bool UseRandomApexGravityMultiplier = true;
+    public bool UseRandomMaxVelocity = false;
+    public bool UseRandomGroundFriction = false;
+    public bool UseRandomReleaseTime = true;
+    public bool UseRandomAttackTime = true;
+    public bool UseRandomTurnAroundBoost = true;
+    public bool UseRandomAnimationMaxSpeed = false;
+
 
     private static ParameterManager _instance;
     public static ParameterManager Instance
@@ -50,44 +67,61 @@ public class ParameterManager : MonoBehaviour
     public void MakeParameters()
     {
         parametersCreated = true;
-        MakeParameters(50);
+        MakeParameters(5, true);
         Debug.Log("making 5 default parameters");
 
     }
 
-    public void MakeParameters(int size)
+    public void MakeParameters(int size, bool makeDuplicates)
     {
         MyParameters = new List<TweakableParameters>(size);
+        List<TweakableParameters> MyParametersDuplicates = new List<TweakableParameters>(size);
+
+        
 
 
         for (int i = 0; i < size; i++)
         {
             // Random.Range: min [inclusive], max [exclusive]
+            // ? identifier makes it nullable
 
-            float gravity = Random.Range(-5, -30.1f);
-            float jumpPower = Random.Range(2, 20.1f);
-            bool useAirFriction = true;
-            float airFrictionHorizontal = Random.Range(0.1f, 1.1f);
-            float terminalVelocity = Random.Range(gravity, -30.1f);
-            float ghostJumpTime = Random.Range(0f, 2.1f);
-            float minimumJumpHeight = Random.Range(0.1f, 5.1f);
-            float releaseEarlyJumpVelocity = Random.Range(0f, 1.1f);
-            float apexGravityMultiplier = Random.Range(1f, 5.1f);
-            float maxVelocityX = Random.Range(1, 20.1f);
-            bool useGroundFriction = false;
-            float groundFriction = Random.Range(0f, 99.1f);
-            float releaseTime = Random.Range(0.001f, 2.1f);
-            float attackTime = Random.Range(0.001f, 2.1f);
-            float turnAroundBoostPercent = Random.Range(0f, 200.1f);
-            bool useCurveForHorizontalAttackVelocity = true;
-            bool useCurveForHorizontalReleaseVelocity = true;
-            bool useAnimation = true;
-            float animationMaxSpeed = 1.4f;
+            float tempGravity = Random.Range(TweakableParameters.GravityRange.x, TweakableParameters.GravityRange.y); // needs to be calculated internally for the terminal velocity to work!
+            float? terminalVelocity = UseRandomTerminalVelocity ? Random.Range(tempGravity, TweakableParameters.GravityRange.y) : (float?)null;
+            float? gravity = UseRandomGravity ?  tempGravity : (float?)null;
+            float? jumpPower = UseRandomJumpPower ? Random.Range(TweakableParameters.JumpPowerRange.x, TweakableParameters.JumpPowerRange.y) : (float?)null;
+            bool? useAirFriction = UseRandomUseAirFriction ? true : (bool?)null;
+            float? airFrictionHorizontal = Random.Range(TweakableParameters.AirFrictionHorizontalPercentageRange.x, TweakableParameters.AirFrictionHorizontalPercentageRange.y);
+            float? ghostJumpTime = UseRandomGhostJumpTime ? Random.Range(TweakableParameters.GhostJumpTimeRange.x, TweakableParameters.GhostJumpTimeRange.y) : (float?)null;
+            float? minimumJumpHeight = UseRandomMinimumJumpHeight ? Random.Range(TweakableParameters.MinimumJumpHeightRange.x, TweakableParameters.MinimumJumpHeightRange.y) : (float?) null;
+            float? releaseEarlyJumpVelocity = UseRandomReleaseEarlyJumpVelocity ? Random.Range(TweakableParameters.ReleaseEarlyJumpVelocityRange.x, TweakableParameters.ReleaseEarlyJumpVelocityRange.y) : (float?)null;
+            float? apexGravityMultiplier = UseRandomApexGravityMultiplier ? Random.Range(TweakableParameters.ApexGravityMultiplierRange.x, TweakableParameters.ApexGravityMultiplierRange.y) : (float?)null;
+            float? maxVelocityX = UseRandomMaxVelocity ? Random.Range(TweakableParameters.MaxVelocityXRange.x, TweakableParameters.MaxVelocityXRange.y) : (float?)null;
+            bool? useGroundFriction = UseRandomGroundFriction ? true : (bool?)null;
+            float? groundFriction = UseRandomGroundFriction ? Random.Range(TweakableParameters.GroundFrictionPercentageRange.x, TweakableParameters.GroundFrictionPercentageRange.y) : (float?)null;
+            float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.ReleaseTimeRange.x, TweakableParameters.ReleaseTimeRange.y) : (float?)null;
+            float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackTimeRange.x, TweakableParameters.AttackTimeRange.y) : (float?)null;
+            float? turnAroundBoostPercent = UseRandomTurnAroundBoost ? Random.Range(TweakableParameters.TurnAroundBoostPercentRange.x, TweakableParameters.TurnAroundBoostPercentRange.y) : (float?)null;
+            bool? useCurveForHorizontalAttackVelocity = true;
+            bool? useCurveForHorizontalReleaseVelocity = true;
+            bool? useAnimation = true;
+            float? animationMaxSpeed = UseRandomAnimationMaxSpeed ? Random.Range(TweakableParameters.AnimationMaxSpeedRange.x, TweakableParameters.AnimationMaxSpeedRange.y) : (float?)null;
 
             MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
-                useAnimation, animationMaxSpeed));
+                useAnimation, animationMaxSpeed, null));
+
+            if (makeDuplicates)
+            {
+                MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
+                minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
+                groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
+                useAnimation, animationMaxSpeed, 1));
+            }
+            
         }
+
+        if (makeDuplicates)
+            MyParameters.AddRange(MyParametersDuplicates);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// http://answers.unity3d.com/questions/310097/is-there-a-way-to-draw-center-of-mass-on-the-scree.html
+
 public class ChangeMass : MonoBehaviour {
 
     private float massCube = 1;

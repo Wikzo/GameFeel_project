@@ -10,6 +10,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerPrefab.unity
   - enabled: 1
-    path: Assets/Scenes/Duplicate.unity
+    path: Assets/Scenes/D1.unity
   - enabled: 1
-    path: Assets/Scenes/Duplicate2.unity
+    path: Assets/Scenes/D2.unity

@@ -33,7 +33,6 @@ GameObject:
   - 61: {fileID: 6150682}
   - 114: {fileID: 11450682}
   - 95: {fileID: 9550682}
-  - 114: {fileID: 11483958}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -179,87 +178,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ac5761728a13a42864c4a7e93c90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseRandomValuesAtStart: 0
-  DrawDebugMenu: 1
-  DebugGUIStyle:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 2800000, guid: adcd9edfe2d823741b535161c677f7c5, type: 3}
-      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 15
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
+  UseRandomValuesAtStart: 1
   MyTweakableParameters:
     Gravity: {x: 0, y: -10, z: 0}
-    JumpPower: 15
+    JumpPower: 10
     UseAirFriction: 1
-    AirFrictionHorizontal: .5
-    TerminalVelocity: -30
-    GhostJumpTime: .300000012
-    MinimumJumpHeight: 2
+    AirFrictionHorizontalPercentage: 80
+    TerminalVelocity: -5
+    GhostJumpTime: .400000006
+    MinimumJumpHeight: .5
     ReleaseEarlyJumpVelocity: .5
     ApexGravityMultiplier: 3
-    MaxVelocityX: 10
+    MaxVelocityX: 15
     UseGroundFriction: 1
-    GroundFrictionPercentage: 0
+    GroundFrictionPercentage: 50
     ReleaseTime: .600000024
     AttackTime: .600000024
-    TurnAroundBoostPercent: 116
+    TurnAroundBoostPercent: 80
     UseCurveForHorizontalAttackVelocity: 1
     UseCurveForHorizontalReleaseVelocity: 1
     UseAnimation: 1
-    AnimationMaxSpeed: 1.20000005
+    AnimationMaxSpeed: 1.39999998
   HorizontalVelocityCurvesAttack:
   - serializedVersion: 2
     m_Curve:
@@ -293,17 +232,8 @@ MonoBehaviour:
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &11483958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9758bad3ceae7b44be30aa6a9667cbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _velocity: {x: 0, y: 0, z: 0}
+  _currentHorizontalMovementState: 0
 --- !u!124 &12450682
 Behaviour:
   m_ObjectHideFlags: 1

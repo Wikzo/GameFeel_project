@@ -80,7 +80,7 @@ public class EulerSpring : MonoBehaviour
 
     Vector3 ComputeForce(Vector3 pos)
     {
-        // HOOKS SPRING
+        // HOOKE'S SPRING
 
         /*// mine:
         // F_dampedSpring = -k * (|r| - r_0) * r/|r|
