@@ -6,6 +6,8 @@ using UnityEngine;
 public class ParameterManager : MonoBehaviour
 {
     public List<TweakableParameters> MyParameters;
+    public Player Player;
+    public int NumberOfParameters = 5;
     
     public int Index = 0;
 
@@ -67,8 +69,8 @@ public class ParameterManager : MonoBehaviour
     public void MakeParameters()
     {
         parametersCreated = true;
-        MakeParameters(5, true);
-        Debug.Log("making 5 default parameters");
+        MakeParameters(NumberOfParameters, true);
+        //Debug.Log("making 5 default parameters");
 
     }
 
@@ -90,7 +92,7 @@ public class ParameterManager : MonoBehaviour
             float? gravity = UseRandomGravity ?  tempGravity : (float?)null;
             float? jumpPower = UseRandomJumpPower ? Random.Range(TweakableParameters.JumpPowerRange.x, TweakableParameters.JumpPowerRange.y) : (float?)null;
             bool? useAirFriction = UseRandomUseAirFriction ? true : (bool?)null;
-            float? airFrictionHorizontal = Random.Range(TweakableParameters.AirFrictionHorizontalPercentageRange.x, TweakableParameters.AirFrictionHorizontalPercentageRange.y);
+            float? airFrictionHorizontal = UseRandomAirFrictionHorizontal ? Random.Range(TweakableParameters.AirFrictionHorizontalPercentageRange.x, TweakableParameters.AirFrictionHorizontalPercentageRange.y)  : (float?)null;
             float? ghostJumpTime = UseRandomGhostJumpTime ? Random.Range(TweakableParameters.GhostJumpTimeRange.x, TweakableParameters.GhostJumpTimeRange.y) : (float?)null;
             float? minimumJumpHeight = UseRandomMinimumJumpHeight ? Random.Range(TweakableParameters.MinimumJumpHeightRange.x, TweakableParameters.MinimumJumpHeightRange.y) : (float?) null;
             float? releaseEarlyJumpVelocity = UseRandomReleaseEarlyJumpVelocity ? Random.Range(TweakableParameters.ReleaseEarlyJumpVelocityRange.x, TweakableParameters.ReleaseEarlyJumpVelocityRange.y) : (float?)null;
@@ -109,14 +111,14 @@ public class ParameterManager : MonoBehaviour
             MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
-                useAnimation, null, null));
+                useAnimation, animationMaxSpeed, null));
 
             if (makeDuplicates)
             {
                 MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
-                useAnimation, null, 1));
+                useAnimation, animationMaxSpeed, 1));
             }
             
         }

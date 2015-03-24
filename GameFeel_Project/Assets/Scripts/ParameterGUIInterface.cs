@@ -4,7 +4,6 @@ using System.Collections;
 public class ParameterGUIInterface : MonoBehaviour
 {
     // public fields
-    public int NumberOfParameters = 5;
     public bool MakeDuplicates = true; // if true: will make NumberOfParameters*2 parameters, where the last NumberOfParameters are duplicates
     public GameObject Player;
     public bool DrawDebugMenu = true;
@@ -52,7 +51,7 @@ public class ParameterGUIInterface : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("Creating 50 new params");
-            ParameterManager.Instance.MakeParameters(NumberOfParameters, false);
+            ParameterManager.Instance.MakeParameters(ParameterManager.Instance.NumberOfParameters, true);
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
@@ -63,6 +62,8 @@ public class ParameterGUIInterface : MonoBehaviour
                 ParameterManager.Instance.Index = 0;
 
             _player.ChangeParameters();
+
+            _player.Restart();
 
         }
         else if (Input.GetKeyDown(KeyCode.KeypadMinus))
@@ -192,6 +193,7 @@ public class ParameterGUIInterface : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.5f, 20, 180, 20), "State: " + _player._currentHorizontalMovementState, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + ParameterManager.Instance.Index + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "Stars: " + _player.StarsCollected + " / 10", DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "Stars: " + _player.StarsCollected + " / 3", DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "GameState: " + StateManager.Instance.MyGameState, DebugGUIStyle);
     }
 }

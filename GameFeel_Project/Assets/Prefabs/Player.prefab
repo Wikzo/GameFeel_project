@@ -30,6 +30,7 @@ GameObject:
   - 114: {fileID: 11450682}
   - 95: {fileID: 9550682}
   - 82: {fileID: 8258596}
+  - 96: {fileID: 9612278}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -161,6 +162,47 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!96 &9612278
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150682}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 2
+  m_StartWidth: 1
+  m_EndWidth: 1
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 16777215
+  m_MinVertexDistance: 9.99999975e-06
+  m_Autodestruct: 0
 --- !u!114 &11450682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,6 +272,7 @@ MonoBehaviour:
     m_Bits: 256
   _velocity: {x: 0, y: 0, z: 0}
   _currentHorizontalMovementState: 0
+  JumpSound: {fileID: 0}
   StarsCollected: 0
   StarPickupSounds:
   - {fileID: 8300000, guid: 072978cdc6cda9a49a209326dd003b37, type: 3}

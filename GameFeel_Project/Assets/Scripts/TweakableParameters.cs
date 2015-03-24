@@ -18,7 +18,7 @@ public class TweakableParameters
     static public Vector2 ReleaseTimeRange = new Vector2(0.001f, 3.1f);
     static public Vector2 AttackTimeRange = new Vector2(0.001f, 3.1f);
     static public Vector2 TurnAroundBoostPercentRange = new Vector2(0f, 200.1f);
-    static public Vector2 AnimationMaxSpeedRange = new Vector2(20f, 300f);
+    static public Vector2 AnimationMaxSpeedRange = new Vector2(50f, 150f);
 
 
     public TweakableParameters(float? gravity, float? jumpPower, bool? useAirFriction, float? airFrictionHorizontal,
@@ -93,8 +93,8 @@ public class TweakableParameters
     public Vector3 Gravity = new Vector3(0, -10f, 0);
     public float JumpPower = 15;
     public bool UseAirFriction = true;
-    public float AirFrictionHorizontalPercentage = 80f;
-    public float TerminalVelocity = -5f;
+    public float AirFrictionHorizontalPercentage = 90f;
+    public float TerminalVelocity = -20f;
     public float GhostJumpTime = 0.4f;
     public float MinimumJumpHeight = 0.5f;
     public float ReleaseEarlyJumpVelocity = 0.5f;
