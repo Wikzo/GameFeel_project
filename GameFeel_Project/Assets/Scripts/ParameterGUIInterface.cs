@@ -50,8 +50,8 @@ public class ParameterGUIInterface : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Creating 50 new params");
-            ParameterManager.Instance.MakeParameters(ParameterManager.Instance.NumberOfParameters, true);
+            Debug.Log("Creating " + ParameterManager.Instance.NumberOfParameters + " new paramaters");
+            ParameterManager.Instance.MakeParameters(ParameterManager.Instance.NumberOfParameters, false);
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
@@ -68,7 +68,7 @@ public class ParameterGUIInterface : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
-            if (ParameterManager.Instance.Index - 1 > 0)
+            if (ParameterManager.Instance.Index - 1 >= 0)
                 ParameterManager.Instance.Index--;
             else
                 ParameterManager.Instance.Index = ParameterManager.Instance.MyParameters.Count-1;
@@ -191,9 +191,8 @@ public class ParameterGUIInterface : MonoBehaviour
 
         GUI.Label(new Rect(Screen.width * 0.5f, 0, 180, 20), "Velocity: " + _player._velocity, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 20, 180, 20), "State: " + _player._currentHorizontalMovementState, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + ParameterManager.Instance.Index + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + (ParameterManager.Instance.Index+1) + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "Stars: " + _player.StarsCollected + " / 3", DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "GameState: " + StateManager.Instance.MyGameState, DebugGUIStyle);
     }
 }

@@ -15,8 +15,22 @@ public class TweakableParameters
     static public Vector2 ApexGravityMultiplierRange = new Vector2(1f, 15.1f);
     static public Vector2 MaxVelocityXRange = new Vector2(1, 20.1f);
     static public Vector2 GroundFrictionPercentageRange = new Vector2(0f, 99.1f);
+
     static public Vector2 ReleaseTimeRange = new Vector2(0.001f, 2.1f);
     static public Vector2 AttackTimeRange = new Vector2(0.001f, 2.1f);
+
+    static public Vector2[] AttackAndReleaseTimes = new[]
+    { 
+        // milliseconds
+        new Vector2(0.001f, 0.05f), // x2 y4
+        new Vector2(0.051f, 0.1f), // x3 y2
+        new Vector2(0.11f, 0.24f), // x1 y3
+        new Vector2(0.241f, 0.8f),  // x4 y5
+        new Vector2(0.81f, 2.1f),  // x5 y1
+    };
+
+
+
     static public Vector2 TurnAroundBoostPercentRange = new Vector2(0f, 200.1f);
     static public Vector2 AnimationMaxSpeedRange = new Vector2(50f, 150f);
 

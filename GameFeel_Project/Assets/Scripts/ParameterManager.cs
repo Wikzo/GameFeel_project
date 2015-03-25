@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -26,6 +27,10 @@ public class ParameterManager : MonoBehaviour
     public bool UseRandomAttackTime = true;
     public bool UseRandomTurnAroundBoost = true;
     public bool UseRandomAnimationMaxSpeed = false;
+
+    public int[] _releaseTimes;
+    public int[] _attackTimes;
+    private bool parametersCreated;
 
 
     private static ParameterManager _instance;
@@ -65,13 +70,32 @@ public class ParameterManager : MonoBehaviour
             MakeParameters();
     }
 
-    private bool parametersCreated;
     public void MakeParameters()
     {
         parametersCreated = true;
-        MakeParameters(NumberOfParameters, true);
+        MakeParameters(NumberOfParameters, false);
         //Debug.Log("making 5 default parameters");
 
+    }
+
+    void MakeRandomReleaseAttackTimesWithinSegments(int releaseRandomizer, int attackRandomizer)
+    {
+        int segments = TweakableParameters.AttackAndReleaseTimes.Count();
+
+        _releaseTimes = new int[segments];
+        for (int i = 0; i < segments; i++)
+            _releaseTimes[i] = i;
+
+        for (int i = 0; i < releaseRandomizer; i++)
+            Shuffle(_releaseTimes);
+
+        _attackTimes = new int[segments];
+
+        for (int i = 0; i < segments; i++)
+            _attackTimes[i] = i;
+
+        for (int i = 0; i < attackRandomizer; i++)
+            Shuffle(_attackTimes);
     }
 
     public void MakeParameters(int size, bool makeDuplicates)
@@ -79,13 +103,19 @@ public class ParameterManager : MonoBehaviour
         MyParameters = new List<TweakableParameters>(size);
         List<TweakableParameters> MyParametersDuplicates = new List<TweakableParameters>(size);
 
-        
-
-
         for (int i = 0; i < size; i++)
         {
             // Random.Range: min [inclusive], max [exclusive]
             // ? identifier makes it nullable
+
+            int releaseAttackIndexChooser = i % 5;
+
+            if (releaseAttackIndexChooser == 0)
+            {
+                int release = Random.Range(1, 10);
+                int attack = Random.Range(1, 5);
+                MakeRandomReleaseAttackTimesWithinSegments(release, attack);
+            }
 
             float tempGravity = Random.Range(TweakableParameters.GravityRange.x, TweakableParameters.GravityRange.y); // needs to be calculated internally for the terminal velocity to work!
             float? terminalVelocity = UseRandomTerminalVelocity ? Random.Range(tempGravity, TweakableParameters.GravityRange.y) : (float?)null;
@@ -100,8 +130,17 @@ public class ParameterManager : MonoBehaviour
             float? maxVelocityX = UseRandomMaxVelocity ? Random.Range(TweakableParameters.MaxVelocityXRange.x, TweakableParameters.MaxVelocityXRange.y) : (float?)null;
             bool? useGroundFriction = UseRandomGroundFriction ? true : (bool?)null;
             float? groundFriction = UseRandomGroundFriction ? Random.Range(TweakableParameters.GroundFrictionPercentageRange.x, TweakableParameters.GroundFrictionPercentageRange.y) : (float?)null;
-            float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.ReleaseTimeRange.x, TweakableParameters.ReleaseTimeRange.y) : (float?)null;
-            float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackTimeRange.x, TweakableParameters.AttackTimeRange.y) : (float?)null;
+            
+            // original --- completely random
+            //float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.ReleaseTimeRange.x, TweakableParameters.ReleaseTimeRange.y) : (float?)null;
+            //float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackTimeRange.x, TweakableParameters.AttackTimeRange.y) : (float?)null;
+
+            int releaseTimeIndex = _releaseTimes[releaseAttackIndexChooser];
+            int attackTimeIndex = _attackTimes[releaseAttackIndexChooser];
+
+            float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].y) : (float?)null;
+            float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].y) : (float?)null;
+
             float? turnAroundBoostPercent = UseRandomTurnAroundBoost ? Random.Range(TweakableParameters.TurnAroundBoostPercentRange.x, TweakableParameters.TurnAroundBoostPercentRange.y) : (float?)null;
             bool? useCurveForHorizontalAttackVelocity = true;
             bool? useCurveForHorizontalReleaseVelocity = true;
@@ -125,5 +164,19 @@ public class ParameterManager : MonoBehaviour
 
         if (makeDuplicates)
             MyParameters.AddRange(MyParametersDuplicates);
+    }
+
+    public static void Shuffle<T>(IList<T> list)
+    {
+        System.Random rng = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 }
