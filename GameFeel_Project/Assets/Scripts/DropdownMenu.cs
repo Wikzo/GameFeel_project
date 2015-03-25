@@ -9,11 +9,12 @@
 
 	private void Start()
 	{
-	    comboBoxList = new GUIContent[5];
-	    comboBoxList[0] = new GUIContent("Europe");
-	    comboBoxList[1] = new GUIContent("USA");
+	    comboBoxList = new GUIContent[6];
+        comboBoxList[0] = new GUIContent("Europe");
+	    comboBoxList[1] = new GUIContent("Americas");
 	    comboBoxList[2] = new GUIContent("Asia");
-	    comboBoxList[3] = new GUIContent("Middle East");
+	    comboBoxList[3] = new GUIContent("Oceania");
+	    comboBoxList[3] = new GUIContent("Africa");
 	    comboBoxList[4] = new GUIContent("Other");
 
 	    listStyle.normal.textColor = Color.white; 
@@ -25,13 +26,16 @@
 	    listStyle.padding.bottom = 4;
 	}
 
+
+     public Rect Position;
+     public Vector2 TextOffset;
 	private void OnGUI () 
 	{
 	    int selectedItemIndex = comboBoxControl.GetSelectedItemIndex();
-	    selectedItemIndex = comboBoxControl.List( 
-			new Rect(50, 100, 100, 20), comboBoxList[selectedItemIndex].text, comboBoxList, listStyle );
-          GUI.Label( new Rect(50, 70, 400, 21), 
-			"Please choose your region:");// " + comboBoxList[selectedItemIndex].text );
+	    selectedItemIndex = comboBoxControl.List(
+            Position, comboBoxList[selectedItemIndex].text, comboBoxList, listStyle);
+        GUI.Label(new Rect(Position.x + TextOffset.x, Position.y + TextOffset.y, Position.width, Position.height), 
+			"Your region:");// " + comboBoxList[selectedItemIndex].text );
 	}
  }
 
