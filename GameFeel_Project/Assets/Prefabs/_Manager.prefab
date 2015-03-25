@@ -61,8 +61,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   StarsIcons:
   - {fileID: 0}
   - {fileID: 0}
@@ -192,7 +190,7 @@ MonoBehaviour:
   UseRandomUseAirFriction: 0
   UseRandomAirFrictionHorizontal: 0
   UseRandomTerminalVelocity: 0
-  UseRandomGhostJumpTime: 1
+  UseRandomGhostJumpTime: 0
   UseRandomMinimumJumpHeight: 0
   UseRandomReleaseEarlyJumpVelocity: 0
   UseRandomApexGravityMultiplier: 0
@@ -202,6 +200,8 @@ MonoBehaviour:
   UseRandomAttackTime: 1
   UseRandomTurnAroundBoost: 0
   UseRandomAnimationMaxSpeed: 0
+  _releaseTimes: 
+  _attackTimes: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

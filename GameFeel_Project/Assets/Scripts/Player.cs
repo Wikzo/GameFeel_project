@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     private bool _jumpHitApex = false;
 
     private AudioSource _audioSource;
-    private Vector3 _startPosition;
+    public Vector3 StartPosition;
     public Vector3 CheckpointPosition;
 
     // collision detection via rays
@@ -103,8 +103,7 @@ public class Player : MonoBehaviour
         _animator = this.GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _trailRenderer = GetComponent<TrailRenderer>();
-
-        _startPosition = transform.position;
+        StartPosition = transform.position;
         CheckpointPosition = _transform.position;
     }
 
@@ -877,9 +876,9 @@ public class Player : MonoBehaviour
         _trailRenderer.time = 0;
         _deaths = 0;
         _velocity = Vector2.zero;
-        _transform.position = _startPosition;
+        _transform.position = StartPosition;
 
-        CheckpointPosition = _startPosition;
+        CheckpointPosition = StartPosition;
 
         StateManager.Instance.Restart();
 

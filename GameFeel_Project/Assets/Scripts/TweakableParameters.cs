@@ -22,11 +22,10 @@ public class TweakableParameters
     static public Vector2[] AttackAndReleaseTimes = new[]
     { 
         // milliseconds
-        new Vector2(0.001f, 0.05f), // x2 y4
-        new Vector2(0.051f, 0.1f), // x3 y2
-        new Vector2(0.11f, 0.24f), // x1 y3
-        new Vector2(0.241f, 0.8f),  // x4 y5
-        new Vector2(0.81f, 2.1f),  // x5 y1
+        new Vector2(0.001f, 0.1f),
+        new Vector2(0.011f, 0.24f),
+        new Vector2(0.241f, 1f),
+        new Vector2(1.1f, 3.1f),
     };
 
 

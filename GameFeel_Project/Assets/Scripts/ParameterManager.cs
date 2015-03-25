@@ -108,7 +108,7 @@ public class ParameterManager : MonoBehaviour
             // Random.Range: min [inclusive], max [exclusive]
             // ? identifier makes it nullable
 
-            int releaseAttackIndexChooser = i % 5;
+            int releaseAttackIndexChooser = i % TweakableParameters.AttackAndReleaseTimes.Count();
 
             if (releaseAttackIndexChooser == 0)
             {
@@ -168,6 +168,8 @@ public class ParameterManager : MonoBehaviour
 
     public static void Shuffle<T>(IList<T> list)
     {
+        // http://stackoverflow.com/questions/273313/randomize-a-listt-in-c-sharp
+
         System.Random rng = new System.Random();
         int n = list.Count;
         while (n > 1)
