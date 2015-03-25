@@ -1,0 +1,6 @@
+ART:
+- http://opengameart.org/content/platformer-art-deluxe
+- 3D Buzz
+
+MUSIC:
+- http://www.newgrounds.com/audio/listen/605694

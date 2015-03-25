@@ -76,7 +76,7 @@ public class StateManager : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (CollectedSoFar > CollectToWin-1)
         {

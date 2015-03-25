@@ -290,6 +290,7 @@ public class Player : MonoBehaviour
 
     void MovementStates()
     {
+        var deltaTime = Time.deltaTime;
 
         if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && NearlyEqual(_velocity.x, 0f))
         {
@@ -357,7 +358,7 @@ public class Player : MonoBehaviour
 
                         if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
-                            _currentAttackTime += Time.deltaTime;
+                            _currentAttackTime += deltaTime;
 
 
                             if (ChangedDirection())
@@ -387,7 +388,7 @@ public class Player : MonoBehaviour
                             _velocity.x = valueScaled;
                         }
                         else
-                            _velocity.x += _targetAcceleration * Time.deltaTime;
+                            _velocity.x += _targetAcceleration * deltaTime;
 
                         // begin sustain
                         if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
@@ -446,7 +447,7 @@ public class Player : MonoBehaviour
                         if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
 
-                            _currentAttackTime -= Time.deltaTime;
+                            _currentAttackTime -= deltaTime;
 
                             if (ChangedDirection())
                                 _currentAttackTime -= MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
@@ -478,7 +479,7 @@ public class Player : MonoBehaviour
                             _velocity.x = valueScaled;
                         }
                         else
-                            _velocity.x -= _targetAcceleration * Time.deltaTime;
+                            _velocity.x -= _targetAcceleration * deltaTime;
 
 
                         // begin sustain
@@ -528,12 +529,12 @@ public class Player : MonoBehaviour
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
                             if (_currentAttackTime >= 0)
-                                _currentAttackTime -= Time.deltaTime;
+                                _currentAttackTime -= deltaTime;
                             //else
                               //  _currentAttackTime = 0;
 
 
-                            _currentReleaseTime -= Time.deltaTime;
+                            _currentReleaseTime -= deltaTime;
                             float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
                             _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
                         }
@@ -584,12 +585,12 @@ public class Player : MonoBehaviour
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
                             if (_currentAttackTime <= 0)
-                                _currentAttackTime += Time.deltaTime;
+                                _currentAttackTime += deltaTime;
                             //else
                               //  _currentAttackTime = 0;
 
 
-                            _currentReleaseTime -= Time.deltaTime;
+                            _currentReleaseTime -= deltaTime;
                             float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
                             _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) *
                                           _targetDeacceleration;

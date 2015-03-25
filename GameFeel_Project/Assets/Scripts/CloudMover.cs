@@ -37,9 +37,9 @@ public class CloudMover : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
-        _transform.Translate(Vector3.right * _speed * Time.deltaTime);
+        _transform.Translate(Vector3.right * _speed * Time.fixedDeltaTime);
 
         if (transform.position.x > Max.x)
         {
