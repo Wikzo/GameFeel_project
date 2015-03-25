@@ -54,6 +54,12 @@ public class Player : MonoBehaviour
     private int _currentDirection = 0;
     private int _previousDirection = 0;
     private bool _isFacingRight = true;
+
+    public bool IsFacingRight
+    {
+        get { return _isFacingRight; }
+    }
+
     //private FreezeFrames _freezeFrames;
 
     // behind-the-scenes state data
@@ -285,7 +291,7 @@ public class Player : MonoBehaviour
         //transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.y);
         BallGraphic.localScale = new Vector3(-BallGraphic.localScale.x, BallGraphic.localScale.y, BallGraphic.localScale.y);
 
-        _isFacingRight = transform.localScale.x > 0;
+        _isFacingRight = BallGraphic.transform.localScale.x > 0;
     }
 
     void MovementStates()

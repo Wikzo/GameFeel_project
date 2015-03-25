@@ -14,6 +14,7 @@ public class FPS : MonoBehaviour
     // by accumulating FPS for each frame. This way we end up with
     // correct overall FPS even if the interval renders something like
     // 5.5 frames.
+    // http://wiki.unity3d.com/index.php?title=FramesPerSecond
 
     public ParameterGUIInterface GUI;
     public bool OnlyShowInDebug = true;
