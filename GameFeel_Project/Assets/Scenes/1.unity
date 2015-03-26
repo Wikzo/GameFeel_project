@@ -38993,6 +38993,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   KillFloor: {fileID: 413318035}
+  _currentAttackTime: 0
+  _currentReleaseTime: 0
+  _targetDeacceleration: 0
   _velocity: {x: 0, y: 0, z: 0}
   _currentHorizontalMovementState: 0
   StartPosition: {x: 0, y: 0, z: 0}

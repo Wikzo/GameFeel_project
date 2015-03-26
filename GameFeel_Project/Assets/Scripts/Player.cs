@@ -43,16 +43,14 @@ public class Player : MonoBehaviour
     private TrailRenderer _trailRenderer;
 
     // acceleration/deacceleration (attack/release)
-    private float _currentAttackTime = 0;
-    private float _currentReleaseTime = 0;
-    private float _targetDeacceleration = 0;
-    private float _maxAcceleration, _currentAcceleration, _targetAcceleration = 0;
+    public float _currentAttackTime = 0;
+    public float _currentReleaseTime = 0;
+    public float _targetDeacceleration = 0;
 
     // animation stuff
     private Animator _animator;
     private float _animationPlaybackSpeed = 1f;
     private int _currentDirection = 0;
-    private int _previousDirection = 0;
     private bool _isFacingRight = true;
 
     public bool IsFacingRight
@@ -310,18 +308,6 @@ public class Player : MonoBehaviour
         }
 
 
-        if (NearlyEqual(_velocity.y, 0f))
-            _velocity.y = 0;
-
-
-
-        // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
-        // Given _maxDeacceleration, _currentDeacceleration and ReleaseTime calculate _targetDeacceleration
-        // Given velocity, initial velocity and time calculate the acceleration.
-        // _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime
-
-
-
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
         {
 
@@ -345,26 +331,9 @@ public class Player : MonoBehaviour
 
                         _currentHorizontalMovementState = HorizontalMovementState.AttackingRight;
 
-
-                        //if (ChangedDirection())
-                        //  _currentAttackTime += 2 * NormalizationMap(TurnAroundBoostPercent, 0, 1, 0, AttackTime);
-
-
-                        if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill
-                            || _previousHorizontalMovementState == HorizontalMovementState.ReleaseRight)
-                        {
-                            _currentAcceleration = _velocity.x;
-                            _maxAcceleration = MyTweakableParameters.MaxVelocityX;
-                            _targetAcceleration = (_maxAcceleration - _currentAcceleration) / MyTweakableParameters.AttackTime;
-
-
-
-                        }
-
                         if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
                             _currentAttackTime += deltaTime;
-
 
                             if (ChangedDirection())
                                 _currentAttackTime += MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
@@ -386,14 +355,10 @@ public class Player : MonoBehaviour
                                     HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
                                 valueScaled = valueOriginal * MyTweakableParameters.MaxVelocityX;
-                                // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
                             }
-                            //Debug.Log("right time: " + _currentAttackTime + "; value: " + valueScaled);
 
                             _velocity.x = valueScaled;
                         }
-                        else
-                            _velocity.x += _targetAcceleration * deltaTime;
 
                         // begin sustain
                         if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
@@ -408,6 +373,7 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.SustainRight:
                     {
                         _velocity.x = MyTweakableParameters.MaxVelocityX;
+                        _currentAttackTime = MyTweakableParameters.AttackTime;
                         break;
                     }
             }
@@ -415,6 +381,7 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // left key DOWN
         {
             _currentDirection = -1;
+
             if (_isFacingRight)
                 Flip();
 
@@ -432,22 +399,6 @@ public class Player : MonoBehaviour
                     {
 
                         _currentHorizontalMovementState = HorizontalMovementState.AttackingLeft;
-
-
-                        //if (ChangedDirection())
-                        //  _currentAttackTime -= 2*NormalizationMap(TurnAroundBoostPercent, 0, 1, 0, AttackTime);
-
-
-
-                        if (_previousHorizontalMovementState == HorizontalMovementState.StandingStill
-                            || _previousHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
-                        {
-                            _currentAcceleration = _velocity.x;
-                            _maxAcceleration = MyTweakableParameters.MaxVelocityX;
-                            _targetAcceleration = (_maxAcceleration - _currentAcceleration) / MyTweakableParameters.AttackTime;
-
-                        }
-
 
                         if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
@@ -476,15 +427,12 @@ public class Player : MonoBehaviour
                                     HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
 
                                 valueScaled = valueOriginal * -MyTweakableParameters.MaxVelocityX;
-                                // = NormalizationMap(valueOriginal, 0, 1, -MaxVelocityX, MaxVelocityX);
                             }
                             //Debug.Log("left time: " + _currentAttackTime + "; value: " + valueScaled);
 
 
                             _velocity.x = valueScaled;
                         }
-                        else
-                            _velocity.x -= _targetAcceleration * deltaTime;
 
 
                         // begin sustain
@@ -500,6 +448,8 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.SustainLeft:
                     {
                         _velocity.x = -MyTweakableParameters.MaxVelocityX;
+                        _currentAttackTime = -MyTweakableParameters.AttackTime;
+
                         break;
                     }
             }
@@ -513,12 +463,6 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.AttackingRight:
                 case HorizontalMovementState.SustainRight:
                     {
-                        /*_currentAttackTime = 0;
-
-                        _maxDeacceleration = 0;
-                        _currentDeacceleration = _velocity.x;
-                        _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime;*/
-
                         _currentHorizontalMovementState = HorizontalMovementState.ReleaseRight;
 
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
@@ -531,31 +475,25 @@ public class Player : MonoBehaviour
 
                 case HorizontalMovementState.ReleaseRight:
                     {
+
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
                             if (_currentAttackTime >= 0)
                                 _currentAttackTime -= deltaTime;
-                            //else
-                              //  _currentAttackTime = 0;
-
 
                             _currentReleaseTime -= deltaTime;
                             float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
-                            _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
+                            
+                            // cap
+                            if (currentReleaseTimeNormalized >= 1f)
+                                currentReleaseTimeNormalized = 1;
+                            else if (currentReleaseTimeNormalized < 0f)
+                                currentReleaseTimeNormalized = 0f;
+
+                            float decceleration = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
+                            
+                            _velocity.x = decceleration;
                         }
-
-                        // dont use this anymore
-                        /*
-                        if (_velocity.x <= 0)
-                        {
-                            _velocity.x = 0;
-                            _currentAttackTime = NormalizationMap(0, -MyTweakableParameters.AttackTime, MyTweakableParameters.AttackTime, 0, 1);
-                            _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
-
-                            _currentDirection = 0;
-
-                        }
-                         * */
 
                         break;
                     }
@@ -569,11 +507,6 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.AttackingLeft:
                 case HorizontalMovementState.SustainLeft:
                     {
-                        /*_currentAttackTime = 0;
-
-                        _maxDeacceleration = 0;
-                        _currentDeacceleration = _velocity.x;
-                        _targetDeacceleration = (_maxDeacceleration - _currentDeacceleration)/ReleaseTime;*/
 
                         _currentHorizontalMovementState = HorizontalMovementState.ReleaseLeft;
 
@@ -591,28 +524,21 @@ public class Player : MonoBehaviour
                         {
                             if (_currentAttackTime <= 0)
                                 _currentAttackTime += deltaTime;
-                            //else
-                              //  _currentAttackTime = 0;
 
 
                             _currentReleaseTime -= deltaTime;
                             float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
-                            _velocity.x = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) *
-                                          _targetDeacceleration;
+
+                            // cap
+                            if (currentReleaseTimeNormalized >= 1f)
+                                currentReleaseTimeNormalized = 1;
+                            else if (currentReleaseTimeNormalized < 0f)
+                                currentReleaseTimeNormalized = 0f;
+
+                            float decceleration = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
+
+                            _velocity.x = decceleration;
                         }
-
-                        // dont use this anymore
-                        /*
-                        if (_velocity.x >= 0)
-                        {
-                            _velocity.x = 0;
-                            _currentAttackTime = NormalizationMap(0, -MyTweakableParameters.AttackTime, MyTweakableParameters.AttackTime, 0, 1);
-                            _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
-
-                            _currentDirection = 0;
-                        }
-                         * */
-
 
                         break;
                     }
@@ -620,7 +546,6 @@ public class Player : MonoBehaviour
         }
 
         _previousHorizontalMovementState = _currentHorizontalMovementState;
-        _previousDirection = _currentDirection;
 
     }
 
