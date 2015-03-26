@@ -299,19 +299,23 @@ public class Player : MonoBehaviour
         {
             _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
             _currentReleaseTime = 0;
-
-            _currentAttackTime = 0;//NormalizationMap(0, -AttackTime, AttackTime, -1, 1);
-
+            _currentAttackTime = 0;
             _velocity.x = 0;
-
-            //Debug.Log("Reset speed");
+            _currentDirection = 0;
         }
+
+        if (_velocity.x > 0f)
+            _currentDirection = 1;
+        else if (_velocity.x < 0f)
+            _currentDirection = -1;
+        else if (_velocity.x == 0f)
+            _currentDirection = 0;
 
 
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
         {
-
-            _currentDirection = 1;
+            if (_velocity.x > 0)
+                _currentDirection = 1;
 
             if (!_isFacingRight)
                 Flip();
@@ -380,7 +384,11 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // left key DOWN
         {
-            _currentDirection = -1;
+            return;
+            // TODO: fix "sudden stop" here!!
+
+            if (_velocity.x < 0)
+                _currentDirection = -1;
 
             if (_isFacingRight)
                 Flip();
@@ -457,18 +465,29 @@ public class Player : MonoBehaviour
 
         if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && _currentDirection == 1) // right key UP
         {
+            
+
             switch (_currentHorizontalMovementState)
             {
                 // begin release right
                 case HorizontalMovementState.AttackingRight:
                 case HorizontalMovementState.SustainRight:
                     {
+
+                        
+
                         _currentHorizontalMovementState = HorizontalMovementState.ReleaseRight;
 
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
+                            if (_previousHorizontalMovementState == HorizontalMovementState.AttackingLeft ||
+                                _previousHorizontalMovementState == HorizontalMovementState.SustainLeft)
+                                break;
+
                             _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                             _targetDeacceleration = _velocity.x;
+
+                            //Debug.Log("new releaseRight target: " + _targetDeacceleration);
                         }
                         break;
                     }
@@ -478,6 +497,8 @@ public class Player : MonoBehaviour
 
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
+                            //Debug.Log("right: " + _targetDeacceleration);
+
                             if (_currentAttackTime >= 0)
                                 _currentAttackTime -= deltaTime;
 
@@ -501,6 +522,10 @@ public class Player : MonoBehaviour
         }
         else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && _currentDirection == -1) // left key UP
         {
+
+            Debug.Log("direction: " + _currentDirection);
+            
+
             switch (_currentHorizontalMovementState)
             {
                 // begin release left
@@ -512,8 +537,16 @@ public class Player : MonoBehaviour
 
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
+
+                            if (_previousHorizontalMovementState == HorizontalMovementState.AttackingRight ||
+                                _previousHorizontalMovementState == HorizontalMovementState.SustainRight)
+                                break;
+
                             _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                             _targetDeacceleration = _velocity.x;
+
+                           // Debug.Log("new releaseRight target: " + _targetDeacceleration);
+
                         }
                         break;
                     }
@@ -522,6 +555,7 @@ public class Player : MonoBehaviour
                     {
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
+
                             if (_currentAttackTime <= 0)
                                 _currentAttackTime += deltaTime;
 
@@ -544,6 +578,13 @@ public class Player : MonoBehaviour
                     }
             }
         }
+
+        if (_velocity.x > 0f)
+            _currentDirection = 1;
+        else if (_velocity.x < 0f)
+            _currentDirection = -1;
+        else if (_velocity.x == 0f)
+            _currentDirection = 0;
 
         _previousHorizontalMovementState = _currentHorizontalMovementState;
 
