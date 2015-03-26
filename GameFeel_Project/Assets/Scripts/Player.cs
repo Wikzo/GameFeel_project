@@ -384,15 +384,14 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // left key DOWN
         {
-            return;
             // TODO: fix "sudden stop" here!!
-
             if (_velocity.x < 0)
                 _currentDirection = -1;
 
             if (_isFacingRight)
                 Flip();
 
+            // THIS ???
             _currentReleaseTime = 0;
 
             switch (_currentHorizontalMovementState)
@@ -472,6 +471,8 @@ public class Player : MonoBehaviour
                 // begin release right
                 case HorizontalMovementState.AttackingRight:
                 case HorizontalMovementState.SustainRight:
+                case HorizontalMovementState.AttackingLeft:
+                case HorizontalMovementState.SustainLeft:
                     {
 
                         
@@ -531,6 +532,8 @@ public class Player : MonoBehaviour
                 // begin release left
                 case HorizontalMovementState.AttackingLeft:
                 case HorizontalMovementState.SustainLeft:
+                case HorizontalMovementState.AttackingRight:
+                case HorizontalMovementState.SustainRight:
                     {
 
                         _currentHorizontalMovementState = HorizontalMovementState.ReleaseLeft;
