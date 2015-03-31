@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     // animation stuff
     private Animator _animator;
     private float _animationPlaybackSpeed = 1f;
-    private int _currentDirection = 0;
+    public int _currentDirection = 0;
     private bool _isFacingRight = true;
 
     public bool IsFacingRight
@@ -304,23 +304,32 @@ public class Player : MonoBehaviour
             _currentDirection = 0;
         }
 
-        if (_velocity.x > 0f)
-            _currentDirection = 1;
-        else if (_velocity.x < 0f)
-            _currentDirection = -1;
-        else if (_velocity.x == 0f)
-            _currentDirection = 0;
-
 
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
         {
-            if (_velocity.x > 0)
+            //if (_velocity.x > 0)
                 _currentDirection = 1;
 
             if (!_isFacingRight)
                 Flip();
 
-            _currentReleaseTime = 0;
+            // THIS???
+            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingRight && _currentHorizontalMovementState != HorizontalMovementState.SustainRight)
+
+            {
+                _currentReleaseTime = 0;
+                Debug.Log("Reset current release time to 0");
+
+            }
+            else
+            {
+                if (_currentReleaseTime < MyTweakableParameters.ReleaseTime)
+                    _currentReleaseTime += deltaTime;
+                else
+                    _currentReleaseTime = MyTweakableParameters.ReleaseTime;
+            }
+
+
 
             switch (_currentHorizontalMovementState)
             {
@@ -332,12 +341,14 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.SustainLeft:
                 case HorizontalMovementState.ReleaseLeft:
                     {
-
                         _currentHorizontalMovementState = HorizontalMovementState.AttackingRight;
 
                         if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
                         {
                             _currentAttackTime += deltaTime;
+
+                            // PROBLEM WITH "ANTI-TURNING": since velocity is set directly, there needs to be
+                            // enough time elapsed for it to go from + (right) to - (left)
 
                             if (ChangedDirection())
                                 _currentAttackTime += MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
@@ -362,6 +373,8 @@ public class Player : MonoBehaviour
                             }
 
                             _velocity.x = valueScaled;
+
+                            
                         }
 
                         // begin sustain
@@ -385,14 +398,27 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // left key DOWN
         {
             // TODO: fix "sudden stop" here!!
-            if (_velocity.x < 0)
+            //if (_velocity.x < 0)
                 _currentDirection = -1;
 
             if (_isFacingRight)
                 Flip();
 
-            // THIS ???
-            _currentReleaseTime = 0;
+            // THIS???
+            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingLeft && _currentHorizontalMovementState != HorizontalMovementState.SustainLeft)
+            {
+                _currentReleaseTime = 0;
+                Debug.Log("Reset current release time to 0");
+
+            }
+            else
+            {
+                if (_currentReleaseTime < MyTweakableParameters.ReleaseTime)
+                    _currentReleaseTime += deltaTime;
+                else
+                    _currentReleaseTime = MyTweakableParameters.ReleaseTime;
+            }
+
 
             switch (_currentHorizontalMovementState)
             {
@@ -404,6 +430,8 @@ public class Player : MonoBehaviour
                 case HorizontalMovementState.SustainRight:
                 case HorizontalMovementState.ReleaseRight:
                     {
+
+                        
 
                         _currentHorizontalMovementState = HorizontalMovementState.AttackingLeft;
 
@@ -464,8 +492,8 @@ public class Player : MonoBehaviour
 
         if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && _currentDirection == 1) // right key UP
         {
-            
 
+            return;
             switch (_currentHorizontalMovementState)
             {
                 // begin release right
@@ -488,6 +516,11 @@ public class Player : MonoBehaviour
                             _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                             _targetDeacceleration = _velocity.x;
 
+                            if (_currentAttackTime > 0)
+                                _currentAttackTime -= deltaTime;
+                            else
+                                _currentAttackTime = 0;
+
                             //Debug.Log("new releaseRight target: " + _targetDeacceleration);
                         }
                         break;
@@ -500,8 +533,10 @@ public class Player : MonoBehaviour
                         {
                             //Debug.Log("right: " + _targetDeacceleration);
 
-                            if (_currentAttackTime >= 0)
+                            if (_currentAttackTime > 0)
                                 _currentAttackTime -= deltaTime;
+                            else
+                                _currentAttackTime = 0;
 
                             _currentReleaseTime -= deltaTime;
                             float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
@@ -524,8 +559,7 @@ public class Player : MonoBehaviour
         else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && _currentDirection == -1) // left key UP
         {
 
-            Debug.Log("direction: " + _currentDirection);
-            
+            return;
 
             switch (_currentHorizontalMovementState)
             {
@@ -548,6 +582,11 @@ public class Player : MonoBehaviour
                             _currentReleaseTime = MyTweakableParameters.ReleaseTime;
                             _targetDeacceleration = _velocity.x;
 
+                            if (_currentAttackTime < 0)
+                                _currentAttackTime += deltaTime;
+                            else
+                                _currentAttackTime = 0;
+
                            // Debug.Log("new releaseRight target: " + _targetDeacceleration);
 
                         }
@@ -559,8 +598,10 @@ public class Player : MonoBehaviour
                         if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
                         {
 
-                            if (_currentAttackTime <= 0)
+                            if (_currentAttackTime < 0)
                                 _currentAttackTime += deltaTime;
+                            else
+                                _currentAttackTime = 0;
 
 
                             _currentReleaseTime -= deltaTime;

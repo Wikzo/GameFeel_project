@@ -13800,6 +13800,22 @@ Prefab:
       propertyPath: KillFloor
       value: 
       objectReference: {fileID: 413318035}
+    - target: {fileID: 11437632, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
+      propertyPath: MyTweakableParameters.UseCurveForHorizontalReleaseVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437632, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
+      propertyPath: UseRandomValuesAtStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437632, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
+      propertyPath: MyTweakableParameters.ReleaseTime
+      value: .899999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437632, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
+      propertyPath: MyTweakableParameters.AttackTime
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
   m_RootGameObject: {fileID: 860285211}
@@ -38936,7 +38952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ac5761728a13a42864c4a7e93c90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseRandomValuesAtStart: 1
+  UseRandomValuesAtStart: 0
   BallGraphic: {fileID: 426914367}
   MyTweakableParameters:
     Gravity: {x: 0, y: -10, z: 0}
@@ -38951,8 +38967,8 @@ MonoBehaviour:
     MaxVelocityX: 15
     UseGroundFriction: 1
     GroundFrictionPercentage: 50
-    ReleaseTime: .600000024
-    AttackTime: .600000024
+    ReleaseTime: .899999976
+    AttackTime: 1.5
     TurnAroundBoostPercent: 80
     UseCurveForHorizontalAttackVelocity: 1
     UseCurveForHorizontalReleaseVelocity: 1
@@ -38996,6 +39012,7 @@ MonoBehaviour:
   _currentAttackTime: 0
   _currentReleaseTime: 0
   _targetDeacceleration: 0
+  _currentDirection: 0
   _velocity: {x: 0, y: 0, z: 0}
   _currentHorizontalMovementState: 0
   StartPosition: {x: 0, y: 0, z: 0}
@@ -79059,7 +79076,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803587632}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: e33fe4da608307d408551269831e3e56, type: 3}
   m_PlayOnAwake: 1
@@ -88589,7 +88606,7 @@ MonoBehaviour:
   UseRandomReleaseTime: 1
   UseRandomAttackTime: 1
   UseRandomTurnAroundBoost: 0
-  UseRandomAnimationMaxSpeed: 1
+  UseRandomAnimationMaxSpeed: 0
   _releaseTimes: 
   _attackTimes: 
 --- !u!4 &1985394680
@@ -93931,7 +93948,7 @@ Prefab:
       objectReference: {fileID: 988588227}
     - target: {fileID: 11453012, guid: acf66b7299b8f9245b08985fa20c13cf, type: 2}
       propertyPath: UseRandomAnimationMaxSpeed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11453004, guid: acf66b7299b8f9245b08985fa20c13cf, type: 2}
       propertyPath: Checkpoints.Array.data[5]
