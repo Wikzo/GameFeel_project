@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
-{
-    Intro,
-    Questionnaire,
-    Playing,
-    Won
-}
+
 
 public class StateManager : MonoBehaviour
 {
@@ -22,7 +16,8 @@ public class StateManager : MonoBehaviour
     public int CollectedSoFar = 0;
     public int CollectToWin = 3;
 
-    public GameState MyGameState;
+    public float TimeSpentOnLevel;
+    public int DeathsOnThisLevel;
 
     void Start()
     {
@@ -31,7 +26,12 @@ public class StateManager : MonoBehaviour
 
     public void Restart()
     {
-        MyGameState = GameState.Playing;
+        TimeSpentOnLevel = 0;
+        DeathsOnThisLevel = 0;
+        totalTime = 0;
+        totalFrames = 0;
+        Demographics.Instance.MyGameState = GameState.Playing;
+
 
         foreach (Star s in StarsSegment1)
         {
@@ -80,8 +80,31 @@ public class StateManager : MonoBehaviour
     {
         if (CollectedSoFar > CollectToWin-1)
         {
-            MyGameState = GameState.Won;
+            Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
+            return;
         }
+
+        TimeSpentOnLevel += Time.fixedDeltaTime;
+
+    }
+
+    public string AverageFps
+    {
+        get { return string.Format("&FPS={0}", (totalTime / totalFrames).ToString("0.00")); }
+    }
+
+    private float totalTime;
+    private float totalFrames;
+
+    void Update()
+    {
+        CountAverageFPS();
+    }
+
+    public void CountAverageFPS()
+    {
+        totalTime += Time.timeScale / Time.deltaTime;
+        ++totalFrames;
     }
 
     private static StateManager _instance;

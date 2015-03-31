@@ -292,7 +292,7 @@ public class Player : MonoBehaviour
 
         _isFacingRight = BallGraphic.transform.localScale.x > 0;
 
-        Debug.Log("flip");
+        //Debug.Log("flip");
         _velocity.x *= 100000;
 
     }
@@ -456,7 +456,7 @@ public class Player : MonoBehaviour
 
                 if (stop) // standing still
                 {
-                    Debug.Log("release stop");
+                    //Debug.Log("release stop");
                     _velocity.x = 0;
                     _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
                 }
@@ -708,9 +708,8 @@ public class Player : MonoBehaviour
     {
         _trailRenderer.time = 0;
 
-        _deaths++;
+        StateManager.Instance.DeathsOnThisLevel++;
 
-        MyTweakableParameters.Deaths = _deaths;
         _velocity = Vector2.zero;
         _transform.position = CheckpointPosition;
 
@@ -723,7 +722,6 @@ public class Player : MonoBehaviour
     public void Restart()
     {
         _trailRenderer.time = 0;
-        _deaths = 0;
         _velocity = Vector2.zero;
         _transform.position = StartPosition;
 

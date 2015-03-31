@@ -38,6 +38,8 @@ public class ParameterGUIInterface : MonoBehaviour
             Debug.Log("Error - ParameterGUIInterface needs link to PostDataOnline script!");
 
         _parameters = _player.MyTweakableParameters;
+
+        
     }
 
     void Update()
@@ -90,6 +92,8 @@ public class ParameterGUIInterface : MonoBehaviour
         }
     }
 
+    
+
     void OnGUI()
     {
         // send data
@@ -98,7 +102,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.15f), 130, 20), "Send data"))
         {
-            _myPostDataOnline.PostData(Demographics.Instance.name.ToString(), Demographics.Instance.ToStringDatabaseFormat(), _player.MyTweakableParameters.MyRating.ToStringDatabaseFormat(), _player.MyTweakableParameters.ToStringDatabaseFormat());
+            _myPostDataOnline.PostData(Demographics.Instance.YourName, Demographics.Instance.ToStringDatabaseFormat(), _player.MyTweakableParameters.MyRating.ToStringDatabaseFormat(), _player.MyTweakableParameters.ToStringDatabaseFormat(), StateManager.Instance.AverageFps);
         }
 
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.08f), 130, 20), "View data"))
@@ -190,7 +194,7 @@ public class ParameterGUIInterface : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.5f, 20, 180, 20), "State: " + _player._currentHorizontalMovementState, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + (ParameterManager.Instance.Index+1) + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "GameState: " + StateManager.Instance.MyGameState, DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "GameState: " + Demographics.Instance.MyGameState, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "Grounded: " + _player._collisionState.IsGrounded, DebugGUIStyle);
 
     }

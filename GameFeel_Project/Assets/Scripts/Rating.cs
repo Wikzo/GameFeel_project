@@ -6,7 +6,7 @@ public class Rating
 
     static readonly string[] scale = new string[] { "1\n(none)", "2", "3", "4", "5","6","7\n(a lot)" };
 
-    public string Description = "*description*";
+    public string Description = "*write a description here*";
     public int Confidence = 5;
     public int HowXIsThis = 2;
     public int HowMuchILikedThis = 6;

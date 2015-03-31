@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum GameState
+{
+    IntroDemographics,
+    MidQuestionnaire,
+    Playing,
+    Won
+}
+
 public class Demographics : MonoBehaviour
 {
-    public string name = "";
+    public GameState MyGameState;
+
+    public string YourName = "";
     public string gender = "";
     public string age = "";
     public string country = "";
@@ -52,6 +62,8 @@ public class Demographics : MonoBehaviour
     void Start()
     {
         id = SystemInfo.deviceUniqueIdentifier;
+
+        MyGameState = GameState.IntroDemographics;
     }
 
     void OnGUI()
@@ -62,7 +74,7 @@ public class Demographics : MonoBehaviour
         GUILayout.BeginArea(new Rect(0,0, Screen.width*0.7f, Screen.height));
 
         GUILayout.Label("Your name:");
-        name = GUILayout.TextField(name);
+        YourName = GUILayout.TextField(YourName);
 
         GUILayout.Label("Your gender:");
         gender = GUILayout.TextField(gender);
@@ -82,6 +94,8 @@ public class Demographics : MonoBehaviour
         if (GUILayout.Button("Click To Begin"))
         {
             showDemographics = false;
+            MyGameState = GameState.Playing;
+
             Application.LoadLevel("1");
         }
 

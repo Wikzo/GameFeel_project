@@ -40,9 +40,9 @@ public class PostDataOnline : MonoBehaviour
         GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height / 2, 500, 300), loadedString);
     }*/
 
-    public void PostData(string name, string demographics, string rating, string parametersWithSeperators)
+    public void PostData(string name, string demographics, string rating, string parametersWithSeperators, string fps)
     {
-        StartCoroutine(PostScores(name, demographics, rating, parametersWithSeperators));
+        StartCoroutine(PostScores(name, demographics, rating, parametersWithSeperators, fps));
     }
 
     IEnumerator PostScores(string name, int score)
@@ -67,7 +67,7 @@ public class PostDataOnline : MonoBehaviour
     }
 
     // remember to use StartCoroutine when calling this function!
-    IEnumerator PostScores(string name, string demographics, string rating, string parametersWithSeperators)
+    IEnumerator PostScores(string name, string demographics, string rating, string parametersWithSeperators, string fps)
     {
         //This connects to a server side php script that will add the name and score to a MySQL DB.
         // Supply it with a string representing the players name and the players score.
@@ -76,9 +76,11 @@ public class PostDataOnline : MonoBehaviour
 
         //string post_url = addScoreURL + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
 
-        string post_url = addScoreURL + "Name=" + WWW.EscapeURL(name) + demographics + rating + parametersWithSeperators + "&hash=" + hash;
-        
-        Debug.Log(post_url);
+        string post_url = addScoreURL + "Name=" + WWW.EscapeURL(name) + demographics + rating + parametersWithSeperators + fps + "&hash=" + hash;
+
+        string urlWithoutSpaces = post_url.Replace(" ", "+");
+
+        Debug.Log(urlWithoutSpaces);
 
         //Debug.Log(post_url);
         
@@ -103,7 +105,7 @@ public class PostDataOnline : MonoBehaviour
             + "&hash=" + hash;*/
 
         // Post the URL to the site and create a download object to get the result.
-        WWW hs_post = new WWW(post_url);
+        WWW hs_post = new WWW(urlWithoutSpaces);
         yield return hs_post; // Wait until the download is done
 
         if (hs_post.error != null)

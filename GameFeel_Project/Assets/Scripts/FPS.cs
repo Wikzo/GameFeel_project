@@ -38,7 +38,6 @@ public class FPS : MonoBehaviour
 
     void Update()
     {
-
         if (!GUI.DrawDebugMenu && OnlyShowInDebug)
         {
             guiText.enabled = false;

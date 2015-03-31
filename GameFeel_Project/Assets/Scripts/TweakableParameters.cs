@@ -163,11 +163,10 @@ public class TweakableParameters
         return lines;
     }
 
-    // TODO: remember to remove ground friction (and more)
     public string ToStringDatabaseFormat()
     {
         this.MyRating.Description = "fesen";
-            return string.Format("&Gravity={0}&JumpPower={1}&AirFrictionHorizontalPercentage={2}&TerminalVelocity={3}&GhostJumpTime={4}&MinimumJumpHeight={5}&ReleaseEarlyJumpVelocity={6}&ApexGravityMultiplier={7}&MaxVelocityX={8}&ReleaseTime={9}&AttackTime={10}&AnimationMaxSpeed={11}&Level={12}&Deaths={13}&TimeSpentOnlevel={14}",
+            return string.Format("&Gravity={0}&JumpPower={1}&AirFrictionHorizontalPercentage={2}&TerminalVelocity={3}&GhostJumpTime={4}&MinimumJumpHeight={5}&ReleaseEarlyJumpVelocity={6}&ApexGravityMultiplier={7}&MaxVelocityX={8}&ReleaseTime={9}&AttackTime={10}&AnimationMaxSpeed={11}&Level={12}&Deaths={13}&TimeSpentOnLevel={14}",
                 Gravity.y,
                 JumpPower,
                 AirFrictionHorizontalPercentage,
@@ -180,9 +179,9 @@ public class TweakableParameters
                 ReleaseTime,
                 AttackTime,
                 AnimationMaxSpeed,
-                Level,
-                Deaths,
-                TimeSpentOnLevel);
+                ParameterManager.Instance.Index,
+                StateManager.Instance.DeathsOnThisLevel,
+                StateManager.Instance.TimeSpentOnLevel);
     }
 
 
