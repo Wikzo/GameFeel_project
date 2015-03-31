@@ -7,9 +7,10 @@ public class Demographics : MonoBehaviour
     public string gender = "";
     public string age = "";
     public string country = "";
-
+    public string id = "";
     public int experienceGames = 0;
     public int experiencePlatformers = 0;
+
     static readonly string[] scale = new string[] { "1\n(none)", "2", "3", "4", "5","6","7\n(a lot)" };
 
     private bool showDemographics = true;
@@ -48,6 +49,11 @@ public class Demographics : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        id = SystemInfo.deviceUniqueIdentifier;
+    }
+
     void OnGUI()
     {
         if (!showDemographics)
@@ -81,6 +87,21 @@ public class Demographics : MonoBehaviour
 
 
         GUILayout.EndArea();
+    }
+
+    public string ToStringDatabaseFormat()
+    {
+        return
+            string.Format(
+                "&Gender={0}&Age={1}&Country={2}&GUID={3}&ExperienceGames={4}&ExperiencePlatformers={5}",
+                gender,
+                age,
+                country,
+                id,
+                experienceGames,
+                experiencePlatformers);
+
+
     }
 
 }

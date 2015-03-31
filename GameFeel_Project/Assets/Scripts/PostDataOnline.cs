@@ -16,9 +16,6 @@ public class PostDataOnline : MonoBehaviour
     {
         //StartCoroutine(GetScores());
     }
-    string name = "Name";
-    string scoreText = "5";
-    int score = 0;
 
     private string loadedString = "loadedString";
 
@@ -43,13 +40,9 @@ public class PostDataOnline : MonoBehaviour
         GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height / 2, 500, 300), loadedString);
     }*/
 
-    public void PostData(string name, string feeling, string parametersWithoutSeperators, string parametersWithSeperators)
+    public void PostData(string name, string demographics, string rating, string parametersWithSeperators)
     {
-        StartCoroutine(PostScores(name, feeling, parametersWithoutSeperators, parametersWithSeperators));
-
-        //StartCoroutine(PostScores("mja", 2));
-
-
+        StartCoroutine(PostScores(name, demographics, rating, parametersWithSeperators));
     }
 
     IEnumerator PostScores(string name, int score)
@@ -74,17 +67,19 @@ public class PostDataOnline : MonoBehaviour
     }
 
     // remember to use StartCoroutine when calling this function!
-    IEnumerator PostScores(string name, string feeling, string parametersWithoutSeperators, string parametersWithSeperators)
+    IEnumerator PostScores(string name, string demographics, string rating, string parametersWithSeperators)
     {
         //This connects to a server side php script that will add the name and score to a MySQL DB.
         // Supply it with a string representing the players name and the players score.
-        string hash = MD5Test.Md5Sum(name + feeling  + secretKey);
+        string hash = MD5Test.Md5Sum(name + secretKey);
         //Debug.Log(hash);
 
         //string post_url = addScoreURL + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
 
-        string post_url = addScoreURL + "name=" + WWW.EscapeURL(name) + "&feeling=" + WWW.EscapeURL(feeling) + parametersWithSeperators + "&hash=" + hash;
+        string post_url = addScoreURL + "Name=" + WWW.EscapeURL(name) + demographics + rating + parametersWithSeperators + "&hash=" + hash;
         
+        Debug.Log(post_url);
+
         //Debug.Log(post_url);
         
         /*+ "&gravity=" + gravity

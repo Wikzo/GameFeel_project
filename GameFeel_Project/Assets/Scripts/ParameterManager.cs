@@ -15,6 +15,7 @@ public class ParameterManager : MonoBehaviour
     public bool UseRandomGravity = false;
     public bool UseRandomJumpPower = false;
     public bool UseRandomUseAirFriction = true;
+    public bool UseRandomKeepGroundMomentumAfterJump = true;
     public bool UseRandomAirFrictionHorizontal = true;
     public bool UseRandomTerminalVelocity = false;
     public bool UseRandomGhostJumpTime = true;
@@ -122,6 +123,7 @@ public class ParameterManager : MonoBehaviour
             float? gravity = UseRandomGravity ?  tempGravity : (float?)null;
             float? jumpPower = UseRandomJumpPower ? Random.Range(TweakableParameters.JumpPowerRange.x, TweakableParameters.JumpPowerRange.y) : (float?)null;
             bool? useAirFriction = UseRandomUseAirFriction ? true : (bool?)null;
+            bool? keepGroundMomentumAfterJump = UseRandomKeepGroundMomentumAfterJump ? true : (bool?)null;
             float? airFrictionHorizontal = UseRandomAirFrictionHorizontal ? Random.Range(TweakableParameters.AirFrictionHorizontalPercentageRange.x, TweakableParameters.AirFrictionHorizontalPercentageRange.y)  : (float?)null;
             float? ghostJumpTime = UseRandomGhostJumpTime ? Random.Range(TweakableParameters.GhostJumpTimeRange.x, TweakableParameters.GhostJumpTimeRange.y) : (float?)null;
             float? minimumJumpHeight = UseRandomMinimumJumpHeight ? Random.Range(TweakableParameters.MinimumJumpHeightRange.x, TweakableParameters.MinimumJumpHeightRange.y) : (float?) null;
@@ -147,14 +149,14 @@ public class ParameterManager : MonoBehaviour
             bool? useAnimation = true;
             float? animationMaxSpeed = UseRandomAnimationMaxSpeed ? Random.Range(TweakableParameters.AnimationMaxSpeedRange.x, TweakableParameters.AnimationMaxSpeedRange.y) : (float?)null;
 
-            MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
+            MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, keepGroundMomentumAfterJump, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
                 useAnimation, animationMaxSpeed, null));
 
             if (makeDuplicates)
             {
-                MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
+                MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, keepGroundMomentumAfterJump, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
                 groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
                 useAnimation, animationMaxSpeed, 1));

@@ -197,26 +197,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ac5761728a13a42864c4a7e93c90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseRandomValuesAtStart: 1
+  UseRandomValuesAtStart: 0
   BallGraphic: {fileID: 437632}
   MyTweakableParameters:
     Gravity: {x: 0, y: -10, z: 0}
-    JumpPower: 20
-    UseAirFriction: 1
+    JumpPower: 15
+    UseAirFriction: 0
     AirFrictionHorizontalPercentage: 80
-    TerminalVelocity: -10
+    KeepGroundMomentumAfterJump: 0
+    TerminalVelocity: -40
     GhostJumpTime: .400000006
-    MinimumJumpHeight: .5
+    MinimumJumpHeight: 2.13000011
     ReleaseEarlyJumpVelocity: .5
-    ApexGravityMultiplier: 3
+    ApexGravityMultiplier: 4
     MaxVelocityX: 15
-    UseGroundFriction: 1
+    UseGroundFriction: 0
     GroundFrictionPercentage: 50
-    ReleaseTime: .600000024
-    AttackTime: .600000024
+    ReleaseTime: .899999976
+    AttackTime: 1.5
     TurnAroundBoostPercent: 80
-    UseCurveForHorizontalAttackVelocity: 1
-    UseCurveForHorizontalReleaseVelocity: 1
+    UseCurveForHorizontalAttackVelocity: 0
+    UseCurveForHorizontalReleaseVelocity: 0
     UseAnimation: 1
     AnimationMaxSpeed: 100
     IsDuplicate: 0
@@ -254,6 +255,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   KillFloor: {fileID: 0}
+  _currentAttackTime: 0
+  _currentReleaseTime: 0
+  _targetDeacceleration: 0
+  _currentDirection: 0
   _velocity: {x: 0, y: 0, z: 0}
   _currentHorizontalMovementState: 0
   StartPosition: {x: 0, y: 0, z: 0}

@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     //private FreezeFrames _freezeFrames;
 
     // behind-the-scenes state data
-    private CollisionState _collisionState;
+    public CollisionState _collisionState;
     public Vector3 _velocity = new Vector3(0, 0, 0);
     public HorizontalMovementState _currentHorizontalMovementState;
     private HorizontalMovementState _previousHorizontalMovementState;
@@ -155,6 +155,8 @@ public class Player : MonoBehaviour
         if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
         {
             _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage/100;
+            //_velocity.x += -_velocity.x * MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
+            //Debug.Log("use air friction");
         }
 
         if (_velocity.x > MyTweakableParameters.MaxVelocityX)
@@ -289,349 +291,184 @@ public class Player : MonoBehaviour
         BallGraphic.localScale = new Vector3(-BallGraphic.localScale.x, BallGraphic.localScale.y, BallGraphic.localScale.y);
 
         _isFacingRight = BallGraphic.transform.localScale.x > 0;
+
+        Debug.Log("flip");
+        _velocity.x *= 100000;
+
     }
+
+    private float _initialVelocity;
+    private float _finalVelocity;
+    private float _acceleration;
 
     void MovementStates()
     {
+
+
         var deltaTime = Time.deltaTime;
 
-        if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && NearlyEqual(_velocity.x, 0f))
-        {
-            _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
-            _currentReleaseTime = 0;
-            _currentAttackTime = 0;
-            _velocity.x = 0;
-            _currentDirection = 0;
-        }
-
-
+        // RIGHT
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
         {
-            //if (_velocity.x > 0)
-                _currentDirection = 1;
+            
 
-            if (!_isFacingRight)
-                Flip();
-
-            // THIS???
-            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingRight && _currentHorizontalMovementState != HorizontalMovementState.SustainRight)
-
+            // FIND TARGET ACCELERATION
+            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingRight
+                && _currentHorizontalMovementState != HorizontalMovementState.SustainRight)
             {
-                _currentReleaseTime = 0;
-                Debug.Log("Reset current release time to 0");
+                // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
+                // a = (v - v0)/t
 
+                // v0 = initial velocity
+                // v = final velocity
+                // a = acceleration
+                // t = time
+
+                _initialVelocity = _velocity.x;
+                _finalVelocity = MyTweakableParameters.MaxVelocityX;
+                _acceleration = (_finalVelocity - _initialVelocity)/MyTweakableParameters.AttackTime;
+
+                _currentHorizontalMovementState = HorizontalMovementState.AttackingRight;
             }
-            else
+
+            // ATTACKING RIGHT
+            else if (_currentHorizontalMovementState == HorizontalMovementState.AttackingRight)
             {
-                if (_currentReleaseTime < MyTweakableParameters.ReleaseTime)
-                    _currentReleaseTime += deltaTime;
-                else
-                    _currentReleaseTime = MyTweakableParameters.ReleaseTime;
+                _velocity.x += _acceleration*deltaTime;
+
+
+                // BEGIN SUSTAINING RIGHT
+                if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
+                {
+                    _velocity.x = MyTweakableParameters.MaxVelocityX;
+                    _currentHorizontalMovementState = HorizontalMovementState.SustainRight;
+                }
             }
-
-
-
-            switch (_currentHorizontalMovementState)
+            
+            // SUSTAINING RIGHT
+            else if (_currentHorizontalMovementState == HorizontalMovementState.SustainRight)
             {
-                // begin attack
-                case HorizontalMovementState.StandingStill:
-                case HorizontalMovementState.AttackingRight:
-                case HorizontalMovementState.ReleaseRight:
-                case HorizontalMovementState.AttackingLeft:
-                case HorizontalMovementState.SustainLeft:
-                case HorizontalMovementState.ReleaseLeft:
-                    {
-                        _currentHorizontalMovementState = HorizontalMovementState.AttackingRight;
+                // GO BACK TO ATTACK RIGHT? (due to e.g. air friction)
+                if (_velocity.x < MyTweakableParameters.MaxVelocityX && !MyTweakableParameters.KeepGroundMomentumAfterJump)
+                {
+                    _currentHorizontalMovementState = HorizontalMovementState.AttackingRight;
+                    return;
+                }
 
-                        if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
-                        {
-                            _currentAttackTime += deltaTime;
-
-                            // PROBLEM WITH "ANTI-TURNING": since velocity is set directly, there needs to be
-                            // enough time elapsed for it to go from + (right) to - (left)
-
-                            if (ChangedDirection())
-                                _currentAttackTime += MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
-
-                            float valueScaled = 0;
-                            if (_currentAttackTime < 0) // left
-                            {
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, -MyTweakableParameters.AttackTime, 0, 1);
-                                float valueOriginal =
-                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
-
-                                valueScaled = valueOriginal * -MyTweakableParameters.MaxVelocityX;
-                            }
-
-                            else if (_currentAttackTime > 0) // right 
-                            {
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, MyTweakableParameters.AttackTime, 0, 1);
-                                float valueOriginal =
-                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
-
-                                valueScaled = valueOriginal * MyTweakableParameters.MaxVelocityX;
-                            }
-
-                            _velocity.x = valueScaled;
-
-                            
-                        }
-
-                        // begin sustain
-                        if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
-                        {
-                            _velocity.x = MyTweakableParameters.MaxVelocityX;
-                            _currentAttackTime = MyTweakableParameters.AttackTime;
-                            _currentHorizontalMovementState = HorizontalMovementState.SustainRight;
-                        }
-                        break;
-                    }
-
-                case HorizontalMovementState.SustainRight:
-                    {
-                        _velocity.x = MyTweakableParameters.MaxVelocityX;
-                        _currentAttackTime = MyTweakableParameters.AttackTime;
-                        break;
-                    }
+                _velocity.x = MyTweakableParameters.MaxVelocityX;
             }
         }
+        // LEFT
         else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // left key DOWN
         {
-            // TODO: fix "sudden stop" here!!
-            //if (_velocity.x < 0)
-                _currentDirection = -1;
-
-            if (_isFacingRight)
-                Flip();
-
-            // THIS???
-            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingLeft && _currentHorizontalMovementState != HorizontalMovementState.SustainLeft)
+            // FIND TARGET ACCELERATION
+            if (_currentHorizontalMovementState != HorizontalMovementState.AttackingLeft
+                && _currentHorizontalMovementState != HorizontalMovementState.SustainLeft) 
             {
-                _currentReleaseTime = 0;
-                Debug.Log("Reset current release time to 0");
+                // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
+                // a = (v - v0)/t
+
+                // v0 = initial velocity
+                // v = final velocity
+                // a = acceleration
+                // t = time
+
+                _initialVelocity = _velocity.x;
+                _finalVelocity = -MyTweakableParameters.MaxVelocityX;
+                _acceleration = (_finalVelocity - _initialVelocity) / MyTweakableParameters.AttackTime;
+
+                _currentHorizontalMovementState = HorizontalMovementState.AttackingLeft;
+            }
+
+            // ATTACKING LEFT
+            else if (_currentHorizontalMovementState == HorizontalMovementState.AttackingLeft)
+            {
+                _velocity.x += _acceleration * deltaTime;
+
+                // BEGIN SUSTAINING LEFT
+                if (_velocity.x <= -MyTweakableParameters.MaxVelocityX)
+                {
+                    _velocity.x = -MyTweakableParameters.MaxVelocityX;
+                    _currentHorizontalMovementState = HorizontalMovementState.SustainLeft;
+                }
+            }
+
+            // SUSTAINING LEFT
+            else if (_currentHorizontalMovementState == HorizontalMovementState.SustainLeft)
+            {
+                // GO BACK TO ATTACK LEFT? (due to e.g. air friction)
+                if (_velocity.x > -MyTweakableParameters.MaxVelocityX && !MyTweakableParameters.KeepGroundMomentumAfterJump)
+                {
+                    _currentHorizontalMovementState = HorizontalMovementState.AttackingLeft;
+                    return;
+                }
+
+                _velocity.x = -MyTweakableParameters.MaxVelocityX;
 
             }
-            else
+        }
+        // RELEASE
+        else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) // release
+        {
+            // FIND TARGET DEACCELERATION
+            if (_currentHorizontalMovementState != HorizontalMovementState.StandingStill
+                && _currentHorizontalMovementState != HorizontalMovementState.ReleaseRight
+                && _currentHorizontalMovementState != HorizontalMovementState.ReleaseLeft)
             {
-                if (_currentReleaseTime < MyTweakableParameters.ReleaseTime)
-                    _currentReleaseTime += deltaTime;
+                // http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
+                // a = (v - v0)/t
+
+                // v0 = initial velocity
+                // v = final velocity
+                // a = acceleration
+                // t = time
+
+                _initialVelocity = MyTweakableParameters.MaxVelocityX;
+                _finalVelocity = 0;
+                _acceleration = (_finalVelocity - _initialVelocity) / MyTweakableParameters.ReleaseTime;
+
+                if (_velocity.x > 0)
+                    _currentHorizontalMovementState = HorizontalMovementState.ReleaseRight;
                 else
-                    _currentReleaseTime = MyTweakableParameters.ReleaseTime;
+                    _currentHorizontalMovementState = HorizontalMovementState.ReleaseLeft;
             }
 
-
-            switch (_currentHorizontalMovementState)
+            // RELEASING
+            if (_currentHorizontalMovementState == HorizontalMovementState.ReleaseRight
+                || _currentHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
             {
-                // begin attack
-                case HorizontalMovementState.StandingStill:
-                case HorizontalMovementState.AttackingLeft:
-                case HorizontalMovementState.ReleaseLeft:
-                case HorizontalMovementState.AttackingRight:
-                case HorizontalMovementState.SustainRight:
-                case HorizontalMovementState.ReleaseRight:
-                    {
+                bool stop = false; // to find the correct "stop threshold" (over or under 0?)
 
-                        
+                // right
+                if (_currentHorizontalMovementState == HorizontalMovementState.ReleaseRight)
+                {
+                    stop = _velocity.x <= 0 ? true : false;
+                    _velocity.x += _acceleration * deltaTime;
 
-                        _currentHorizontalMovementState = HorizontalMovementState.AttackingLeft;
+                }
+                // left
+                else if (_currentHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
+                {
+                    stop = _velocity.x >= 0 ? true : false;
+                    _velocity.x -= _acceleration * deltaTime;
 
-                        if (MyTweakableParameters.UseCurveForHorizontalAttackVelocity)
-                        {
+                }
 
-                            _currentAttackTime -= deltaTime;
-
-                            if (ChangedDirection())
-                                _currentAttackTime -= MyTweakableParameters.AttackTime * MyTweakableParameters.TurnAroundBoostPercent / 100;
-
-                            float valueScaled = 0;
-
-                            if (_currentAttackTime > 0) // right
-                            {
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, MyTweakableParameters.AttackTime, 0, 1);
-                                float valueOriginal =
-                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
-
-                                valueScaled = valueOriginal * MyTweakableParameters.MaxVelocityX;
-                            }
-
-                            else if (_currentAttackTime < 0) // left
-                            {
-
-                                float timeScaled = NormalizationMap(_currentAttackTime, 0, -MyTweakableParameters.AttackTime, 0, 1);
-                                float valueOriginal =
-                                    HorizontalVelocityCurvesAttack[0].Evaluate(timeScaled);
-
-                                valueScaled = valueOriginal * -MyTweakableParameters.MaxVelocityX;
-                            }
-                            //Debug.Log("left time: " + _currentAttackTime + "; value: " + valueScaled);
-
-
-                            _velocity.x = valueScaled;
-                        }
-
-
-                        // begin sustain
-                        if (_velocity.x <= -MyTweakableParameters.MaxVelocityX)
-                        {
-                            _velocity.x = -MyTweakableParameters.MaxVelocityX;
-                            _currentAttackTime = -MyTweakableParameters.AttackTime;
-                            _currentHorizontalMovementState = HorizontalMovementState.SustainLeft;
-                        }
-                        break;
-                    }
-
-                case HorizontalMovementState.SustainLeft:
-                    {
-                        _velocity.x = -MyTweakableParameters.MaxVelocityX;
-                        _currentAttackTime = -MyTweakableParameters.AttackTime;
-
-                        break;
-                    }
+                if (stop) // standing still
+                {
+                    Debug.Log("release stop");
+                    _velocity.x = 0;
+                    _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
+                }
             }
         }
-
-        if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && _currentDirection == 1) // right key UP
+        
+        else if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && NearlyEqual(_velocity.x, 0f))
         {
-
-            return;
-            switch (_currentHorizontalMovementState)
-            {
-                // begin release right
-                case HorizontalMovementState.AttackingRight:
-                case HorizontalMovementState.SustainRight:
-                case HorizontalMovementState.AttackingLeft:
-                case HorizontalMovementState.SustainLeft:
-                    {
-
-                        
-
-                        _currentHorizontalMovementState = HorizontalMovementState.ReleaseRight;
-
-                        if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
-                        {
-                            if (_previousHorizontalMovementState == HorizontalMovementState.AttackingLeft ||
-                                _previousHorizontalMovementState == HorizontalMovementState.SustainLeft)
-                                break;
-
-                            _currentReleaseTime = MyTweakableParameters.ReleaseTime;
-                            _targetDeacceleration = _velocity.x;
-
-                            if (_currentAttackTime > 0)
-                                _currentAttackTime -= deltaTime;
-                            else
-                                _currentAttackTime = 0;
-
-                            //Debug.Log("new releaseRight target: " + _targetDeacceleration);
-                        }
-                        break;
-                    }
-
-                case HorizontalMovementState.ReleaseRight:
-                    {
-
-                        if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
-                        {
-                            //Debug.Log("right: " + _targetDeacceleration);
-
-                            if (_currentAttackTime > 0)
-                                _currentAttackTime -= deltaTime;
-                            else
-                                _currentAttackTime = 0;
-
-                            _currentReleaseTime -= deltaTime;
-                            float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
-                            
-                            // cap
-                            if (currentReleaseTimeNormalized >= 1f)
-                                currentReleaseTimeNormalized = 1;
-                            else if (currentReleaseTimeNormalized < 0f)
-                                currentReleaseTimeNormalized = 0f;
-
-                            float decceleration = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
-                            
-                            _velocity.x = decceleration;
-                        }
-
-                        break;
-                    }
-            }
+            Debug.Log("backup stop");
+            _velocity.x = 0;
+            _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
         }
-        else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && _currentDirection == -1) // left key UP
-        {
-
-            return;
-
-            switch (_currentHorizontalMovementState)
-            {
-                // begin release left
-                case HorizontalMovementState.AttackingLeft:
-                case HorizontalMovementState.SustainLeft:
-                case HorizontalMovementState.AttackingRight:
-                case HorizontalMovementState.SustainRight:
-                    {
-
-                        _currentHorizontalMovementState = HorizontalMovementState.ReleaseLeft;
-
-                        if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
-                        {
-
-                            if (_previousHorizontalMovementState == HorizontalMovementState.AttackingRight ||
-                                _previousHorizontalMovementState == HorizontalMovementState.SustainRight)
-                                break;
-
-                            _currentReleaseTime = MyTweakableParameters.ReleaseTime;
-                            _targetDeacceleration = _velocity.x;
-
-                            if (_currentAttackTime < 0)
-                                _currentAttackTime += deltaTime;
-                            else
-                                _currentAttackTime = 0;
-
-                           // Debug.Log("new releaseRight target: " + _targetDeacceleration);
-
-                        }
-                        break;
-                    }
-
-                case HorizontalMovementState.ReleaseLeft:
-                    {
-                        if (MyTweakableParameters.UseCurveForHorizontalReleaseVelocity)
-                        {
-
-                            if (_currentAttackTime < 0)
-                                _currentAttackTime += deltaTime;
-                            else
-                                _currentAttackTime = 0;
-
-
-                            _currentReleaseTime -= deltaTime;
-                            float currentReleaseTimeNormalized = _currentReleaseTime / MyTweakableParameters.ReleaseTime;
-
-                            // cap
-                            if (currentReleaseTimeNormalized >= 1f)
-                                currentReleaseTimeNormalized = 1;
-                            else if (currentReleaseTimeNormalized < 0f)
-                                currentReleaseTimeNormalized = 0f;
-
-                            float decceleration = HorizontalVelocityCurvesRelease[0].Evaluate(currentReleaseTimeNormalized) * _targetDeacceleration;
-
-                            _velocity.x = decceleration;
-                        }
-
-                        break;
-                    }
-            }
-        }
-
-        if (_velocity.x > 0f)
-            _currentDirection = 1;
-        else if (_velocity.x < 0f)
-            _currentDirection = -1;
-        else if (_velocity.x == 0f)
-            _currentDirection = 0;
-
-        _previousHorizontalMovementState = _currentHorizontalMovementState;
-
     }
 
 
@@ -872,6 +709,8 @@ public class Player : MonoBehaviour
         _trailRenderer.time = 0;
 
         _deaths++;
+
+        MyTweakableParameters.Deaths = _deaths;
         _velocity = Vector2.zero;
         _transform.position = CheckpointPosition;
 

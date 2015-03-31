@@ -70,6 +70,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   CollectedSoFar: 0
   CollectToWin: 3
   MyGameState: 0
@@ -183,11 +185,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyParameters: []
   Player: {fileID: 0}
-  NumberOfParameters: 10
+  NumberOfParameters: 8
   Index: 0
   UseRandomGravity: 0
   UseRandomJumpPower: 0
   UseRandomUseAirFriction: 0
+  UseRandomKeepGroundMomentumAfterJump: 0
   UseRandomAirFrictionHorizontal: 0
   UseRandomTerminalVelocity: 0
   UseRandomGhostJumpTime: 0

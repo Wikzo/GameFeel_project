@@ -38,9 +38,6 @@ public class ParameterGUIInterface : MonoBehaviour
             Debug.Log("Error - ParameterGUIInterface needs link to PostDataOnline script!");
 
         _parameters = _player.MyTweakableParameters;
-
-        name = SystemInfo.deviceUniqueIdentifier;
-
     }
 
     void Update()
@@ -101,7 +98,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.15f), 130, 20), "Send data"))
         {
-            _myPostDataOnline.PostData(name, feeling, _player.MyTweakableParameters.ToStringDatabaseFormat(false), _player.MyTweakableParameters.ToStringDatabaseFormat(true));
+            _myPostDataOnline.PostData(Demographics.Instance.name.ToString(), Demographics.Instance.ToStringDatabaseFormat(), _player.MyTweakableParameters.MyRating.ToStringDatabaseFormat(), _player.MyTweakableParameters.ToStringDatabaseFormat());
         }
 
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.08f), 130, 20), "View data"))
@@ -173,9 +170,9 @@ public class ParameterGUIInterface : MonoBehaviour
             _parameters.ReleaseTime = GUILayout.HorizontalSlider(_parameters.ReleaseTime, TweakableParameters.ReleaseTimeRange.x,
                 TweakableParameters.ReleaseTimeRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
 
-            GUILayout.Label("TurnAroundBoostPercent: " + _parameters.TurnAroundBoostPercent, DebugGUIStyle);
-            _parameters.TurnAroundBoostPercent = GUILayout.HorizontalSlider(_parameters.TurnAroundBoostPercent, TweakableParameters.TurnAroundBoostPercentRange.x,
-                TweakableParameters.TurnAroundBoostPercentRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
+            //GUILayout.Label("TurnAroundBoostPercent: " + _parameters.TurnAroundBoostPercent, DebugGUIStyle);
+            //_parameters.TurnAroundBoostPercent = GUILayout.HorizontalSlider(_parameters.TurnAroundBoostPercent, TweakableParameters.TurnAroundBoostPercentRange.x,
+            //    TweakableParameters.TurnAroundBoostPercentRange.y, HorizontalSliderSkin.horizontalSlider, HorizontalSliderSkin.horizontalSliderThumb);
 
             GUILayout.Label("AnimationMaxSpeed: " + _parameters.AnimationMaxSpeed, DebugGUIStyle);
             _parameters.AnimationMaxSpeed = GUILayout.HorizontalSlider(_parameters.AnimationMaxSpeed, TweakableParameters.AnimationMaxSpeedRange.x,
@@ -194,7 +191,7 @@ public class ParameterGUIInterface : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + (ParameterManager.Instance.Index+1) + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "GameState: " + StateManager.Instance.MyGameState, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "Direction: " + _player._currentDirection, DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "Grounded: " + _player._collisionState.IsGrounded, DebugGUIStyle);
 
     }
 }
