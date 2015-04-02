@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ParameterGUIInterface : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ParameterGUIInterface : MonoBehaviour
     public bool DrawDebugMenu = true;
     public GUIStyle DebugGUIStyle;
     public GUISkin HorizontalSliderSkin;
+
+    public Text GameNumberText;
 
     // internal links
     private Player _player;
@@ -80,16 +83,9 @@ public class ParameterGUIInterface : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
             DrawDebugMenu = !DrawDebugMenu;
 
-        // load levels
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (Application.loadedLevelName == "PlayerPrefab")
-                Application.LoadLevel("D1");
-            else if (Application.loadedLevelName == "D1")
-                Application.LoadLevel("D2");
-            else if (Application.loadedLevelName == "D2")
-                Application.LoadLevel("D1");
-        }
+
+        GameNumberText.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Index + 1),
+            ParameterManager.Instance.MyParameters.Count);
     }
 
     
@@ -109,6 +105,8 @@ public class ParameterGUIInterface : MonoBehaviour
         {
             Application.OpenURL("http://tunnelvisiongames.com/unityserver/displayfeeling.php");
         }*/
+
+
 
         if (!DrawDebugMenu)
             return;

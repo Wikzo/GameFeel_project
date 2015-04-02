@@ -551,7 +551,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: .325980335, b: .838235259, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -777,10 +777,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1ece124c9f2304a85459611b5a3546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  MyGameState: 0
+  YourName: 
   gender: 
   age: 
   country: 
+  id: 
   experienceGames: 0
   experiencePlatformers: 0
 --- !u!4 &842598444

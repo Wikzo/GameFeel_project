@@ -16,14 +16,13 @@ public class TweakableParameters
     static public Vector2 MaxVelocityXRange = new Vector2(1, 20.1f);
     static public Vector2 GroundFrictionPercentageRange = new Vector2(0f, 99.1f);
 
-    static public Vector2 ReleaseTimeRange = new Vector2(0.016f, 3.1f);
-    static public Vector2 AttackTimeRange = new Vector2(0.016f, 3.1f);
+    static public Vector2 ReleaseTimeRange = new Vector2(0.001f, 3.1f);
+    static public Vector2 AttackTimeRange = new Vector2(0.001f, 3.1f);
 
     static public Vector2[] AttackAndReleaseTimes = new[]
     { 
         // milliseconds
-        new Vector2(0.016f, 0.1f),
-        new Vector2(0.11f, 0.24f),
+        new Vector2(0.001f, 0.24f),
         new Vector2(0.241f, 1f),
         new Vector2(1.1f, 3.1f),
     };
@@ -40,8 +39,6 @@ public class TweakableParameters
         float? releaseTime, float? attackTime, float? turnAroundBoostPercent,
         bool? useAnimation, float? animationMaxSpeed, int? isDuplicate)
     {
-
-        MyRating = new Rating();
 
         if (gravity.HasValue)
             Gravity = new Vector3(0, gravity.Value, 0);
@@ -104,7 +101,7 @@ public class TweakableParameters
 
 
     // ratings
-    public Rating MyRating;
+    //public Rating MyRating;
 
     // air
     public Vector3 Gravity = new Vector3(0, -10f, 0);
@@ -159,7 +156,7 @@ public class TweakableParameters
 
     public string ToStringDatabaseFormat()
     {
-        this.MyRating.Description = "fesen";
+        //this.MyRating.Description = "fesen";
             return string.Format("&Gravity={0}&JumpPower={1}&AirFrictionHorizontalPercentage={2}&TerminalVelocity={3}&GhostJumpTime={4}&MinimumJumpHeight={5}&ReleaseEarlyJumpVelocity={6}&ApexGravityMultiplier={7}&MaxVelocityX={8}&ReleaseTime={9}&AttackTime={10}&AnimationMaxSpeed={11}&Level={12}&Deaths={13}&TimeSpentOnLevel={14}",
                 Gravity.y,
                 JumpPower,

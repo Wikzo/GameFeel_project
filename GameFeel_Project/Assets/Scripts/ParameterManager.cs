@@ -7,6 +7,8 @@ using UnityEngine;
 public class ParameterManager : MonoBehaviour
 {
     public List<TweakableParameters> MyParameters;
+    public List<GameObject> MyQuestionnaireUI;
+    public List<QuestionnaireData> MyQuestionnaireData;
     public Player Player;
     public int NumberOfParameters = 5;
     
@@ -77,6 +79,25 @@ public class ParameterManager : MonoBehaviour
         MakeParameters(NumberOfParameters, false);
         //Debug.Log("making 5 default parameters");
 
+    }
+
+    void Start()
+    {
+
+        if (NumberOfParameters != MyQuestionnaireUI.Count)
+        {
+            Debug.Log("Error - need to have " + NumberOfParameters + " MyQuestionnaireUI canvases!");
+            return;
+        }
+
+        MyQuestionnaireData = new List<QuestionnaireData>(MyQuestionnaireUI.Count);
+        
+        for (int i = 0; i < MyQuestionnaireUI.Count; i++)
+        {
+            GameObject g = MyQuestionnaireUI[i].gameObject;
+
+            MyQuestionnaireData.Add(g.GetComponent<QuestionnaireData>());
+        }
     }
 
     void MakeRandomReleaseAttackTimesWithinSegments(int releaseRandomizer, int attackRandomizer)

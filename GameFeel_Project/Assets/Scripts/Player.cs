@@ -110,9 +110,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Demographics.Instance.MyGameState != GameState.Playing)
-            return;
-
         if (_transform.position.y < KillFloor.position.y)
             Die();
 
@@ -121,6 +118,9 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (Demographics.Instance.MyGameState != GameState.Playing)
+            return;
+
         ApplyGravity();
         Move(_velocity * Time.deltaTime);
 

@@ -9,10 +9,13 @@ public class StateManager : MonoBehaviour
     public bool UseRandomValuesAtStart = true;
 
     public Player MyPlayer;
-    public Canvas QuestionnaireCanvas;
 
     private PostDataOnline _myPostDataOnline;
     private ParameterManager _paramateManager;
+
+    public AudioClip GameMusic;
+    public AudioClip QuestionnaireMusic;
+    private AudioSource _audioSource;
 
     public List<Star> StarsSegment1;
     public List<Star> StarsSegment2;
@@ -30,23 +33,82 @@ public class StateManager : MonoBehaviour
     void Start()
     {
         _myPostDataOnline = GetComponent<PostDataOnline>();
+        _audioSource = GetComponent<AudioSource>();
 
-        QuestionnaireCanvas.enabled = false;
+        foreach (GameObject c in ParameterManager.Instance.MyQuestionnaireUI)
+            c.SetActive(false);
 
         if (UseRandomValuesAtStart)
             MyPlayer.ChangeParameters();
 
         Restart();
+
+        StartCoroutine(StartMusicAfterDelay());
+    }
+
+    IEnumerator StartMusicAfterDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(FadeMusicIn(GameMusic));
+    }
+    
+
+    IEnumerator FadeMusicIn(AudioClip clip)
+    {
+        float t = 0;
+
+        _audioSource.clip = clip;
+        _audioSource.Play();
+        _audioSource.loop = true;
+
+        while (t < 1)
+        {
+            
+            t += Time.deltaTime;
+            audio.volume = t;
+
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeMusicOut(AudioClip clip)
+    {
+        float t = 1;
+
+        while (t > 0)
+        {
+            
+            t -= Time.deltaTime*2;
+            audio.volume = t;
+
+            yield return null;
+        }
+
+        StartCoroutine(FadeMusicIn(clip));
+
     }
 
     public void ContinueToNextRound()
     {
-        _myPostDataOnline.PostData(Demographics.Instance.YourName, Demographics.Instance.ToStringDatabaseFormat(), MyPlayer.MyTweakableParameters.MyRating.ToStringDatabaseFormat(), MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(), StateManager.Instance.AverageFps);
+        _myPostDataOnline.PostData(Demographics.Instance.YourName,
+            Demographics.Instance.ToStringDatabaseFormat(),
+            ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].QuestionnaireDataToDatabaseFormat(),
+            MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(),
+            StateManager.Instance.AverageFps);
+
+        Demographics.Instance.MyGameState = GameState.Playing;
+
+        StartCoroutine(FadeMusicOut(GameMusic));
+
+
 
         if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
             ParameterManager.Instance.Index++;
         else
             ParameterManager.Instance.Index = 0;
+
+        foreach (GameObject c in ParameterManager.Instance.MyQuestionnaireUI)
+            c.SetActive(false);
 
         MyPlayer.ChangeParameters();
         MyPlayer.Restart();
@@ -61,7 +123,6 @@ public class StateManager : MonoBehaviour
         totalTime = 0;
         totalFrames = 0;
 
-        Demographics.Instance.MyGameState = GameState.Playing;
 
         Time.timeScale = 1;
 
@@ -110,29 +171,31 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
-
-
-        if (Demographics.Instance.MyGameState == GameState.MidQuestionnaire)
-            QuestionnaireCanvas.enabled = true;
-        else
-            QuestionnaireCanvas.enabled = false;
-
-
-
-        if (CollectedSoFar > CollectToWin-1)
+        if (Demographics.Instance.MyGameState != GameState.MidQuestionnaire)
         {
-            Debug.Log("Game won!");
+            Time.timeScale = 1;
 
-            Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
-
-            Time.timeScale = 0;
-        }
-        else
-        {
             CountAverageFPS();
             TimeSpentOnLevel += Time.deltaTime;
         }
 
+
+        if (CollectedSoFar > CollectToWin - 1 && Demographics.Instance.MyGameState == GameState.Playing)
+            StartCoroutine(ShowQuestionnaire());
+
+
+    }
+
+    IEnumerator ShowQuestionnaire()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Debug.Log("Game won!");
+
+        ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Index].SetActive(true);
+
+        Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
+
+        StartCoroutine(FadeMusicOut(QuestionnaireMusic));
 
     }
 
