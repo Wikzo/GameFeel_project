@@ -144,21 +144,19 @@ public class ParameterManager : MonoBehaviour
             float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].y) : (float?)null;
 
             float? turnAroundBoostPercent = UseRandomTurnAroundBoost ? Random.Range(TweakableParameters.TurnAroundBoostPercentRange.x, TweakableParameters.TurnAroundBoostPercentRange.y) : (float?)null;
-            bool? useCurveForHorizontalAttackVelocity = true;
-            bool? useCurveForHorizontalReleaseVelocity = true;
             bool? useAnimation = true;
             float? animationMaxSpeed = UseRandomAnimationMaxSpeed ? Random.Range(TweakableParameters.AnimationMaxSpeedRange.x, TweakableParameters.AnimationMaxSpeedRange.y) : (float?)null;
 
             MyParameters.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, keepGroundMomentumAfterJump, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
-                groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
+                groundFriction, releaseTime, attackTime, turnAroundBoostPercent,
                 useAnimation, animationMaxSpeed, null));
 
             if (makeDuplicates)
             {
                 MyParametersDuplicates.Add(new TweakableParameters(gravity, jumpPower, useAirFriction, keepGroundMomentumAfterJump, airFrictionHorizontal, terminalVelocity, ghostJumpTime,
                 minimumJumpHeight, releaseEarlyJumpVelocity, apexGravityMultiplier, maxVelocityX, useGroundFriction,
-                groundFriction, releaseTime, attackTime, turnAroundBoostPercent, useCurveForHorizontalAttackVelocity, useCurveForHorizontalReleaseVelocity,
+                groundFriction, releaseTime, attackTime, turnAroundBoostPercent,
                 useAnimation, animationMaxSpeed, 1));
             }
             

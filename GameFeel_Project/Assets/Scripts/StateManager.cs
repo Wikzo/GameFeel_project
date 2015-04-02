@@ -6,6 +6,14 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
+    public bool UseRandomValuesAtStart = true;
+
+    public Player MyPlayer;
+    public Canvas QuestionnaireCanvas;
+
+    private PostDataOnline _myPostDataOnline;
+    private ParameterManager _paramateManager;
+
     public List<Star> StarsSegment1;
     public List<Star> StarsSegment2;
     public List<Star> StarsSegment3;
@@ -21,6 +29,28 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
+        _myPostDataOnline = GetComponent<PostDataOnline>();
+
+        QuestionnaireCanvas.enabled = false;
+
+        if (UseRandomValuesAtStart)
+            MyPlayer.ChangeParameters();
+
+        Restart();
+    }
+
+    public void ContinueToNextRound()
+    {
+        _myPostDataOnline.PostData(Demographics.Instance.YourName, Demographics.Instance.ToStringDatabaseFormat(), MyPlayer.MyTweakableParameters.MyRating.ToStringDatabaseFormat(), MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(), StateManager.Instance.AverageFps);
+
+        if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
+            ParameterManager.Instance.Index++;
+        else
+            ParameterManager.Instance.Index = 0;
+
+        MyPlayer.ChangeParameters();
+        MyPlayer.Restart();
+
         Restart();
     }
 
@@ -30,8 +60,10 @@ public class StateManager : MonoBehaviour
         DeathsOnThisLevel = 0;
         totalTime = 0;
         totalFrames = 0;
+
         Demographics.Instance.MyGameState = GameState.Playing;
 
+        Time.timeScale = 1;
 
         foreach (Star s in StarsSegment1)
         {
@@ -76,15 +108,31 @@ public class StateManager : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
+
+
+        if (Demographics.Instance.MyGameState == GameState.MidQuestionnaire)
+            QuestionnaireCanvas.enabled = true;
+        else
+            QuestionnaireCanvas.enabled = false;
+
+
+
         if (CollectedSoFar > CollectToWin-1)
         {
+            Debug.Log("Game won!");
+
             Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
-            return;
+
+            Time.timeScale = 0;
+        }
+        else
+        {
+            CountAverageFPS();
+            TimeSpentOnLevel += Time.deltaTime;
         }
 
-        TimeSpentOnLevel += Time.fixedDeltaTime;
 
     }
 
@@ -95,11 +143,6 @@ public class StateManager : MonoBehaviour
 
     private float totalTime;
     private float totalFrames;
-
-    void Update()
-    {
-        CountAverageFPS();
-    }
 
     public void CountAverageFPS()
     {

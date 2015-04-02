@@ -81,10 +81,7 @@ public class Star : MonoBehaviour
             _endPos = StateManager.Instance.StarsIcons[_myIndex].transform.position;
 
 
-            if (StateManager.Instance.CollectedSoFar + 1 < 3)
-                StateManager.Instance.CollectedSoFar++;
-            else
-                Debug.Log("Game won!");
+            StateManager.Instance.CollectedSoFar++;
 
             _lerp = true;
 

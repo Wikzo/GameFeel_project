@@ -97,7 +97,7 @@ public class ParameterGUIInterface : MonoBehaviour
     void OnGUI()
     {
         // send data
-        name = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.3f), Screen.height - (Screen.height * 0.15f), 200, 20), name);
+        /*name = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.3f), Screen.height - (Screen.height * 0.15f), 200, 20), name);
         feeling = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.3f), Screen.height - (Screen.height * 0.08f), 200, 20), feeling);
 
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.15f), 130, 20), "Send data"))
@@ -108,7 +108,7 @@ public class ParameterGUIInterface : MonoBehaviour
         if (GUI.Button(new Rect(Screen.width - (Screen.width * 0.6f), Screen.height - (Screen.height * 0.08f), 130, 20), "View data"))
         {
             Application.OpenURL("http://tunnelvisiongames.com/unityserver/displayfeeling.php");
-        }
+        }*/
 
         if (!DrawDebugMenu)
             return;

@@ -16,14 +16,14 @@ public class TweakableParameters
     static public Vector2 MaxVelocityXRange = new Vector2(1, 20.1f);
     static public Vector2 GroundFrictionPercentageRange = new Vector2(0f, 99.1f);
 
-    static public Vector2 ReleaseTimeRange = new Vector2(0.001f, 2.1f);
-    static public Vector2 AttackTimeRange = new Vector2(0.001f, 2.1f);
+    static public Vector2 ReleaseTimeRange = new Vector2(0.016f, 3.1f);
+    static public Vector2 AttackTimeRange = new Vector2(0.016f, 3.1f);
 
     static public Vector2[] AttackAndReleaseTimes = new[]
     { 
         // milliseconds
-        new Vector2(0.001f, 0.1f),
-        new Vector2(0.011f, 0.24f),
+        new Vector2(0.016f, 0.1f),
+        new Vector2(0.11f, 0.24f),
         new Vector2(0.241f, 1f),
         new Vector2(1.1f, 3.1f),
     };
@@ -37,8 +37,8 @@ public class TweakableParameters
     public TweakableParameters(float? gravity, float? jumpPower, bool? useAirFriction, bool? keepGroundMomentumAfterJump, float? airFrictionHorizontal,
         float? terminalVelocity, float? ghostJumpTime, float? minimumJumpHeight, float? releaseEarlyJumpVelocity,
         float? apexGravityMultiplier, float? maxVelocityX, bool? useGroundFriction, float? groundFrictionPercentage,
-        float? releaseTime, float? attackTime, float? turnAroundBoostPercent, bool? useCurveForHorizontalAttackVelocity,
-        bool? useCurveForHorizontalReleaseVelocity, bool? useAnimation, float? animationMaxSpeed, int? isDuplicate)
+        float? releaseTime, float? attackTime, float? turnAroundBoostPercent,
+        bool? useAnimation, float? animationMaxSpeed, int? isDuplicate)
     {
 
         MyRating = new Rating();
@@ -90,12 +90,6 @@ public class TweakableParameters
         if (turnAroundBoostPercent.HasValue)      
             TurnAroundBoostPercent = turnAroundBoostPercent.Value;
 
-        if (useCurveForHorizontalAttackVelocity.HasValue)      
-            UseCurveForHorizontalAttackVelocity = useCurveForHorizontalAttackVelocity.Value;
-
-        if (useCurveForHorizontalReleaseVelocity.HasValue)      
-            UseCurveForHorizontalReleaseVelocity = useCurveForHorizontalReleaseVelocity.Value;
-
         if (useAnimation.HasValue)      
             UseAnimation = useAnimation.Value;
 
@@ -115,9 +109,9 @@ public class TweakableParameters
     // air
     public Vector3 Gravity = new Vector3(0, -10f, 0);
     public float JumpPower = 15;
-    public bool UseAirFriction = true;
+    public bool UseAirFriction = false;
     public float AirFrictionHorizontalPercentage = 90f;
-    public bool KeepGroundMomentumAfterJump = true;
+    public bool KeepGroundMomentumAfterJump = false;
     public float TerminalVelocity = -20f;
     public float GhostJumpTime = 0.4f;
     public float MinimumJumpHeight = 0.5f;
@@ -126,14 +120,14 @@ public class TweakableParameters
 
     // ground
     public float MaxVelocityX = 15f;
-    public bool UseGroundFriction = true;
+    public bool UseGroundFriction = false;
     public float GroundFrictionPercentage = 50f;
     public float ReleaseTime = 0.4f;
     public float AttackTime = 0.4f;
     public float TurnAroundBoostPercent = 0f;
 
-    public bool UseCurveForHorizontalAttackVelocity = true;
-    public bool UseCurveForHorizontalReleaseVelocity = true;
+    //public bool UseCurveForHorizontalAttackVelocity = false;
+    //public bool UseCurveForHorizontalReleaseVelocity = false;
     //public AnimationCurve[] HorizontalVelocityCurvesAttack;
     //public AnimationCurve[] HorizontalVelocityCurvesRelease;
 

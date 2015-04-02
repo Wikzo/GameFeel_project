@@ -23,14 +23,10 @@ public enum HorizontalMovementState
 
 public class Player : MonoBehaviour
 {
-    public bool UseRandomValuesAtStart = false;
 
     public Transform BallGraphic;
 
     public TweakableParameters MyTweakableParameters;
-
-    public AnimationCurve[] HorizontalVelocityCurvesAttack;
-    public AnimationCurve[] HorizontalVelocityCurvesRelease;
 
     public LayerMask PlatformMask;
 
@@ -105,23 +101,18 @@ public class Player : MonoBehaviour
         CheckpointPosition = _transform.position;
     }
 
-    void Start()
-    {
-        if (UseRandomValuesAtStart)
-            ChangeParameters();
-    }
-
     public void ChangeParameters()
     {
-
-        //Debug.Log(ParameterManager.Instance.MyParameters[myIndex].TerminalVelocity);
-
         MyTweakableParameters = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
 
+        Debug.Log("Changed parameters (index: " + ParameterManager.Instance.Index + ")");
     }
 
     void Update()
     {
+        if (Demographics.Instance.MyGameState != GameState.Playing)
+            return;
+
         if (_transform.position.y < KillFloor.position.y)
             Die();
 
@@ -262,7 +253,6 @@ public class Player : MonoBehaviour
 
         return;
 
-
         // old animation stuff for Mario sprite ...
         if (!_collisionState.IsGrounded)
             _animator.SetBool("IsJumping", true);
@@ -335,7 +325,6 @@ public class Player : MonoBehaviour
             else if (_currentHorizontalMovementState == HorizontalMovementState.AttackingRight)
             {
                 _velocity.x += _acceleration*deltaTime;
-
 
                 // BEGIN SUSTAINING RIGHT
                 if (_velocity.x >= MyTweakableParameters.MaxVelocityX)
@@ -443,21 +432,34 @@ public class Player : MonoBehaviour
                 if (_currentHorizontalMovementState == HorizontalMovementState.ReleaseRight)
                 {
                     stop = _velocity.x <= 0 ? true : false;
+
+                    if (!stop)
                     _velocity.x += _acceleration * deltaTime;
+
+                    // clamp, so won't move backwards if release time is very small
+                    _velocity.x = Mathf.Clamp(_velocity.x, 0, MyTweakableParameters.MaxVelocityX);
 
                 }
                 // left
                 else if (_currentHorizontalMovementState == HorizontalMovementState.ReleaseLeft)
                 {
                     stop = _velocity.x >= 0 ? true : false;
-                    _velocity.x -= _acceleration * deltaTime;
+                    if (!stop)
+                        _velocity.x -= _acceleration * deltaTime;
+
+                    // clamp, so won't move backwards if release time is very small
+                    _velocity.x = Mathf.Clamp(_velocity.x, -MyTweakableParameters.MaxVelocityX, 0);
+
 
                 }
 
+                //Debug.Log("release acc: " + _acceleration * deltaTime);
+                //Debug.Log("release velocity: " + _velocity);
+
                 if (stop) // standing still
                 {
-                    //Debug.Log("release stop");
                     _velocity.x = 0;
+
                     _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
                 }
             }
@@ -465,7 +467,7 @@ public class Player : MonoBehaviour
         
         else if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && NearlyEqual(_velocity.x, 0f))
         {
-            Debug.Log("backup stop");
+            //Debug.Log("backup stop");
             _velocity.x = 0;
             _currentHorizontalMovementState = HorizontalMovementState.StandingStill;
         }
@@ -511,10 +513,6 @@ public class Player : MonoBehaviour
         else
             return false;
     }
-
-    private string name = "Write your name here";
-    private string feeling = "Describe this game feeling here";
-    
 
     void Move(Vector2 deltaMovement)
     {
@@ -564,7 +562,12 @@ public class Player : MonoBehaviour
         else if (_velocity.x > MaxVelocityX)
             _velocity.x = MaxVelocityX;*/
 
-        _velocity.x = Mathf.Min(_velocity.x, MyTweakableParameters.MaxVelocityX);
+        //_velocity.x = Mathf.Min(_velocity.x, MyTweakableParameters.MaxVelocityX);
+
+        if (_velocity.x > MyTweakableParameters.MaxVelocityX)
+            _velocity.x = MyTweakableParameters.MaxVelocityX;
+        else if (_velocity.x < -MyTweakableParameters.MaxVelocityX)
+            _velocity.x = -MyTweakableParameters.MaxVelocityX;
 
         if (_velocity.y < MyTweakableParameters.TerminalVelocity)
             _velocity.y = MyTweakableParameters.TerminalVelocity;
