@@ -6,7 +6,8 @@ public enum GameState
     IntroDemographics,
     MidQuestionnaire,
     Playing,
-    Won
+    Freeform,
+    ShowPostQuestionnaire
 }
 
 public class Demographics : MonoBehaviour
@@ -14,16 +15,13 @@ public class Demographics : MonoBehaviour
     public GameState MyGameState;
 
     public string YourName = "";
-    public string gender = "";
-    public string age = "";
-    public string country = "";
-    public string id = "";
-    public int experienceGames = 0;
-    public int experiencePlatformers = 0;
+    public string Gender = "";
+    public string Age = "";
+    public string Country = "";
+    public string Id = "";
+    public string ExperienceGames = "";
+    public string ExperiencePlatformers = "";
 
-    static readonly string[] scale = new string[] { "1\n(none)", "2", "3", "4", "5","6","7\n(a lot)" };
-
-    private bool showDemographics = true;
 
     private static Demographics _instance;
     public static Demographics Instance
@@ -61,46 +59,9 @@ public class Demographics : MonoBehaviour
 
     void Start()
     {
-        id = SystemInfo.deviceUniqueIdentifier;
+        Id = SystemInfo.deviceUniqueIdentifier;
 
         MyGameState = GameState.IntroDemographics;
-    }
-
-    void OnGUI()
-    {
-        if (!showDemographics)
-            return;
-
-        GUILayout.BeginArea(new Rect(0,0, Screen.width*0.7f, Screen.height));
-
-        GUILayout.Label("Your name:");
-        YourName = GUILayout.TextField(YourName);
-
-        GUILayout.Label("Your gender:");
-        gender = GUILayout.TextField(gender);
-
-        GUILayout.Label("Your age:");
-        age = GUILayout.TextField(age);
-
-        GUILayout.Label("Your country:");
-        country = GUILayout.TextField(country);
-
-        GUILayout.Label("Your experience with playing videogames:");
-        experienceGames = GUILayout.SelectionGrid(experienceGames, scale, scale.Length);
-
-        GUILayout.Label("Your experience with 2D platformer games:");
-        experiencePlatformers = GUILayout.SelectionGrid(experiencePlatformers, scale, scale.Length);
-
-        if (GUILayout.Button("Click To Begin"))
-        {
-            showDemographics = false;
-            MyGameState = GameState.Playing;
-
-            Application.LoadLevel("1");
-        }
-
-
-        GUILayout.EndArea();
     }
 
     public string ToStringDatabaseFormat()
@@ -108,14 +69,12 @@ public class Demographics : MonoBehaviour
         return
             string.Format(
                 "&Gender={0}&Age={1}&Country={2}&GUID={3}&ExperienceGames={4}&ExperiencePlatformers={5}",
-                gender,
-                age,
-                country,
-                id,
-                experienceGames,
-                experiencePlatformers);
-
-
+                Gender,
+                Age,
+                Country,
+                Id,
+                ExperienceGames,
+                ExperiencePlatformers);
     }
 
 }

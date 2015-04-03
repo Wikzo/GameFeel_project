@@ -50,13 +50,13 @@ public class ParameterGUIInterface : MonoBehaviour
         _parameters = _player.MyTweakableParameters;
 
 
-        if (Input.GetKeyDown(KeyCode.P))
+        /*if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("Creating " + ParameterManager.Instance.NumberOfParameters + " new paramaters");
             ParameterManager.Instance.MakeParameters(ParameterManager.Instance.NumberOfParameters, false);
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        /*if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
                 ParameterManager.Instance.Index++;
@@ -77,7 +77,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
             _player.ChangeParameters();
 
-        }
+        }*/
 
         // show debug interface
         if (Input.GetKeyDown(KeyCode.Y))

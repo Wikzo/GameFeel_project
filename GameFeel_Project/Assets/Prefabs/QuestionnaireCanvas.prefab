@@ -2191,7 +2191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &122012
 GameObject:
   m_ObjectHideFlags: 1
@@ -3007,7 +3007,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &11421778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3606,7 +3606,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &11421818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4463,7 +4463,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &11421884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4984,7 +4984,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &11421918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5803,7 +5803,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &11421980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6228,6 +6228,7 @@ MonoBehaviour:
   HowMuchLike: {fileID: 11421998}
   HowDifficult: {fileID: 11422000}
   HowEnjoyable: {fileID: 11422002}
+  ContinueButton: {fileID: 122010}
   DateText: 
   DescrptionText: 
   ConfidentText: 

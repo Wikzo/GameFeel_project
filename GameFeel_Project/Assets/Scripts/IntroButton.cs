@@ -3,9 +3,12 @@ using System.Collections;
 
 public class IntroButton : MonoBehaviour
 {
-    public void LoadDemographics()
+    public void LoadLevel(string level)
     {
-        Application.LoadLevel("Demographics");
+        if (level == "1")
+            Demographics.Instance.MyGameState = GameState.Playing;
+
+        Application.LoadLevel(level);
     }
 
 }
