@@ -80,7 +80,7 @@ public class PostDataOnline : MonoBehaviour
 
         string urlWithoutSpaces = post_url.Replace(" ", "+");
 
-        Debug.Log(urlWithoutSpaces);
+        //Debug.Log(urlWithoutSpaces);
 
         //Debug.Log(post_url);
         

@@ -80,8 +80,8 @@ public class ParameterGUIInterface : MonoBehaviour
         }*/
 
         // show debug interface
-        if (Input.GetKeyDown(KeyCode.Y))
-            DrawDebugMenu = !DrawDebugMenu;
+        //if (Input.GetKeyDown(KeyCode.Y))
+          //  DrawDebugMenu = !DrawDebugMenu;
 
 
         GameNumberText.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Index + 1),

@@ -40,6 +40,15 @@ public class StateManager : MonoBehaviour
         PostQuestionnaireObject.SetActive(false);
 
 
+        string id = string.Format("{0}-{1}",
+                Demographics.Instance.YourName,
+                Demographics.Instance.Id);
+
+        IDText.text = id;
+
+        PostQuestionnaireObject.SetActive(false);
+
+
         foreach (GameObject c in ParameterManager.Instance.MyQuestionnaireUI)
             c.SetActive(false);
 
@@ -108,7 +117,7 @@ public class StateManager : MonoBehaviour
         }
         else // post-questionnaire
         {
-            Debug.Log("Done. Now go to post-questionnaire!");
+            //Debug.Log("Done. Now go to post-questionnaire!");
 
             foreach (GameObject c in ParameterManager.Instance.MyQuestionnaireUI)
                 c.SetActive(false);
@@ -194,6 +203,9 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.L))
+          // CollectedSoFar++;
+
         if (Demographics.Instance.MyGameState == GameState.Playing)
         {
             Time.timeScale = 1;
@@ -209,10 +221,6 @@ public class StateManager : MonoBehaviour
         if (Demographics.Instance.MyGameState == GameState.ShowPostQuestionnaire)
         {
             PostQuestionnaireObject.SetActive(true);
-            string id = string.Format("{0}-{1}", Demographics.Instance.YourName, Demographics.Instance.Id);
-
-            IDText.text = id;
-
         }
         else
             PostQuestionnaireObject.SetActive(false);
@@ -222,12 +230,13 @@ public class StateManager : MonoBehaviour
 
     IEnumerator ShowQuestionnaire()
     {
+        Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
+
         yield return new WaitForSeconds(0.3f);
-        Debug.Log("Showing mid-questionnaire");
+        //Debug.Log("Showing mid-questionnaire");
 
         ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Index].SetActive(true);
 
-        Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
 
         StartCoroutine(FadeMusicOut(QuestionnaireMusic));
 

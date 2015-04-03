@@ -552,6 +552,18 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 614312696}
+    - target: {fileID: 22498510, guid: d747d936c945d154d92edf51c2acb71e, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 180.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 22498510, guid: d747d936c945d154d92edf51c2acb71e, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -60.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 22489770, guid: d747d936c945d154d92edf51c2acb71e, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -16.7999992
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d747d936c945d154d92edf51c2acb71e, type: 2}
   m_RootGameObject: {fileID: 36669293}
@@ -808,7 +820,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180.649994, y: -64.6999969}
+  m_AnchoredPosition: {x: 180.600006, y: -60.9000015}
   m_SizeDelta: {x: 361.299988, y: 43}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &110191010
@@ -6928,7 +6940,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83, y: -13}
+  m_AnchoredPosition: {x: 83, y: -16.7999992}
   m_SizeDelta: {x: 127.799988, y: 28.3999939}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1726463221

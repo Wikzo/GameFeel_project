@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
     {
         MyTweakableParameters = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
 
-        Debug.Log("Changed parameters (index: " + ParameterManager.Instance.Index + ")");
+        //Debug.Log("Changed parameters (index: " + ParameterManager.Instance.Index + ")");
     }
 
     void Update()
@@ -734,8 +734,11 @@ public class Player : MonoBehaviour
 
         _trailRenderer.time = 2;
 
+        Instantiate(FloatingTextRounds, transform.position, Quaternion.identity);
 
     }
+
+    public GameObject FloatingTextRounds;
 
     public int StarsCollected;
     public AudioClip[] StarPickupSounds;

@@ -197,7 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ac5761728a13a42864c4a7e93c90b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseRandomValuesAtStart: 1
   BallGraphic: {fileID: 437632}
   MyTweakableParameters:
     Gravity: {x: 0, y: -10, z: 0}
@@ -216,44 +215,12 @@ MonoBehaviour:
     ReleaseTime: .899999976
     AttackTime: 1.5
     TurnAroundBoostPercent: 80
-    UseCurveForHorizontalAttackVelocity: 0
-    UseCurveForHorizontalReleaseVelocity: 0
     UseAnimation: 1
     AnimationMaxSpeed: 100
     IsDuplicate: 0
     Level: 0
     Deaths: 0
     TimeSpentOnLevel: 0
-  HorizontalVelocityCurvesAttack:
-  - serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  HorizontalVelocityCurvesRelease:
-  - serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
-    m_PreInfinity: 2
-    m_PostInfinity: 2
   PlatformMask:
     serializedVersion: 2
     m_Bits: 256
@@ -269,6 +236,7 @@ MonoBehaviour:
   JumpSound: {fileID: 8300000, guid: 313fa201bd74d954985f28e28aad81fd, type: 3}
   DieSound: {fileID: 8300000, guid: 5b635332dc79aed4d9d37d8566da56bc, type: 3}
   DiePrefab: {fileID: 136594, guid: ab343105d5c912145b7c2b8e9bd1896e, type: 2}
+  FloatingTextRounds: {fileID: 198358, guid: 85881cf8c13aec14c983dda0458a6858, type: 2}
   StarsCollected: 0
   StarPickupSounds:
   - {fileID: 8300000, guid: 072978cdc6cda9a49a209326dd003b37, type: 3}

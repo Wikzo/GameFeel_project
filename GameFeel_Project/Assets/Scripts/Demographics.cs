@@ -6,7 +6,6 @@ public enum GameState
     IntroDemographics,
     MidQuestionnaire,
     Playing,
-    Freeform,
     ShowPostQuestionnaire
 }
 
