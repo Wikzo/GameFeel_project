@@ -109,7 +109,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -244}
+  m_AnchoredPosition: {x: 0, y: -252}
   m_SizeDelta: {x: 213.300003, y: 55}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &16218671
@@ -717,12 +717,11 @@ MonoBehaviour:
 
 
     As a token of appreciation, if you complete all steps in this test (should take
-    5-10 minutes),
+    around 10 minutes),
 
-    you will enter a contest where one randomly-chosen participant wins a $10 gift
-    card
+    you will enter a contest where one randomly-chosen participant
 
-    for either Amazon or Steam.
+    wins a $10 gift card for either Amazon or Steam.
 
 
     In this test, I will present you with a simple 2D platforming game where you have
@@ -732,9 +731,14 @@ MonoBehaviour:
     changed.
 
 
-    Between each round, I want you to answer some simple questions in regards to how
+    Between each round, I want you to answer some simple questions.
 
-    the controls feel, that is, how it feels to move around in the game.'
+    These questions are about how the controls feel.
+
+    In other words: how it feels to move around in the game, both on the ground and
+    in the air.
+
+    Please note that you may use the same descriptions multiple times.'
 --- !u!222 &2128449547
 CanvasRenderer:
   m_ObjectHideFlags: 0

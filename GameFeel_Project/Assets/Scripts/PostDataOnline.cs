@@ -6,9 +6,9 @@ using System.Collections;
 
 public class PostDataOnline : MonoBehaviour
 {
-    private string secretKey = "hejsa123123"; // Edit this value and make sure it's the same as the one stored on the server
-    string addScoreURL = "http://tunnelvisiongames.com/unityserver/addfeeling.php?"; //be sure to add a ? to your url
-    string highscoreURL = "http://tunnelvisiongames.com/unityserver/display.php";
+    private string secretKey = "hSrxsRtAupPMAt74mftNx8J7"; // Edit this value and make sure it's the same as the one stored on the server
+    string addScoreURL = "http://tunnelvisiongames.com/gf/addfeeling.php?"; //be sure to add a ? to your url
+    string highscoreURL = "http://tunnelvisiongames.com/gf/display.php";
 
 
 

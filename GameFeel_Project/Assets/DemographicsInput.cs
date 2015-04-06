@@ -15,6 +15,7 @@ public class DemographicsInput : MonoBehaviour
     public ToggleGroup ExperiencePlatformers;
 
     public GameObject ContinueButton;
+    public GameObject Agreement;
     private bool showButton;
 
     public string NameText;
@@ -54,6 +55,7 @@ public class DemographicsInput : MonoBehaviour
             showButton = false;
 
         ContinueButton.SetActive(showButton);
+        Agreement.SetActive(showButton);
 
 
 

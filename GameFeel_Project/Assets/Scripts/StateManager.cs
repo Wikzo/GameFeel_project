@@ -102,6 +102,11 @@ public class StateManager : MonoBehaviour
 
     }
 
+    public void TransitionToAirQuestionnaire()
+    {
+        ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].Animator.SetTrigger("PlayTransition");
+    }
+
     public void ContinueToNextRound()
     {
         _myPostDataOnline.PostData(Demographics.Instance.YourName,

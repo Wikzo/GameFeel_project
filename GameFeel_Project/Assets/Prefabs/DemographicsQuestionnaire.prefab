@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &183400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22483400}
+  - 222: {fileID: 22283400}
+  - 114: {fileID: 11483398}
+  - 114: {fileID: 11483400}
+  m_Layer: 5
+  m_Name: Agreement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &189514
 GameObject:
   m_ObjectHideFlags: 1
@@ -1832,12 +1850,57 @@ MonoBehaviour:
   ExperienceGames: {fileID: 11498552}
   ExperiencePlatformers: {fileID: 11489616}
   ContinueButton: {fileID: 189754}
+  Agreement: {fileID: 183400}
   NameText: 
   GenderText: 
   AgeText: 
   RegionText: 
   ExperienceGamesText: 
   ExperiencePlatformersText: 
+--- !u!114 &11483398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'TERMS OF AGREEMENT
+
+    By clicking on the button below, you agree that the game will collect data when
+    you are playing, as well as your answers. This data will solely be used for research
+    purposes and cannot be used to track you as an individual.'
+--- !u!114 &11483400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11489514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1877,7 +1940,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Click To Begin
+  m_Text: 'I agree.
+
+    Let''s go!'
 --- !u!114 &11489518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5172,6 +5237,12 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 5
+--- !u!222 &22283400
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183400}
 --- !u!222 &22289514
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -5687,6 +5758,23 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!224 &22483400
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22489772}
+  m_RootOrder: 7
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -191.999969, y: 193.5}
+  m_SizeDelta: {x: 369, y: 241}
+  m_Pivot: {x: .5, y: .5}
 --- !u!224 &22489514
 RectTransform:
   m_ObjectHideFlags: 1
@@ -6094,7 +6182,7 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -128.100006, y: 36.7000008}
+  m_AnchoredPosition: {x: -192, y: 35}
   m_SizeDelta: {x: 213.299988, y: 55}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22489758
@@ -6216,7 +6304,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83, y: -13}
+  m_AnchoredPosition: {x: 83, y: -16.7999992}
   m_SizeDelta: {x: 127.799988, y: 28.3999939}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22489772
@@ -6236,6 +6324,7 @@ RectTransform:
   - {fileID: 22498512}
   - {fileID: 22489754}
   - {fileID: 22489758}
+  - {fileID: 22483400}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -6259,7 +6348,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180.649994, y: -64.6999969}
+  m_AnchoredPosition: {x: 180.600006, y: -60.9000015}
   m_SizeDelta: {x: 361.299988, y: 43}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22498512
