@@ -10,7 +10,7 @@ public class ParameterManager : MonoBehaviour
     public List<GameObject> MyQuestionnaireUI;
     public List<QuestionnaireData> MyQuestionnaireData;
     public Player Player;
-    public int NumberOfParameters = 5;
+    public int NumberOfParameters = 6;
     
     public int Index = 0;
 
@@ -100,24 +100,35 @@ public class ParameterManager : MonoBehaviour
         }
     }
 
-    void MakeRandomReleaseAttackTimesWithinSegments(int releaseRandomizer, int attackRandomizer)
+    void MakeRandomReleaseAttackTimesWithinSegments()
     {
+        // TODO: make Latin square randomizer
+
         int segments = TweakableParameters.AttackAndReleaseTimes.Count();
 
         _releaseTimes = new int[segments];
         for (int i = 0; i < segments; i++)
             _releaseTimes[i] = i;
 
-        for (int i = 0; i < releaseRandomizer; i++)
-            Shuffle(_releaseTimes);
+        ShuffleArray<int>(_releaseTimes);
 
         _attackTimes = new int[segments];
-
         for (int i = 0; i < segments; i++)
             _attackTimes[i] = i;
 
-        for (int i = 0; i < attackRandomizer; i++)
-            Shuffle(_attackTimes);
+        ShuffleArray<int>(_attackTimes);
+
+        /*string s = "AR: [";
+
+        for (int i = 0; i < _attackTimes.Length; i++)
+        {
+            s += _attackTimes[i].ToString() + _releaseTimes[i].ToString();
+            s += ", ";
+        }
+
+        s += "]";
+
+        Debug.Log(s);*/
     }
 
     public void MakeParameters(int size, bool makeDuplicates)
@@ -134,9 +145,7 @@ public class ParameterManager : MonoBehaviour
 
             if (releaseAttackIndexChooser == 0)
             {
-                int release = Random.Range(1, 10);
-                int attack = Random.Range(1, 5);
-                MakeRandomReleaseAttackTimesWithinSegments(release, attack);
+                MakeRandomReleaseAttackTimesWithinSegments();
             }
 
             float tempGravity = Random.Range(TweakableParameters.GravityRange.x, TweakableParameters.GravityRange.y); // needs to be calculated internally for the terminal velocity to work!
@@ -185,6 +194,21 @@ public class ParameterManager : MonoBehaviour
 
         if (makeDuplicates)
             MyParameters.AddRange(MyParametersDuplicates);
+    }
+
+
+    public static void ShuffleArray<T>(T[] arr)
+    {
+        // http://answers.unity3d.com/questions/16531/randomizing-arrays.html
+        // Fisher–Yates shuffle
+
+        for (int i = arr.Length - 1; i > 0; i--)
+        {
+            int r = Random.Range(0, i + 1);
+            T tmp = arr[i];
+            arr[i] = arr[r];
+            arr[r] = tmp;
+        }
     }
 
     public static void Shuffle<T>(IList<T> list)

@@ -4,3 +4,4 @@ ART:
 
 MUSIC:
 - http://www.newgrounds.com/audio/listen/605694
+- http://incompetech.com/music/royalty-free/?feels%5B%5D=Humorous

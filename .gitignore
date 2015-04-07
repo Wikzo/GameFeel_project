@@ -34,3 +34,9 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+*.pdf
+*.bak
+*.gz
+*.log
+*.aux

@@ -48,7 +48,8 @@ public class FeelExamples : MonoBehaviour
                                           "Inert",
                                           "Unrealistic",
                                           "Light",
-                                          "Normal"
+                                          "Normal," +
+                                          "Twitchy"
 
                                           };
 
