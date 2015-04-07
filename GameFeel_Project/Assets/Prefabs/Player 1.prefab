@@ -205,7 +205,7 @@ MonoBehaviour:
     AirFrictionHorizontalPercentage: 99
     KeepGroundMomentumAfterJump: 0
     TerminalVelocity: -40
-    GhostJumpTime: .400000006
+    GhostJumpTime: .200000003
     MinimumJumpHeight: 2.13000011
     ReleaseEarlyJumpVelocity: .5
     ApexGravityMultiplier: 4

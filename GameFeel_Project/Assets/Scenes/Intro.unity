@@ -420,6 +420,7 @@ RectTransform:
   - {fileID: 1098921435}
   - {fileID: 2128449544}
   - {fileID: 16218670}
+  - {fileID: 1378673891}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
@@ -481,6 +482,90 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &1378673890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1378673891}
+  - 222: {fileID: 1378673894}
+  - 114: {fileID: 1378673893}
+  - 114: {fileID: 1378673892}
+  m_Layer: 5
+  m_Name: Text2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1378673891
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378673890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1349114477}
+  m_RootOrder: 3
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: -71}
+  m_SizeDelta: {x: 960, y: 86}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1378673892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378673890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: .309803933}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1378673893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378673890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 22
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 'In this test, I will present you with a 2D platforming game where you have
+    to collect 3 stars.
+
+    You will play the same game 6 times, but each time some of the parameters change.'
+--- !u!222 &1378673894
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378673890}
 --- !u!1 &1411370147
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,29 +801,26 @@ MonoBehaviour:
   m_Text: 'Thanks for taking your time to participate in this!
 
 
-    As a token of appreciation, if you complete all steps in this test (should take
-    around 10 minutes),
+    As a token of appreciation, if you complete all steps in this test (around 10
+    minutes),
 
     you will enter a contest where one randomly-chosen participant
 
-    wins a $10 gift card for either Amazon or Steam.
+    wins a $10 gift card for Amazon or Steam.
 
 
-    In this test, I will present you with a simple 2D platforming game where you have
-    to collect 3 stars.
+    In this test, I will present you with a 2D platforming game where you have to
+    collect 3 stars.
 
-    You will play the same game 6 times, but each time some of the parameters are
-    changed.
+    You will play the same game 6 times, but each time some of the parameters change.
 
 
     Between each round, I want you to answer some simple questions.
 
-    These questions are about how the controls feel.
+    These questions are about how the controls feel (both on ground and in air).
 
-    In other words: how it feels to move around in the game, both on the ground and
-    in the air.
 
-    Please note that you may use the same descriptions multiple times.'
+    Please note that you may use the same answers multiple times.'
 --- !u!222 &2128449547
 CanvasRenderer:
   m_ObjectHideFlags: 0

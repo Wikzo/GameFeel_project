@@ -32,6 +32,8 @@ public class StateManager : MonoBehaviour
     public float TimeSpentOnLevel;
     public int DeathsOnThisLevel;
 
+
+    private string id = "";
     void Start()
     {
         _myPostDataOnline = GetComponent<PostDataOnline>();
@@ -40,11 +42,18 @@ public class StateManager : MonoBehaviour
         PostQuestionnaireObject.SetActive(false);
 
 
-        string id = string.Format("{0}-{1}",
+        id = string.Format("{0}-{1}",
                 Demographics.Instance.YourName,
                 Demographics.Instance.Id);
 
         IDText.text = id;
+
+        TextEditor te = new TextEditor();
+        te.content = new GUIContent(id);
+        te.SelectAll();
+        te.Copy();
+
+
 
         PostQuestionnaireObject.SetActive(false);
 
@@ -129,6 +138,12 @@ public class StateManager : MonoBehaviour
 
             Demographics.Instance.MyGameState = GameState.ShowPostQuestionnaire;
 
+            TextEditor te = new TextEditor();
+            te.content = new GUIContent(id);
+            te.SelectAll();
+            te.Copy();
+
+
             Time.timeScale = 0;
             return;
 
@@ -210,6 +225,7 @@ public class StateManager : MonoBehaviour
     {
         //if (Input.GetKeyDown(KeyCode.L))
           // CollectedSoFar++;
+        //
 
         if (Demographics.Instance.MyGameState == GameState.Playing)
         {

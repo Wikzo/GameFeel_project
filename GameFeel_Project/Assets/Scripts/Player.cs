@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     public float _currentAttackTime = 0;
     public float _currentReleaseTime = 0;
     public float _targetDeacceleration = 0;
+    private bool _canMove; // used for when dying
 
     // animation stuff
     private Animator _animator;
@@ -99,6 +100,8 @@ public class Player : MonoBehaviour
         _trailRenderer = GetComponent<TrailRenderer>();
         StartPosition = transform.position;
         CheckpointPosition = _transform.position;
+
+        _canMove = true;
     }
 
     public void ChangeParameters()
@@ -296,6 +299,16 @@ public class Player : MonoBehaviour
 
 
         var deltaTime = Time.deltaTime;
+
+        if (!_canMove) // when dying: can only move when releasing the keys first
+        {
+            if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+                _canMove = true;
+            else
+                return;
+
+        }
+
 
         // RIGHT
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) // right key DOWN
@@ -720,6 +733,17 @@ public class Player : MonoBehaviour
 
         Instantiate(DiePrefab);
 
+        _canMove = false;
+
+        if (!_canMove)
+            StartCoroutine(CanMoveAfterDead());
+
+    }
+
+    IEnumerator CanMoveAfterDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _canMove = true;
     }
 
     public void Restart()

@@ -110,7 +110,7 @@ public class TweakableParameters
     public float AirFrictionHorizontalPercentage = 90f;
     public bool KeepGroundMomentumAfterJump = false;
     public float TerminalVelocity = -20f;
-    public float GhostJumpTime = 0.4f;
+    public float GhostJumpTime = 0.2f;
     public float MinimumJumpHeight = 0.5f;
     public float ReleaseEarlyJumpVelocity = 0.5f;
     public float ApexGravityMultiplier = 3;
