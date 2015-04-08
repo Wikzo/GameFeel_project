@@ -122,7 +122,8 @@ public class StateManager : MonoBehaviour
             Demographics.Instance.ToStringDatabaseFormat(),
             ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].QuestionnaireDataToDatabaseFormat(),
             MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(),
-            StateManager.Instance.AverageFps);
+            StateManager.Instance.AverageFps,
+            ParameterManager.Instance.LatinSquareSequenceDatabaseFormat);
 
         // next round
         if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
@@ -223,8 +224,8 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.L))
-          // CollectedSoFar++;
+        if (Input.GetKeyDown(KeyCode.F12))
+           CollectedSoFar++;
         //
 
         if (Demographics.Instance.MyGameState == GameState.Playing)

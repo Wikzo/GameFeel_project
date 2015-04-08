@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public enum GameState
@@ -20,6 +21,10 @@ public class Demographics : MonoBehaviour
     public string Id = "";
     public string ExperienceGames = "";
     public string ExperiencePlatformers = "";
+    public int LatinSquareSequence = 1;
+
+    string getLatinSequenceURL = "http://tunnelvisiongames.com/g/displaylatin.php";
+
 
 
     private static Demographics _instance;
@@ -61,6 +66,9 @@ public class Demographics : MonoBehaviour
         Id = SystemInfo.deviceUniqueIdentifier;
 
         MyGameState = GameState.IntroDemographics;
+
+        StartCoroutine(GetLatestLatinSequence());
+
     }
 
     public string ToStringDatabaseFormat()
@@ -74,6 +82,37 @@ public class Demographics : MonoBehaviour
                 Id,
                 ExperienceGames,
                 ExperiencePlatformers);
+    }
+
+    IEnumerator GetLatestLatinSequence()
+    {
+        WWW hs_get = new WWW(getLatinSequenceURL);
+        yield return hs_get;
+
+        if (hs_get.error != null)
+        {
+            print("There was an error getting the latin square sequence: " + hs_get.error);
+        }
+        else
+        {
+            //Debug.Log(hs_get.text);
+
+            int latin = 1;
+            if (Int32.TryParse(hs_get.text, out latin))
+            {
+                LatinSquareSequence = latin;
+
+                LatinSquareSequence++;
+
+                if (LatinSquareSequence > 4)
+                    LatinSquareSequence = 1;
+
+                //print("Succesfully loaded latin square sequence (+1): " + LatinSquareSequence);
+
+            }
+            else
+                print("Unsuccesfully loaded latin square sequence!");
+        }
     }
 
 }

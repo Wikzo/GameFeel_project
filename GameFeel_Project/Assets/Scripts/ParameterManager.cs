@@ -10,7 +10,13 @@ public class ParameterManager : MonoBehaviour
     public List<GameObject> MyQuestionnaireUI;
     public List<QuestionnaireData> MyQuestionnaireData;
     public Player Player;
-    public int NumberOfParameters = 6;
+    public int NumberOfParameters = 4;
+    public int LatinSequence = 1;
+
+    public string LatinSquareSequenceDatabaseFormat
+    {
+        get { return string.Format("&LatinSequence={0}", LatinSequence.ToString()); }
+    }
     
     public int Index = 0;
 
@@ -31,8 +37,8 @@ public class ParameterManager : MonoBehaviour
     public bool UseRandomTurnAroundBoost = true;
     public bool UseRandomAnimationMaxSpeed = false;
 
-    public int[] _releaseTimes;
-    public int[] _attackTimes;
+    public char[] _releaseTimes;
+    public char[] _attackTimes;
     private bool parametersCreated;
 
 
@@ -83,6 +89,7 @@ public class ParameterManager : MonoBehaviour
 
     void Start()
     {
+        LatinSequence = Demographics.Instance.LatinSquareSequence;
 
         if (NumberOfParameters != MyQuestionnaireUI.Count)
         {
@@ -102,12 +109,92 @@ public class ParameterManager : MonoBehaviour
 
     void MakeRandomReleaseAttackTimesWithinSegments()
     {
-        // TODO: make Latin square randomizer
+        // Balanced Latin Square (incomplete)
+        // https://explorable.com/counterbalanced-measures-design
+        // http://rintintin.colorado.edu/~chathach/balancedlatinsquares.html
 
-        int segments = TweakableParameters.AttackAndReleaseTimes.Count();
+        LatinSequence = Demographics.Instance.LatinSquareSequence;
 
-        _releaseTimes = new int[segments];
-        for (int i = 0; i < segments; i++)
+        if (LatinSequence > NumberOfParameters)
+            Debug.Log("Error! Latin square sequence is bigger than NumberOfParameters!");
+
+        _releaseTimes = new char[NumberOfParameters];
+        _attackTimes = new char[NumberOfParameters];
+
+        // a = small
+        // b = large
+
+        // seq1: AA, BB, BA, AB
+        // seq2: BB, AB, AA, BA
+        // seq3: AB, BA, BB, AA
+        // seq4: BA, AA, AB, BA
+
+        //Debug.Log("Using Latin square sequence: " + LatinSequence);
+
+        switch (LatinSequence)
+        {
+            case 1:
+                _releaseTimes[0] = 'a';
+                _attackTimes[0] = 'a';
+
+                _releaseTimes[1] = 'b';
+                _attackTimes[1] = 'b';
+
+                _releaseTimes[2] = 'b';
+                _attackTimes[2] = 'a';
+
+                _releaseTimes[3] = 'a';
+                _attackTimes[3] = 'b';
+                break;
+
+            case 2:
+                _releaseTimes[0] = 'b';
+                _attackTimes[0] = 'b';
+
+                _releaseTimes[1] = 'a';
+                _attackTimes[1] = 'b';
+
+                _releaseTimes[2] = 'a';
+                _attackTimes[2] = 'a';
+
+                _releaseTimes[3] = 'b';
+                _attackTimes[3] = 'a';
+                break;
+
+            case 3:
+                _releaseTimes[0] = 'a';
+                _attackTimes[0] = 'b';
+
+                _releaseTimes[1] = 'b';
+                _attackTimes[1] = 'a';
+
+                _releaseTimes[2] = 'b';
+                _attackTimes[2] = 'b';
+
+                _releaseTimes[3] = 'a';
+                _attackTimes[3] = 'a';
+                break;
+
+            case 4:
+                _releaseTimes[0] = 'b';
+                _attackTimes[0] = 'a';
+
+                _releaseTimes[1] = 'a';
+                _attackTimes[1] = 'a';
+
+                _releaseTimes[2] = 'a';
+                _attackTimes[2] = 'b';
+
+                _releaseTimes[3] = 'b';
+                _attackTimes[3] = 'b';
+                break;
+        }
+
+
+        return;
+
+
+        /*for (int i = 0; i < segments; i++)
             _releaseTimes[i] = i;
 
         ShuffleArray<int>(_releaseTimes);
@@ -118,7 +205,7 @@ public class ParameterManager : MonoBehaviour
 
         ShuffleArray<int>(_attackTimes);
 
-        /*string s = "AR: [";
+        string s = "AR: [";
 
         for (int i = 0; i < _attackTimes.Length; i++)
         {
@@ -135,18 +222,12 @@ public class ParameterManager : MonoBehaviour
     {
         MyParameters = new List<TweakableParameters>(size);
         List<TweakableParameters> MyParametersDuplicates = new List<TweakableParameters>(size);
+        MakeRandomReleaseAttackTimesWithinSegments();
 
         for (int i = 0; i < size; i++)
         {
             // Random.Range: min [inclusive], max [exclusive]
             // ? identifier makes it nullable
-
-            int releaseAttackIndexChooser = i % TweakableParameters.AttackAndReleaseTimes.Count();
-
-            if (releaseAttackIndexChooser == 0)
-            {
-                MakeRandomReleaseAttackTimesWithinSegments();
-            }
 
             float tempGravity = Random.Range(TweakableParameters.GravityRange.x, TweakableParameters.GravityRange.y); // needs to be calculated internally for the terminal velocity to work!
             float? terminalVelocity = UseRandomTerminalVelocity ? Random.Range(tempGravity, TweakableParameters.GravityRange.y) : (float?)null;
@@ -167,11 +248,33 @@ public class ParameterManager : MonoBehaviour
             //float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.ReleaseTimeRange.x, TweakableParameters.ReleaseTimeRange.y) : (float?)null;
             //float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackTimeRange.x, TweakableParameters.AttackTimeRange.y) : (float?)null;
 
-            int releaseTimeIndex = _releaseTimes[releaseAttackIndexChooser];
-            int attackTimeIndex = _attackTimes[releaseAttackIndexChooser];
+            int releaseTimeIndex = -1;
+            int attackTimeIndex = -1;
+
+            if (_releaseTimes[i] == 'a')
+                releaseTimeIndex = 0;
+            else if (_releaseTimes[i] == 'b')
+                releaseTimeIndex = 1;
+
+            if (_attackTimes[i] == 'a')
+                attackTimeIndex = 0;
+            else if (_attackTimes[i] == 'b')
+                attackTimeIndex = 1;
+
 
             float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].y) : (float?)null;
             float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].y) : (float?)null;
+
+            string s = string.Format("Sequence {0}: {1}{2} ({3}; {4})",
+                i,
+                _releaseTimes[i],
+                _attackTimes[i],
+                releaseTime,
+                attackTime);
+
+
+            //Debug.Log(s);
+
 
             float? turnAroundBoostPercent = UseRandomTurnAroundBoost ? Random.Range(TweakableParameters.TurnAroundBoostPercentRange.x, TweakableParameters.TurnAroundBoostPercentRange.y) : (float?)null;
             bool? useAnimation = true;

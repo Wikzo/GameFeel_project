@@ -23,8 +23,8 @@ public class TweakableParameters
     { 
         // milliseconds
         new Vector2(0.001f, 0.24f),
-        new Vector2(0.241f, 1f),
-        new Vector2(1.1f, 3.1f)
+        new Vector2(0.241f, 2f),
+        //new Vector2(1.1f, 3.1f)
     };
 
 
