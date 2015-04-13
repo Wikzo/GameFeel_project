@@ -1885,8 +1885,8 @@ MonoBehaviour:
   m_Text: 'TERMS OF AGREEMENT
 
     By clicking on the button below, you agree that the game will collect data when
-    you are playing, as well as your answers. This data will solely be used for research
-    purposes and cannot be used to track you as an individual.'
+    you are playing, as well as the answers that you submit. This data will solely
+    be used for research purposes.'
 --- !u!114 &11483400
 MonoBehaviour:
   m_ObjectHideFlags: 1
