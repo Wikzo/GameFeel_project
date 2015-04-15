@@ -42,8 +42,7 @@ public class StateManager : MonoBehaviour
         PostQuestionnaireObject.SetActive(false);
 
 
-        id = string.Format("{0}-{1}",
-                Demographics.Instance.YourName,
+        id = string.Format("{0}",
                 Demographics.Instance.Id);
 
         IDText.text = id;
@@ -113,12 +112,12 @@ public class StateManager : MonoBehaviour
 
     public void TransitionToAirQuestionnaire()
     {
-        ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].Animator.SetTrigger("PlayTransition");
+        //ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].Animator.SetTrigger("PlayTransition");
     }
 
     public void ContinueToNextRound()
     {
-        _myPostDataOnline.PostData(Demographics.Instance.YourName,
+        _myPostDataOnline.PostData(Demographics.Instance.Id,
             Demographics.Instance.ToStringDatabaseFormat(),
             ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].QuestionnaireDataToDatabaseFormat(),
             MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(),
@@ -254,7 +253,7 @@ public class StateManager : MonoBehaviour
     {
         Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         //Debug.Log("Showing mid-questionnaire");
 
         ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Index].SetActive(true);

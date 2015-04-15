@@ -14,7 +14,6 @@ public class Demographics : MonoBehaviour
 {
     public GameState MyGameState;
 
-    public string YourName = "";
     public string Gender = "";
     public string Age = "";
     public string Country = "";
@@ -75,11 +74,10 @@ public class Demographics : MonoBehaviour
     {
         return
             string.Format(
-                "&Gender={0}&Age={1}&Country={2}&GUID={3}&ExperienceGames={4}&ExperiencePlatformers={5}",
+                "&Gender={0}&Age={1}&Country={2}&ExperienceGames={3}&ExperiencePlatformers={4}",
                 Gender,
                 Age,
                 Country,
-                Id,
                 ExperienceGames,
                 ExperiencePlatformers);
     }

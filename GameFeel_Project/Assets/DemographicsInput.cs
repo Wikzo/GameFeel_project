@@ -7,7 +7,6 @@ using System;
 
 public class DemographicsInput : MonoBehaviour
 {
-    public InputField Name;
     public ToggleGroup Gender;
     public InputField Age;
     public ToggleGroup Region;
@@ -18,7 +17,6 @@ public class DemographicsInput : MonoBehaviour
     public GameObject Agreement;
     private bool showButton;
 
-    public string NameText;
     public string GenderText;
     public string AgeText;
     public string RegionText;
@@ -29,10 +27,6 @@ public class DemographicsInput : MonoBehaviour
     {
 
         showButton = true;
-
-        NameText = Name.text;
-        if (NameText == "")
-            showButton = false;
 
         GenderText = Gender.GetActive() ? Gender.GetActive().ToString() : "";
         if (GenderText == "")
@@ -59,7 +53,6 @@ public class DemographicsInput : MonoBehaviour
 
 
 
-        Demographics.Instance.YourName = NameText;
         Demographics.Instance.Gender = GenderText;
         Demographics.Instance.Age = AgeText;
         Demographics.Instance.Country = RegionText;

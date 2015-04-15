@@ -8,7 +8,7 @@ public class ParameterManager : MonoBehaviour
 {
     public List<TweakableParameters> MyParameters;
     public List<GameObject> MyQuestionnaireUI;
-    public List<QuestionnaireData> MyQuestionnaireData;
+    public List<QuestionnaireData2> MyQuestionnaireData;
     public Player Player;
     public int NumberOfParameters = 4;
     public int LatinSequence = 1;
@@ -97,13 +97,13 @@ public class ParameterManager : MonoBehaviour
             return;
         }
 
-        MyQuestionnaireData = new List<QuestionnaireData>(MyQuestionnaireUI.Count);
+        MyQuestionnaireData = new List<QuestionnaireData2>(MyQuestionnaireUI.Count);
         
         for (int i = 0; i < MyQuestionnaireUI.Count; i++)
         {
             GameObject g = MyQuestionnaireUI[i].gameObject;
 
-            MyQuestionnaireData.Add(g.GetComponent<QuestionnaireData>());
+            MyQuestionnaireData.Add(g.GetComponent<QuestionnaireData2>());
         }
     }
 
