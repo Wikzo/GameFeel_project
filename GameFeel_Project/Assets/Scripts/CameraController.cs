@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void Update()
+    void LateUpdate()
     {
         var x = transform.position.x;
         var y = transform.position.y;

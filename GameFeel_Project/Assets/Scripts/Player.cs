@@ -113,53 +113,25 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Demographics.Instance.MyGameState != GameState.Playing)
+            return;
+
         if (_transform.position.y < KillFloor.position.y)
             Die();
 
         CheckInput();
     }
 
-    private void LateUpdate()
+    void CheckInput()
     {
-        if (Demographics.Instance.MyGameState != GameState.Playing)
-            return;
+        InputJump();
+        MovementStates();
 
         ApplyGravity();
         Move(_velocity * Time.deltaTime);
 
         if (MyTweakableParameters.UseAnimation)
             PlayAnimation();
-
-    }
-
-    void CheckInput()
-    {
-        InputJump();
-        //InputLeftRight();
-        //InputLeftRightOld();
-        //InputHorizontalDirections();
-
-        MovementStates();
-        /*if (MyTweakableParameters.UseGroundFriction)
-        {
-            if (_collisionState.IsGrounded)
-                _velocity.x += -_velocity.x * MyTweakableParameters.GroundFrictionPercentage/100;
-        }*/
-        
-        if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
-        {
-            _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage/100;
-            //_velocity.x += -_velocity.x * MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
-            //Debug.Log("use air friction");
-        }
-
-        if (_velocity.x > MyTweakableParameters.MaxVelocityX)
-            _velocity.x = MyTweakableParameters.MaxVelocityX;
-        else if (_velocity.x < -MyTweakableParameters.MaxVelocityX)
-            _velocity.x = -MyTweakableParameters.MaxVelocityX;
-
-        //transform.position += new Vector3(_velocity.x, _velocity.y, 0) * Time.deltaTime;
-
     }
 
     private bool _playingJumpSound = false;
@@ -252,7 +224,7 @@ public class Player : MonoBehaviour
 
     void PlayAnimation()
     {
-        BallGraphic.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
+        BallGraphic.Rotate(Vector3.forward * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
 
         return;
 
@@ -296,8 +268,6 @@ public class Player : MonoBehaviour
 
     void MovementStates()
     {
-
-
         var deltaTime = Time.deltaTime;
 
         if (!_canMove) // when dying: can only move when releasing the keys first
@@ -559,23 +529,8 @@ public class Player : MonoBehaviour
 
         transform.Translate(deltaMovement, Space.World); // apply the movement
 
-
         if (Time.deltaTime > 0) // update velocity
             _velocity = deltaMovement / Time.deltaTime;
-
-
-        // clamp velocities
-        /*if (_velocity.y < -TerminalVelocity)
-            _velocity.y = -TerminalVelocity;
-        else if (_velocity.y > TerminalVelocity)
-            _velocity.y = TerminalVelocity;
-
-        if (_velocity.x < -MaxVelocityX)
-            _velocity.x = -MaxVelocityX;
-        else if (_velocity.x > MaxVelocityX)
-            _velocity.x = MaxVelocityX;*/
-
-        //_velocity.x = Mathf.Min(_velocity.x, MyTweakableParameters.MaxVelocityX);
 
         if (_velocity.x > MyTweakableParameters.MaxVelocityX)
             _velocity.x = MyTweakableParameters.MaxVelocityX;
@@ -584,6 +539,12 @@ public class Player : MonoBehaviour
 
         if (_velocity.y < MyTweakableParameters.TerminalVelocity)
             _velocity.y = MyTweakableParameters.TerminalVelocity;
+
+
+        //Debug.Log("delta: " + deltaMovement);
+        //Debug.Log("velocity: " + _velocity);
+
+        
 
 
     }
@@ -692,6 +653,13 @@ public class Player : MonoBehaviour
     void ApplyGravity()
     {
         _velocity += (MyTweakableParameters.Gravity * _gravityMultiplier) * Time.deltaTime;
+
+        if (!_collisionState.IsGrounded && MyTweakableParameters.UseAirFriction)
+        {
+            _velocity.x *= MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
+            //_velocity.x += -_velocity.x * MyTweakableParameters.AirFrictionHorizontalPercentage / 100;
+            //Debug.Log("use air friction");
+        }
     }
 
     void CalculateRayOrigins()

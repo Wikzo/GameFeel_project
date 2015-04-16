@@ -173,6 +173,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1187075940}
   - {fileID: 2064227268}
   - {fileID: 1133511933}
   - {fileID: 773737108}
@@ -1970,7 +1971,7 @@ RectTransform:
   - {fileID: 1948622659}
   - {fileID: 2070117271}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 255, y: -340}
@@ -2381,7 +2382,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: .325980335, b: .838235259, a: .0196078438}
+  m_BackGroundColor: {r: .0356833823, g: .182331994, b: .220588207, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2869,10 +2870,10 @@ RectTransform:
   m_Children:
   - {fileID: 1860134434}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -192, y: 35}
+  m_AnchoredPosition: {x: -192, y: 60}
   m_SizeDelta: {x: 213.299988, y: 55}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &738972603
@@ -3074,7 +3075,7 @@ RectTransform:
   - {fileID: 589193833}
   - {fileID: 2114696734}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 83, y: -237}
@@ -4067,7 +4068,7 @@ RectTransform:
   m_Children:
   - {fileID: 468170018}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 73, y: -139}
@@ -4269,6 +4270,66 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1184226799}
+--- !u!1 &1187075939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1187075940}
+  - 222: {fileID: 1187075942}
+  - 114: {fileID: 1187075941}
+  m_Layer: 5
+  m_Name: RawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1187075940
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1187075939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 36669294}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 509, y: 300}
+  m_SizeDelta: {x: 1101, y: 619}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1187075941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1187075939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -98529514, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: .184313729}
+  m_Texture: {fileID: 2800000, guid: c542cc251cca0d940946dee5519efc6b, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1187075942
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1187075939}
 --- !u!1 &1208499205
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,7 +5522,7 @@ RectTransform:
   - {fileID: 1384154647}
   - {fileID: 848109875}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 255, y: -447}
@@ -5766,7 +5827,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 36669294}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -191.999969, y: 193.5}
@@ -5816,8 +5877,8 @@ MonoBehaviour:
   m_Text: 'TERMS OF AGREEMENT:
 
     By clicking on the button below, you agree that the game will collect data while
-    you are playing, as well as the answers that you submit. This data will solely
-    be used for research purposes.'
+    you are playing, as well as logging your answers. This data will solely be used
+    for research purposes.'
 --- !u!222 &1502008235
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7524,7 +7585,7 @@ RectTransform:
   - {fileID: 1952779804}
   - {fileID: 1305095666}
   m_Father: {fileID: 36669294}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 88, y: -60}
