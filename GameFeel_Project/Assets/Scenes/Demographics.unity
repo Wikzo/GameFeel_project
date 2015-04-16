@@ -256,7 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2896cc7a08ab43e4dbfa0f7ddc963c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
   Gender: {fileID: 2064227269}
   Age: {fileID: 468170019}
   Region: {fileID: 773737109}
@@ -264,7 +263,6 @@ MonoBehaviour:
   ExperiencePlatformers: {fileID: 1465168160}
   ContinueButton: {fileID: 738972601}
   Agreement: {fileID: 1502008231}
-  NameText: 
   GenderText: 
   AgeText: 
   RegionText: 
@@ -2857,7 +2855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &738972602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3394,6 +3392,7 @@ MonoBehaviour:
   ExperienceGames: 
   ExperiencePlatformers: 
   LatinSquareSequence: 1
+  DateText: 
 --- !u!4 &842598444
 Transform:
   m_ObjectHideFlags: 0
@@ -5754,7 +5753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1502008232
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5814,9 +5813,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'TERMS OF AGREEMENT
+  m_Text: 'TERMS OF AGREEMENT:
 
-    By clicking on the button below, you agree that the game will collect data when
+    By clicking on the button below, you agree that the game will collect data while
     you are playing, as well as the answers that you submit. This data will solely
     be used for research purposes.'
 --- !u!222 &1502008235

@@ -13,12 +13,69 @@ public class ParameterManager : MonoBehaviour
     public int NumberOfParameters = 4;
     public int LatinSequence = 1;
 
-    public string LatinSquareSequenceDatabaseFormat
+    public int Level = 0;
+
+    public string LatinSquareSequenceDatabaseFormat()
     {
-        get { return string.Format("&LatinSequence={0}", LatinSequence.ToString()); }
+        // seq1: AA, BB, BA, AB
+        // seq2: BB, AB, AA, BA
+        // seq3: AB, BA, BB, AA
+        // seq4: BA, AA, AB, BB
+
+        string letters = "";
+
+        int myLevel = Level + 1;
+
+        switch (LatinSequence)
+        {
+            case 1:
+                if (myLevel == 1)
+                    letters = "AA";
+                else if (myLevel == 2)
+                    letters = "BB";
+                else if (myLevel == 3)
+                    letters = "BA";
+                else if (myLevel == 4)
+                    letters = "AB";
+
+                break;
+            case 2:
+                if (myLevel == 1)
+                    letters = "BB";
+                else if (myLevel == 2)
+                    letters = "AB";
+                else if (myLevel == 3)
+                    letters = "AA";
+                else if (myLevel == 4)
+                    letters = "BA";
+                break;
+            case 3:
+                if (myLevel == 1)
+                    letters = "AB";
+                else if (myLevel == 2)
+                    letters = "BA";
+                else if (myLevel == 3)
+                    letters = "BB";
+                else if (myLevel == 4)
+                    letters = "AA";
+                break;
+            case 4:
+                if (myLevel == 1)
+                    letters = "BA";
+                else if (myLevel == 2)
+                    letters = "AA";
+                else if (myLevel == 3)
+                    letters = "AB";
+                else if (myLevel == 4)
+                    letters = "BB";
+                break;
+
+
+
+        }
+        return string.Format("&LatinSequence={0}-{1}", LatinSequence.ToString(), letters);
     }
     
-    public int Index = 0;
 
     public bool UseRandomGravity = false;
     public bool UseRandomJumpPower = false;
@@ -124,69 +181,75 @@ public class ParameterManager : MonoBehaviour
         // a = small
         // b = large
 
+        // [attack] [release]
+
         // seq1: AA, BB, BA, AB
         // seq2: BB, AB, AA, BA
         // seq3: AB, BA, BB, AA
-        // seq4: BA, AA, AB, BA
+        // seq4: BA, AA, AB, BB
 
         //Debug.Log("Using Latin square sequence: " + LatinSequence);
 
         switch (LatinSequence)
         {
             case 1:
-                _releaseTimes[0] = 'a';
                 _attackTimes[0] = 'a';
+                _releaseTimes[0] = 'a';
 
-                _releaseTimes[1] = 'b';
                 _attackTimes[1] = 'b';
+                _releaseTimes[1] = 'b';
 
-                _releaseTimes[2] = 'b';
-                _attackTimes[2] = 'a';
+                _attackTimes[2] = 'b';
+                _releaseTimes[2] = 'a';
 
-                _releaseTimes[3] = 'a';
-                _attackTimes[3] = 'b';
+                _attackTimes[3] = 'a';
+                _releaseTimes[3] = 'b';
+
                 break;
 
             case 2:
-                _releaseTimes[0] = 'b';
                 _attackTimes[0] = 'b';
+                _releaseTimes[0] = 'b';
 
-                _releaseTimes[1] = 'a';
-                _attackTimes[1] = 'b';
+                _attackTimes[1] = 'a';
+                _releaseTimes[1] = 'b';
 
-                _releaseTimes[2] = 'a';
                 _attackTimes[2] = 'a';
+                _releaseTimes[2] = 'a';
 
-                _releaseTimes[3] = 'b';
-                _attackTimes[3] = 'a';
+                _attackTimes[3] = 'b';
+                _releaseTimes[3] = 'a';
+
                 break;
 
             case 3:
-                _releaseTimes[0] = 'a';
-                _attackTimes[0] = 'b';
+                _attackTimes[0] = 'a';
+                _releaseTimes[0] = 'b';
 
-                _releaseTimes[1] = 'b';
-                _attackTimes[1] = 'a';
+                _attackTimes[1] = 'b';
+                _releaseTimes[1] = 'a';
 
-                _releaseTimes[2] = 'b';
                 _attackTimes[2] = 'b';
+                _releaseTimes[2] = 'b';
 
-                _releaseTimes[3] = 'a';
                 _attackTimes[3] = 'a';
+                _releaseTimes[3] = 'a';
+
                 break;
 
             case 4:
-                _releaseTimes[0] = 'b';
-                _attackTimes[0] = 'a';
+                _attackTimes[0] = 'b';
+                _releaseTimes[0] = 'a';
 
-                _releaseTimes[1] = 'a';
                 _attackTimes[1] = 'a';
+                _releaseTimes[1] = 'a';
 
-                _releaseTimes[2] = 'a';
-                _attackTimes[2] = 'b';
+                _attackTimes[2] = 'a';
+                _releaseTimes[2] = 'b';
 
-                _releaseTimes[3] = 'b';
                 _attackTimes[3] = 'b';
+                _releaseTimes[3] = 'b';
+
                 break;
         }
 

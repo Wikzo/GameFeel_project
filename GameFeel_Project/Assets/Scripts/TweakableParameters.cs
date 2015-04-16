@@ -170,7 +170,7 @@ public class TweakableParameters
                 ReleaseTime,
                 AttackTime,
                 AnimationMaxSpeed,
-                ParameterManager.Instance.Index,
+                ParameterManager.Instance.Level + 1,
                 StateManager.Instance.DeathsOnThisLevel,
                 StateManager.Instance.TimeSpentOnLevel);
     }

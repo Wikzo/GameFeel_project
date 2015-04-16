@@ -338,7 +338,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -77}
+  m_AnchoredPosition: {x: 0, y: -109}
   m_SizeDelta: {x: 546, y: 348.950073}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1098921436
@@ -380,9 +380,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'University Project - Medialogy:
+  m_Text: 'Investigating Game Feel
 
-    Investigating Game Feel'
+    - University Project -
+
+'
 --- !u!222 &1098921438
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -556,8 +558,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'In this test, I will present you with a 2D platforming game where you have
-    to collect 3 stars.
+  m_Text: 'You will be presented with a 2D platforming game where you have to collect
+    3 stars.
 
     You will play the same game 4 times, but each time some of the parameters change.'
 --- !u!222 &1378673894
@@ -801,7 +803,7 @@ MonoBehaviour:
   m_Text: 'Thanks for taking your time to participate in this!
 
 
-    As a token of appreciation, if you complete all steps in this test (around 10
+    As a token of appreciation, if you complete all steps in this test (around 15
     minutes),
 
     you will enter a contest where one randomly-chosen participant
@@ -809,15 +811,14 @@ MonoBehaviour:
     wins a $10 gift card for Amazon or Steam.
 
 
-    In this test, I will present you with a 2D platforming game where you have to
-    collect 3 stars.
+    You will be presented with a 2D platforming game where you have to collect 3 stars.
 
     You will play the same game 4 times, but each time some of the parameters change.
 
 
-    Between each round, I want you to answer some simple questions.
+    Between each round, you will be asked to answer some simple questions.
 
-    These questions are about how the controls feel (both on ground and in air).
+    These questions are about how the controls feel.
 
 
     Please note that you may use the same answers multiple times.'

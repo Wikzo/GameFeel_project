@@ -106,9 +106,9 @@ public class Player : MonoBehaviour
 
     public void ChangeParameters()
     {
-        MyTweakableParameters = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Index];
+        MyTweakableParameters = ParameterManager.Instance.MyParameters[ParameterManager.Instance.Level];
 
-        //Debug.Log("Changed parameters (index: " + ParameterManager.Instance.Index + ")");
+        //Debug.Log("Changed parameters (index: " + ParameterManager.Instance.Level + ")");
     }
 
     void Update()

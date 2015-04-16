@@ -58,10 +58,10 @@ public class ParameterGUIInterface : MonoBehaviour
 
         /*if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
-            if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
-                ParameterManager.Instance.Index++;
+            if (ParameterManager.Instance.Level + 1 < ParameterManager.Instance.MyParameters.Count)
+                ParameterManager.Instance.Level++;
             else
-                ParameterManager.Instance.Index = 0;
+                ParameterManager.Instance.Level = 0;
 
             _player.ChangeParameters();
 
@@ -70,10 +70,10 @@ public class ParameterGUIInterface : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
-            if (ParameterManager.Instance.Index - 1 >= 0)
-                ParameterManager.Instance.Index--;
+            if (ParameterManager.Instance.Level - 1 >= 0)
+                ParameterManager.Instance.Level--;
             else
-                ParameterManager.Instance.Index = ParameterManager.Instance.MyParameters.Count-1;
+                ParameterManager.Instance.Level = ParameterManager.Instance.MyParameters.Count-1;
 
             _player.ChangeParameters();
 
@@ -84,7 +84,7 @@ public class ParameterGUIInterface : MonoBehaviour
           //  DrawDebugMenu = !DrawDebugMenu;
 
 
-        GameNumberText.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Index + 1),
+        GameNumberText.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Level + 1),
             ParameterManager.Instance.MyParameters.Count);
     }
 
@@ -190,7 +190,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
         GUI.Label(new Rect(Screen.width * 0.5f, 0, 180, 20), "Velocity: " + _player._velocity, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 20, 180, 20), "State: " + _player._currentHorizontalMovementState, DebugGUIStyle);
-        GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Index: " + (ParameterManager.Instance.Index+1) + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f, 40, 180, 20), "Level: " + (ParameterManager.Instance.Level+1) + " / " + ParameterManager.Instance.MyParameters.Count, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 60, 180, 20), "Level: " + Application.loadedLevelName, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 80, 180, 20), "GameState: " + Demographics.Instance.MyGameState, DebugGUIStyle);
         GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "Grounded: " + _player._collisionState.IsGrounded, DebugGUIStyle);

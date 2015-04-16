@@ -32,6 +32,7 @@ public class StateManager : MonoBehaviour
     public float TimeSpentOnLevel;
     public int DeathsOnThisLevel;
 
+    private bool _hasShownMidQuestionnaireFirstTime;
 
     private string id = "";
     void Start()
@@ -53,7 +54,7 @@ public class StateManager : MonoBehaviour
         te.Copy();
 
 
-
+        _hasShownMidQuestionnaireFirstTime = false;
         PostQuestionnaireObject.SetActive(false);
 
 
@@ -112,22 +113,22 @@ public class StateManager : MonoBehaviour
 
     public void TransitionToAirQuestionnaire()
     {
-        //ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].Animator.SetTrigger("PlayTransition");
+        //ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Level].Animator.SetTrigger("PlayTransition");
     }
 
     public void ContinueToNextRound()
     {
         _myPostDataOnline.PostData(Demographics.Instance.Id,
             Demographics.Instance.ToStringDatabaseFormat(),
-            ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Index].QuestionnaireDataToDatabaseFormat(),
+            ParameterManager.Instance.MyQuestionnaireData[ParameterManager.Instance.Level].QuestionnaireDataToDatabaseFormat(),
             MyPlayer.MyTweakableParameters.ToStringDatabaseFormat(),
             StateManager.Instance.AverageFps,
-            ParameterManager.Instance.LatinSquareSequenceDatabaseFormat);
+            ParameterManager.Instance.LatinSquareSequenceDatabaseFormat());
 
         // next round
-        if (ParameterManager.Instance.Index + 1 < ParameterManager.Instance.MyParameters.Count)
+        if (ParameterManager.Instance.Level + 1 < ParameterManager.Instance.MyParameters.Count)
         {
-            ParameterManager.Instance.Index++;
+            ParameterManager.Instance.Level++;
         }
         else // post-questionnaire
         {
@@ -174,6 +175,7 @@ public class StateManager : MonoBehaviour
         DeathsOnThisLevel = 0;
         totalTime = 0;
         totalFrames = 0;
+        _hasShownMidQuestionnaireFirstTime = false;
 
 
         Time.timeScale = 1;
@@ -221,6 +223,7 @@ public class StateManager : MonoBehaviour
 
     }
 
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F12))
@@ -236,7 +239,7 @@ public class StateManager : MonoBehaviour
         }
 
 
-        if (CollectedSoFar > CollectToWin - 1 && Demographics.Instance.MyGameState == GameState.Playing)
+        if (CollectedSoFar > CollectToWin - 1 && Demographics.Instance.MyGameState == GameState.Playing && !_hasShownMidQuestionnaireFirstTime)
             StartCoroutine(ShowQuestionnaire());
 
         if (Demographics.Instance.MyGameState == GameState.ShowPostQuestionnaire)
@@ -255,8 +258,9 @@ public class StateManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
         //Debug.Log("Showing mid-questionnaire");
+        _hasShownMidQuestionnaireFirstTime = true;
 
-        ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Index].SetActive(true);
+        ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Level].SetActive(true);
 
 
         StartCoroutine(FadeMusicOut(QuestionnaireMusic));

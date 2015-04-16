@@ -18,7 +18,7 @@ public class RoundFloatingText : MonoBehaviour
 
         currentLerpTime = -2;
 
-        _textMesh.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Index + 1),
+        _textMesh.text = string.Format("Round: {0} / {1}", (ParameterManager.Instance.Level + 1),
             ParameterManager.Instance.MyParameters.Count);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -5);

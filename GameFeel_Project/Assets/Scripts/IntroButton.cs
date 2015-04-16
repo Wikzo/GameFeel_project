@@ -9,9 +9,9 @@ public class IntroButton : MonoBehaviour
         {
             Demographics.Instance.PostLatinSquare();
             Demographics.Instance.MyGameState = GameState.Playing;
-            Application.LoadLevel(level);
-
         }
+        Application.LoadLevel(level);
+
 
     }
 
