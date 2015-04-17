@@ -23,7 +23,7 @@ public enum HorizontalMovementState
 
 public class Player : MonoBehaviour
 {
-
+    public bool IntroductionDummy = false;
     public Transform BallGraphic;
 
     public TweakableParameters MyTweakableParameters;
@@ -226,6 +226,7 @@ public class Player : MonoBehaviour
     {
         BallGraphic.Rotate(Vector3.forward * Time.deltaTime * _velocity.x * -MyTweakableParameters.AnimationMaxSpeed);
 
+        /*
         return;
 
         // old animation stuff for Mario sprite ...
@@ -238,7 +239,7 @@ public class Player : MonoBehaviour
 
 
         _animationPlaybackSpeed = NormalizationMap(Mathf.Abs(_velocity.x), 0, MyTweakableParameters.MaxVelocityX, 0f, MyTweakableParameters.AnimationMaxSpeed);
-        _animator.speed = _animationPlaybackSpeed;
+        _animator.speed = _animationPlaybackSpeed;*/
     }
 
 
@@ -499,7 +500,7 @@ public class Player : MonoBehaviour
 
     void Move(Vector2 deltaMovement)
     {
-        var wasGrouned = _collisionState.IsCollidingBelow;
+        //var wasGrouned = _collisionState.IsCollidingBelow;
         _collisionState.Reset();
 
         // calculate collision checks
@@ -690,6 +691,9 @@ public class Player : MonoBehaviour
     public GameObject DiePrefab;
     void Die()
     {
+        if (IntroductionDummy)
+            return;
+
         _trailRenderer.time = 0;
 
         StateManager.Instance.DeathsOnThisLevel++;

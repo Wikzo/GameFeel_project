@@ -7,9 +7,7 @@ using UnityEngine.UI;
 public class FeelExamples : MonoBehaviour
 {
 
-    private readonly string[] _examples = {"Floaty",
-                                           "Fragile",
-                                           "Stiff",
+    private readonly string[] _examples = {"Fragile",
                                            "Rigid",
                                            "Firm",
                                            "Solid",
@@ -48,8 +46,7 @@ public class FeelExamples : MonoBehaviour
                                           "Inert",
                                           "Unrealistic",
                                           "Light",
-                                          "Normal," +
-                                          "Twitchy"
+                                          "Normal"
 
                                           };
 

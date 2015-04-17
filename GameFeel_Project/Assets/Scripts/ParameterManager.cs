@@ -328,12 +328,12 @@ public class ParameterManager : MonoBehaviour
             float? releaseTime = UseRandomReleaseTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[releaseTimeIndex].y) : (float?)null;
             float? attackTime = UseRandomAttackTime ? Random.Range(TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].x, TweakableParameters.AttackAndReleaseTimes[attackTimeIndex].y) : (float?)null;
 
-            string s = string.Format("Sequence {0}: {1}{2} ({3}; {4})",
+            /*string s = string.Format("Sequence {0}: {1}{2} ({3}; {4})",
                 i,
                 _releaseTimes[i],
                 _attackTimes[i],
                 releaseTime,
-                attackTime);
+                attackTime);*/
 
 
             //Debug.Log(s);

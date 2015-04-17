@@ -9,9 +9,9 @@ public class AnimationCurveTest : MonoBehaviour
     public AnimationCurve NegativeCurve;
     public AnimationCurve Combined;
 
-    private bool useOriginal = true;
+//    private bool useOriginal = true;
 
-    private float timer = 1;
+  //  private float timer = 1;
 
     // Use this for initialization
     void Start()
@@ -55,7 +55,7 @@ public class AnimationCurveTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         return;
         timer -= Time.deltaTime;
@@ -74,4 +74,5 @@ public class AnimationCurveTest : MonoBehaviour
 
 
     }
+     * */
 }

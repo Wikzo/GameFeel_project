@@ -45,7 +45,7 @@ public class ParameterGUIInterface : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _parameters = _player.MyTweakableParameters;
 
@@ -90,7 +90,7 @@ public class ParameterGUIInterface : MonoBehaviour
 
     
 
-    void OnGUI()
+    /*void OnGUI()
     {
         // send data
         /*name = GUI.TextField(new Rect(Screen.width - (Screen.width * 0.3f), Screen.height - (Screen.height * 0.15f), 200, 20), name);
@@ -105,6 +105,8 @@ public class ParameterGUIInterface : MonoBehaviour
         {
             Application.OpenURL("http://tunnelvisiongames.com/unityserver/displayfeeling.php");
         }*/
+
+    /*
 
 
 
@@ -196,4 +198,5 @@ public class ParameterGUIInterface : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.5f, 100, 180, 20), "Grounded: " + _player._collisionState.IsGrounded, DebugGUIStyle);
 
     }
+*/
 }
