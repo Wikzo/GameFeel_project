@@ -8,6 +8,7 @@ public class ParameterManager : MonoBehaviour
 {
     public List<TweakableParameters> MyParameters;
     public List<GameObject> MyQuestionnaireUI;
+    public List<QuestionTransition> QuestionTransitions;
     public List<QuestionnaireData2> MyQuestionnaireData;
     public Player Player;
     public int NumberOfParameters = 4;

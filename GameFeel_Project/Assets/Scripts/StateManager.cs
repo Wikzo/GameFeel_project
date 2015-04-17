@@ -239,8 +239,13 @@ public class StateManager : MonoBehaviour
         }
 
 
-        if (CollectedSoFar > CollectToWin - 1 && Demographics.Instance.MyGameState == GameState.Playing && !_hasShownMidQuestionnaireFirstTime)
+        if (CollectedSoFar > CollectToWin - 1 && Demographics.Instance.MyGameState == GameState.Playing &&
+            !_hasShownMidQuestionnaireFirstTime)
+        {
+            Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
             StartCoroutine(ShowQuestionnaire());
+            
+        }
 
         if (Demographics.Instance.MyGameState == GameState.ShowPostQuestionnaire)
         {
@@ -261,6 +266,7 @@ public class StateManager : MonoBehaviour
         _hasShownMidQuestionnaireFirstTime = true;
 
         ParameterManager.Instance.MyQuestionnaireUI[ParameterManager.Instance.Level].SetActive(true);
+        ParameterManager.Instance.QuestionTransitions[ParameterManager.Instance.Level].StartTransition();
 
 
         StartCoroutine(FadeMusicOut(QuestionnaireMusic));
@@ -313,6 +319,5 @@ public class StateManager : MonoBehaviour
 
         // Furthermore we make sure that we don't destroy between scenes (this is optional)
         DontDestroyOnLoad(gameObject);
-
     }
 }

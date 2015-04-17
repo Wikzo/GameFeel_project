@@ -20,7 +20,7 @@ public class QuestionTransition : MonoBehaviour
     private float _backgroundPlaneStartPosY;
     private int _sequenceNumber = 0;
     
-    private void Start()
+    private void Awake()
     {
         _objectsDefaultPos = new List<Vector3>(ObjectsToMove.Count);
         for (int index = 0; index < ObjectsToMove.Count; index++)
@@ -29,7 +29,6 @@ public class QuestionTransition : MonoBehaviour
 
         _backgroundPlaneStartPosY = BackgroundPlane.transform.position.y;
 
-        NextTransition(0);
 
         _hideQuestions = false;
         _showHideButton = true;
@@ -37,6 +36,11 @@ public class QuestionTransition : MonoBehaviour
 
 
 
+    }
+
+    public void StartTransition()
+    {
+        NextTransition(0);
     }
 
     int numberOfElements = 1;
