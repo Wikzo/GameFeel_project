@@ -6338,6 +6338,10 @@ Prefab:
       propertyPath: MyTweakableParameters.AttackTime
       value: .00100000005
       objectReference: {fileID: 0}
+    - target: {fileID: 11437632, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
+      propertyPath: MyTweakableParameters.Gravity.y
+      value: -30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8e995ed14b39114fa478ae138f9f986, type: 2}
   m_RootGameObject: {fileID: 2022154811}
@@ -9135,16 +9139,16 @@ MonoBehaviour:
   IntroductionDummy: 1
   BallGraphic: {fileID: 1083118065}
   MyTweakableParameters:
-    Gravity: {x: 0, y: -10, z: 0}
-    JumpPower: 15
+    Gravity: {x: 0, y: -30, z: 0}
+    JumpPower: 20
     UseAirFriction: 0
     AirFrictionHorizontalPercentage: 99
     KeepGroundMomentumAfterJump: 0
-    TerminalVelocity: -40
+    TerminalVelocity: -30
     GhostJumpTime: .200000003
-    MinimumJumpHeight: 2.13000011
+    MinimumJumpHeight: 2
     ReleaseEarlyJumpVelocity: .5
-    ApexGravityMultiplier: 4
+    ApexGravityMultiplier: 3
     MaxVelocityX: 15
     UseGroundFriction: 0
     GroundFrictionPercentage: 50

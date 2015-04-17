@@ -23,7 +23,7 @@ public class TweakableParameters
     { 
         // milliseconds
         new Vector2(0.001f, 0.24f),
-        new Vector2(0.241f, 3f),
+        new Vector2(0.241f, 1.5f),
         //new Vector2(1.1f, 3.1f)
     };
 
@@ -104,14 +104,14 @@ public class TweakableParameters
     //public Rating MyRating;
 
     // air
-    public Vector3 Gravity = new Vector3(0, -10f, 0);
-    public float JumpPower = 15;
+    public Vector3 Gravity = new Vector3(0, -30f, 0);
+    public float JumpPower = 20;
     public bool UseAirFriction = false;
     public float AirFrictionHorizontalPercentage = 90f;
     public bool KeepGroundMomentumAfterJump = false;
-    public float TerminalVelocity = -20f;
+    public float TerminalVelocity = -30f;
     public float GhostJumpTime = 0.2f;
-    public float MinimumJumpHeight = 0.5f;
+    public float MinimumJumpHeight = 2f;
     public float ReleaseEarlyJumpVelocity = 0.5f;
     public float ApexGravityMultiplier = 3;
 

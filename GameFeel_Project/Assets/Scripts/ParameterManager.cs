@@ -336,7 +336,7 @@ public class ParameterManager : MonoBehaviour
                 attackTime);*/
 
 
-            //Debug.Log(s);
+            //Debug.Log(s); //
 
 
             float? turnAroundBoostPercent = UseRandomTurnAroundBoost ? Random.Range(TweakableParameters.TurnAroundBoostPercentRange.x, TweakableParameters.TurnAroundBoostPercentRange.y) : (float?)null;

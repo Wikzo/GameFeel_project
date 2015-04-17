@@ -40,7 +40,6 @@ public class QuestionTransition : MonoBehaviour
     }
 
     int numberOfElements = 1;
-    int numberOfElementsSummed = 0;
 
     private bool _hideQuestions;
     private bool _showHideButton;

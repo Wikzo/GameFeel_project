@@ -45,8 +45,6 @@ public class Player : MonoBehaviour
     private bool _canMove; // used for when dying
 
     // animation stuff
-    private Animator _animator;
-    private float _animationPlaybackSpeed = 1f;
     public int _currentDirection = 0;
     private bool _isFacingRight = true;
 
@@ -95,7 +93,6 @@ public class Player : MonoBehaviour
         float colliderHeight = _boxCollider2D.size.y * Mathf.Abs(transform.localScale.y) - (2 * SkinWidth);
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
-        _animator = this.GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _trailRenderer = GetComponent<TrailRenderer>();
         StartPosition = transform.position;
@@ -139,6 +136,13 @@ public class Player : MonoBehaviour
     public AudioClip DieSound;
     private bool _hasJumped;
 
+
+    //void OnGUI()
+    //{
+     //   GUI.Label(new Rect(Screen.width / 2, Screen.height / 2, 100, 100), "Jump time: " + jumpTime);
+    //}
+    //private float jumpTime = 0;
+
     void InputJump()
     {
         // grounded
@@ -154,6 +158,10 @@ public class Player : MonoBehaviour
 
 
         }
+        //else
+        //{
+         //   jumpTime += Time.deltaTime;
+        //}
 
         // initial jump button
         if ((_collisionState.IsGrounded || _currentGhostJumpTime > 0) && Input.GetKeyDown(KeyCode.Space))
@@ -161,6 +169,8 @@ public class Player : MonoBehaviour
             _velocity.y = MyTweakableParameters.JumpPower;
             _currentGhostJumpTime = -1;
             _hasJumped = true;
+
+            //jumpTime = 0;
 
             if (!_playingJumpSound)
             {
@@ -687,7 +697,6 @@ public class Player : MonoBehaviour
             Die();
     }
 
-    private int _deaths = 0;
     public GameObject DiePrefab;
     void Die()
     {
@@ -738,7 +747,6 @@ public class Player : MonoBehaviour
 
     public int StarsCollected;
     public AudioClip[] StarPickupSounds;
-    private int _starPickupIndex = 0;
 
     private void CorrectHorizontalPlacement(ref Vector2 deltaMovement, bool isRight) // for when platforms move into player
     {

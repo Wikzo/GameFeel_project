@@ -4,7 +4,6 @@ public class Rating
 {
     string timeFormat = "MM/dd/yyyy-h:mm";            // Use this timeFormat
 
-    static readonly string[] scale = new string[] { "1\n(none)", "2", "3", "4", "5","6","7\n(a lot)" };
 
     public string Description = "*write a description here*";
     public int Confidence = 5;

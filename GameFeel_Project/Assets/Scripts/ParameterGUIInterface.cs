@@ -21,13 +21,13 @@ public class ParameterGUIInterface : MonoBehaviour
     
 
     // internal fields
-    private bool _showExtendedGUI = false;
+    //private bool _showExtendedGUI = false;
     private Vector2 scrollViewVector = Vector2.zero;
 
 
     // strings
-    private string name = "Write your name here";
-    private string feeling = "Describe this game feeling here";
+    //private string name = "Write your name here";
+    //private string feeling = "Describe this game feeling here";
 
     void Start()
     {
