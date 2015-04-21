@@ -19,6 +19,10 @@ public class QuestionTransition : MonoBehaviour
     private List<Vector3> _objectsDefaultPos;
     private float _backgroundPlaneStartPosY;
     private int _sequenceNumber = 0;
+
+    private Vector3 _backupOffset;
+    private Vector3 _backupStartPos;
+    private float _offset = 620f;
     
     private void Awake()
     {
@@ -28,14 +32,13 @@ public class QuestionTransition : MonoBehaviour
 
 
         _backgroundPlaneStartPosY = BackgroundPlane.transform.position.y;
+        _backupOffset = new Vector3(BackgroundPlane.transform.position.x, _backgroundPlaneStartPosY + _offset, BackgroundPlane.transform.position.z);
+        _backupStartPos = new Vector3(BackgroundPlane.transform.position.x, _backgroundPlaneStartPosY, BackgroundPlane.transform.position.z);
 
 
         _hideQuestions = false;
         _showHideButton = true;
         KeepPlayingButtonText.text = "Resume Playing";
-
-
-
     }
 
     public void StartTransition()
@@ -54,14 +57,26 @@ public class QuestionTransition : MonoBehaviour
 
         if (_hideQuestions)
         {
+            // backup if position doesn't align
+            BackgroundPlane.transform.position = _backupOffset;
+
             KeepPlayingButtonText.text = "Resume Questions";
+            
+            
             Demographics.Instance.MyGameState = GameState.Playing;
 
         }
         else
         {
+            // backup if position doesn't align
+            BackgroundPlane.transform.position = _backupStartPos;
+
             KeepPlayingButtonText.text = "Resume Playing";
+            
+            
             Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
+            
+            
             //_keepPlayingButtonOutline.StopColorAnimation();
         }
 
@@ -79,7 +94,7 @@ public class QuestionTransition : MonoBehaviour
 
         if (_hideQuestions)
         {
-            endPos = _backgroundPlaneStartPosY + 620f;
+            endPos = _backgroundPlaneStartPosY + _offset;
             KeepPlayingButtonText.text = "Resume Questions";
             Demographics.Instance.MyGameState = GameState.Playing;
 

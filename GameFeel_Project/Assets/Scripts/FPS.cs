@@ -17,7 +17,7 @@ public class FPS : MonoBehaviour
     // http://wiki.unity3d.com/index.php?title=FramesPerSecond
 
     public ParameterGUIInterface GUI;
-    public bool OnlyShowInDebug = true;
+    public bool ShowFPS = true;
 
     public float updateInterval = 0.5F;
 
@@ -38,7 +38,7 @@ public class FPS : MonoBehaviour
 
     void Update()
     {
-        if (!GUI.DrawDebugMenu && OnlyShowInDebug)
+        if (!ShowFPS)
         {
             guiText.enabled = false;
             return;

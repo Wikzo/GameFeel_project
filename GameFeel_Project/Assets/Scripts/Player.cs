@@ -90,12 +90,12 @@ public class Player : MonoBehaviour
         _horizontalDistanceBetweenRays = colliderWidth / (TotalVerticalRays - 1);
 
         // horizontal collision rays
-        float colliderHeight = _boxCollider2D.size.y * Mathf.Abs(transform.localScale.y) - (2 * SkinWidth);
+        float colliderHeight = _boxCollider2D.size.y * Mathf.Abs(_transform.localScale.y) - (2 * SkinWidth);
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 
         _audioSource = GetComponent<AudioSource>();
         _trailRenderer = GetComponent<TrailRenderer>();
-        StartPosition = transform.position;
+        StartPosition = _transform.position;
         CheckpointPosition = _transform.position;
 
         _canMove = true;
@@ -538,7 +538,7 @@ public class Player : MonoBehaviour
 
         //transform.position += new Vector3(deltaMovement.x, deltaMovement.y, 0);
 
-        transform.Translate(deltaMovement, Space.World); // apply the movement
+        _transform.Translate(deltaMovement, Space.World); // apply the movement
 
         if (Time.deltaTime > 0) // update velocity
             _velocity = deltaMovement / Time.deltaTime;
@@ -678,9 +678,9 @@ public class Player : MonoBehaviour
         var sizeOfBoxCollider = new Vector2(_boxCollider2D.size.x * Mathf.Abs(_localScale.x), _boxCollider2D.size.y * Mathf.Abs(_localScale.y)) / 2;
         var centerOfBoxCollider = new Vector2(_boxCollider2D.center.x * _localScale.x, _boxCollider2D.center.y * _localScale.y);
 
-        _raycastTopLeft = transform.position + new Vector3(centerOfBoxCollider.x - sizeOfBoxCollider.x + SkinWidth, centerOfBoxCollider.y + sizeOfBoxCollider.y - SkinWidth);
-        _raycastBottomRight = transform.position + new Vector3(centerOfBoxCollider.x + sizeOfBoxCollider.x - SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
-        _raycastBottomLeft = transform.position + new Vector3(centerOfBoxCollider.x - sizeOfBoxCollider.x + SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
+        _raycastTopLeft = _transform.position + new Vector3(centerOfBoxCollider.x - sizeOfBoxCollider.x + SkinWidth, centerOfBoxCollider.y + sizeOfBoxCollider.y - SkinWidth);
+        _raycastBottomRight = _transform.position + new Vector3(centerOfBoxCollider.x + sizeOfBoxCollider.x - SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
+        _raycastBottomLeft = _transform.position + new Vector3(centerOfBoxCollider.x - sizeOfBoxCollider.x + SkinWidth, centerOfBoxCollider.y - sizeOfBoxCollider.y + SkinWidth);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -739,7 +739,7 @@ public class Player : MonoBehaviour
 
         _trailRenderer.time = 2;
 
-        Instantiate(FloatingTextRounds, transform.position, Quaternion.identity);
+        Instantiate(FloatingTextRounds, _transform.position, Quaternion.identity);
 
     }
 
