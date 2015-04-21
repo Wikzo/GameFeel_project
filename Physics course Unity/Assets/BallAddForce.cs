@@ -15,13 +15,15 @@ public class BallAddForce : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Vector3 force;
+        Vector3 force, force2;
         Vector3 rotation;
 
-        force = Input.GetAxis("Horizontal")*Speed*Time.deltaTime * Vector3.forward;
+        force = Input.GetAxis("Vertical")*Speed*Time.deltaTime * transform.forward;
+        force2 = Input.GetAxis("Horizontal")*Speed*Time.deltaTime * Vector3.up;
         //rotation = Input.GetAxis("Horizontal")*Speed*Time.deltaTime * Vector3.forward;
 
 
         _rigidbody.AddTorque(force);
+        _rigidbody.AddTorque(force2);
     }
 }
