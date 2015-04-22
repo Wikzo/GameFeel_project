@@ -15,12 +15,17 @@ public class Move : MonoBehaviour
     //public Vector3 COMFrontPosition, COMBackPosition;
 
     ///
-    //public Vector3 Offset;
+    public Vector3 Offset;
 
-    //private Vector3 COMStartPosition;
+    public float OffsetSpeed = 0.01f;
+    public float OffsetMax = 0.4f;
+
+    private Vector3 COMStartPosition;
 
     public Vector3 StandardDownForce;
     public Vector3 _forceToAddLeft, _forceToAddRight;
+
+    // -0.4f COM offset
 
     // Use this for initialization
     private void Start()
@@ -35,7 +40,7 @@ public class Move : MonoBehaviour
         _leftHandRigidBody = LeftHand.GetComponent<Rigidbody>();
         _rightHandRigidBody = RightHand.GetComponent<Rigidbody>();
 
-        //COMStartPosition = CenterOfMass.localPosition;
+        COMStartPosition = CenterOfMass.localPosition;
     }
 
     // Update is called once per frame
@@ -76,33 +81,57 @@ public class Move : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             _forceToAddLeft += Vector3.up*UpForce;
+            //_forceToAddLeft += _leftFootTransform.up * UpForce; // relative
 
         }
         else if (Input.GetKey(KeyCode.S)) // left down
         {
             _forceToAddLeft += Vector3.up * -DownForce;
+            //_forceToAddLeft += _leftFootTransform.up * -DownForce; // relative
+
 
         }
         // right up
         if (Input.GetKey(KeyCode.UpArrow))
         {
             _forceToAddRight += Vector3.up*UpForce;
+            //_forceToAddRight += _rightFootTransform.up*UpForce; // relative
+
+            //Gizmos.DrawLine(_rightFootTransform.position, _rightFootTransform.up * UpForce);
         }
         else if (Input.GetKey(KeyCode.DownArrow)) // right down
         {
             _forceToAddRight += Vector3.up * -DownForce;
+            //_forceToAddRight += _rightFootTransform.up * -DownForce; // relative
+
 
         }
 
 
+        
+
+        // Center of Mass offset
+        if (Input.GetKey(KeyCode.Keypad2)) // forward
+        {
+            //if (Offset.z < OffsetMax)
+                Offset.y += OffsetSpeed * Time.deltaTime;
+          //else
+            //Offset.z = OffsetMax;
+        }
+        else if (Input.GetKey(KeyCode.Keypad8)) // backward
+        {
+            //if (Offset.z > -OffsetMax)
+                Offset.y -= OffsetSpeed * Time.deltaTime;//
+                //else
+            //   Offset.z = -OffsetMax;
+        }
+        CenterOfMass.localPosition = COMStartPosition + Offset;//
+
         _leftFootRigidBody.AddForce(_forceToAddLeft);
-        _leftHandRigidBody.AddForce(_forceToAddLeft);
+        //_leftHandRigidBody.AddForce(_forceToAddLeft);
 
         _rightFootRigidBody.AddForce(_forceToAddRight);
-        _rightHandRigidBody.AddForce(_forceToAddRight);
-
-
-        //CenterOfMass.localPosition = COMStartPosition + Offset;
+        //_rightHandRigidBody.AddForce(_forceToAddRight);
 
 
     }
