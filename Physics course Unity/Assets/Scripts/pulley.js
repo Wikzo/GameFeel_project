@@ -6,7 +6,7 @@
 var ropeLength : float;
 var otherEnd : GameObject;
 
-var minLimit : float = 0.1;
+var minLimit : float = 0.1; // if limit == 0, then it acts as a Fixed Joint!
 
 private var originalPosition : Vector3;
 private var nextLimit : float;
@@ -42,7 +42,7 @@ function GetActualDistance() : float
 
 function FixedUpdate () 
 {
-	rigid.WakeUp();
+	rigid.WakeUp(); // make sure Rigidbody is ready (default: changing spring limits doesn't update Rigidbodies)
 	if (null != otherEnd)
 	{
 		var thisActualDistance : float = GetActualDistance();
