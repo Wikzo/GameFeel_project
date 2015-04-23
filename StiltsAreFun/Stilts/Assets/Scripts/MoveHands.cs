@@ -4,36 +4,51 @@ using System.Collections;
 public class MoveHands : MonoBehaviour
 {
     public Transform Root;
-    public Vector3 RotateAxis;
     public float RotateSpeed = 10f;
 
     public Transform LeftHand, RightHand;
-    public Vector3 OpenCloseAxis;
     public float MoveSpeed = 10;
 
     // Update is called once per frame
     private void Update()
     {
-        // move whole claw
+
+        if (Input.GetKeyDown(KeyCode.R))
+            Application.LoadLevel(0);
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
+
+        // rotate left/right
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Root.Rotate(RotateAxis, RotateSpeed * Time.deltaTime);
+            Root.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            Root.Rotate(RotateAxis, -RotateSpeed * Time.deltaTime);
+            Root.Rotate(Vector3.forward, -RotateSpeed * Time.deltaTime);
         }
-        
-        // open/close claw
+
+        // rotate up/down
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            LeftHand.Translate(OpenCloseAxis * MoveSpeed * Time.deltaTime);
-            RightHand.Translate(OpenCloseAxis * -MoveSpeed * Time.deltaTime);
+            Root.Rotate(Vector3.up, -RotateSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            LeftHand.Translate(OpenCloseAxis * -MoveSpeed * Time.deltaTime);
-            RightHand.Translate(OpenCloseAxis * MoveSpeed * Time.deltaTime);
+            Root.Rotate(Vector3.up, RotateSpeed * Time.deltaTime);
+        }
+        
+        // open/close claw
+        if (Input.GetKey(KeyCode.M))
+        {
+            LeftHand.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
+            RightHand.Translate(Vector3.forward * -MoveSpeed * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.N))
+        {
+            LeftHand.Translate(Vector3.forward * -MoveSpeed * Time.deltaTime);
+            RightHand.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
         }
     }
 }
