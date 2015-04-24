@@ -5,8 +5,11 @@ public class MoveHands : MonoBehaviour
 {
     public Transform Root;
     public float RotateSpeed = 10f;
+    public Vector3 RotateUpDownAxis;
+    public Vector3 RotateLeftRightAxis;
 
     public Transform LeftHand, RightHand;
+    public Vector3 MoveHandsAxis;
     public float MoveSpeed = 10;
 
     // Update is called once per frame
@@ -22,32 +25,32 @@ public class MoveHands : MonoBehaviour
         // rotate left/right
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Root.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
+            Root.Rotate(RotateLeftRightAxis, RotateSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            Root.Rotate(Vector3.forward, -RotateSpeed * Time.deltaTime);
+            Root.Rotate(RotateLeftRightAxis, -RotateSpeed * Time.deltaTime);
         }
 
         // rotate up/down
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            Root.Rotate(Vector3.up, -RotateSpeed * Time.deltaTime);
+            Root.Rotate(RotateUpDownAxis, -RotateSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            Root.Rotate(Vector3.up, RotateSpeed * Time.deltaTime);
+            Root.Rotate(RotateUpDownAxis, RotateSpeed * Time.deltaTime);
         }
         
         // open/close claw
         if (Input.GetKey(KeyCode.M))
         {
-            LeftHand.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
-            RightHand.Translate(Vector3.forward * -MoveSpeed * Time.deltaTime);
+            LeftHand.Translate(MoveHandsAxis * MoveSpeed * Time.deltaTime);
+            RightHand.Translate(MoveHandsAxis * -MoveSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.N))
         {
-            LeftHand.Translate(Vector3.forward * -MoveSpeed * Time.deltaTime);
+            LeftHand.Translate(MoveHandsAxis * -MoveSpeed * Time.deltaTime);
             RightHand.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
         }
     }
