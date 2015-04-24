@@ -13,10 +13,11 @@ public class StopRigidbody : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKey(KeyCode.P))
         {
             _rb.angularVelocity = Vector3.zero;
             _rb.velocity = Vector3.zero;
+            _rb.Sleep();
         }
     }
 }

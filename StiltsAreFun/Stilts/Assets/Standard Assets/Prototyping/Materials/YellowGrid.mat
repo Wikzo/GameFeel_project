@@ -2,15 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: YellowGrid
   m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSIONMAP _LIGHTMAPPING_DYNAMIC_LIGHTMAPS _LIGHTMAPPING_REALTIME
+  m_ShaderKeywords: _EMISSION _EMISSIONMAP _LIGHTMAPPING_DYNAMIC_LIGHTMAPS _LIGHTMAPPING_REALTIME
     _UVSEC_UV1
-  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -95,12 +94,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: _Cutoff
+          name: _AlphaTestRef
         second: .5
       data:
         first:
-          name: _AlphaTestRef
-        second: .5
+          name: _Lightmapping
+        second: 1
       data:
         first:
           name: _SrcBlend
@@ -109,10 +108,6 @@ Material:
         first:
           name: _DstBlend
         second: 0
-      data:
-        first:
-          name: _Lightmapping
-        second: 1
       data:
         first:
           name: _Parallax
@@ -124,7 +119,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .419999987
+        second: .100000001
       data:
         first:
           name: _BumpScale
@@ -157,15 +152,11 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 2}
+        second: {r: 1.33483374, g: 1.33483374, b: 1.33483374, a: 1.33483374}
       data:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _SpecColor
-        second: {r: .117647059, g: .117647059, b: .117647059, a: 1}
       data:
         first:
           name: _SpecularColor
@@ -178,3 +169,7 @@ Material:
         first:
           name: _EmissionColorWithMapUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .117647059, g: .117647059, b: .117647059, a: 1}

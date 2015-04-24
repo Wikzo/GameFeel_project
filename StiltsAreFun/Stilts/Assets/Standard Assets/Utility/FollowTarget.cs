@@ -7,22 +7,12 @@ namespace UnityStandardAssets.Utility
     public class FollowTarget : MonoBehaviour
     {
         public Transform target;
-        private Vector3 offset;
-
-        private Transform _transform;
-
-        void Start()
-        {
-            offset = transform.position - target.position;
-
-            _transform = transform;
-        }
-        
+        public Vector3 offset = new Vector3(0f, 7.5f, 0f);
 
 
         private void LateUpdate()
         {
-            _transform.position = target.position + offset;
+            transform.position = target.position + offset;
         }
     }
 }

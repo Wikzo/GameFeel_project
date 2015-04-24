@@ -36,7 +36,7 @@ public class HingeVisual : MonoBehaviour
                     if (hinge.connectedAnchor.x < 0)
                     {
                         _myHinge = hinge;
-                        Debug.Log("found anchor" + _myHinge.connectedBody.name);
+                        //Debug.Log("found anchor" + _myHinge.connectedBody.name);
                         _foundMyHinge = true;
                     }
                     break;
@@ -45,7 +45,7 @@ public class HingeVisual : MonoBehaviour
                     if (hinge.connectedAnchor.x == 0)
                     {
                         _myHinge = hinge;
-                        Debug.Log("found anchor" + _myHinge.connectedBody.name);
+                        //Debug.Log("found anchor" + _myHinge.connectedBody.name);
                         _foundMyHinge = true;
                     }
                     break;
@@ -54,7 +54,7 @@ public class HingeVisual : MonoBehaviour
                     if (hinge.connectedAnchor.x > 0f)
                     {
                         _myHinge = hinge;
-                        Debug.Log("found anchor" + _myHinge.connectedBody.name);
+                        //Debug.Log("found anchor" + _myHinge.connectedBody.name);
                         _foundMyHinge = true;
                     }
                     break;

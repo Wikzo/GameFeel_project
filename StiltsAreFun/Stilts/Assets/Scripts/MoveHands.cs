@@ -57,7 +57,7 @@ public class MoveHands : MonoBehaviour
 
         // set time
         if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
-            Time.timeScale = 2;
+            Time.timeScale = 5;
         else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl))
             Time.timeScale = 0.5f;
         else
@@ -103,11 +103,11 @@ public class MoveHands : MonoBehaviour
         }
 
         // root move up/down
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.E))
         {
             Root.Translate(RootMoveVerticalAxis * RootMoveSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(KeyCode.Q))
         {
             Root.Translate(RootMoveVerticalAxis * -RootMoveSpeed * Time.deltaTime);
         }
