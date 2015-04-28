@@ -130,15 +130,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   CollectedSoFar: 0
   CollectToWin: 3
   TimeSpentOnLevel: 0
@@ -165,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a1b07c5dd5be741b8439356d8471bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MakeDuplicates: 1
+  MakeDuplicates: 0
   Player: {fileID: 0}
   DrawDebugMenu: 0
   DebugGUIStyle:
@@ -258,13 +249,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  QuestionTransitions:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   MyQuestionnaireData: []
   Player: {fileID: 0}
   NumberOfParameters: 4
-  LatinSequence: 1
-  Index: 0
+  LatinSequence: 2
+  Level: 0
   UseRandomGravity: 0
   UseRandomJumpPower: 0
   UseRandomUseAirFriction: 0

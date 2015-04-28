@@ -685,7 +685,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "Star")
+        if (coll.CompareTag("Star"))
         {
             Star s = coll.GetComponent<Star>();
 
@@ -693,8 +693,14 @@ public class Player : MonoBehaviour
                 s.CollectStar();
 
         }
-        else if (coll.tag == "Die")
+        else if (coll.CompareTag("Die"))
             Die();
+
+        else if (coll.CompareTag("Checkpoint"))
+        {
+            CheckpointPosition = coll.transform.position;
+            //Debug.Log("Checkpoint: " + coll.name);
+        }
     }
 
     public GameObject DiePrefab;

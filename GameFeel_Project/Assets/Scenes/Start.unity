@@ -377,6 +377,29 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11489096, guid: 1c051fe8ca9dfd8408b14091764b04bc, type: 2}
+      propertyPath: m_Text
+      value: 'Thanks for taking your time to participate in this test!
+
+
+        As a token of appreciation, by completing the test (takes 15-20 minutes),
+
+        you will enter a contest where one randomly-chosen participant
+
+        wins a $10 gift card for Amazon or Steam.
+
+
+        You will be presented with a 2D platforming game where you have to collect
+        3 stars.
+
+        You will play the same game 4 times, but each time some of the parameters
+        change.
+
+
+        Between the rounds, you will be asked to answer some simple questions.
+
+        These questions are about how the controls feel.'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c051fe8ca9dfd8408b14091764b04bc, type: 2}
   m_RootGameObject: {fileID: 2128449543}
@@ -1078,7 +1101,7 @@ MonoBehaviour:
   m_Text: 'Thanks for taking your time to participate in this test!
 
 
-    As a token of appreciation, by completing the test (takes 10-15 minutes),
+    As a token of appreciation, by completing the test (takes 15-20 minutes),
 
     you will enter a contest where one randomly-chosen participant
 

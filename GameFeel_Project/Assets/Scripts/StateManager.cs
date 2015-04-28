@@ -24,7 +24,6 @@ public class StateManager : MonoBehaviour
     public List<Star> StarsSegment3;
     public List<GameObject> StarsIcons;
 
-    public List<Checkpoint> Checkpoints;
 
     public int CollectedSoFar = 0;
     public int CollectToWin = 3;
@@ -218,17 +217,18 @@ public class StateManager : MonoBehaviour
         foreach (GameObject g in StarsIcons)
             g.transform.renderer.enabled = true;
 
-        foreach (Checkpoint c in Checkpoints)
-            c.Restart();
+        
 
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F12))
-           CollectedSoFar++;
-        //
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F12))
+        {
+            CollectedSoFar++;
+            //Debug.Log("Star++");
+        }
 
         if (Demographics.Instance.MyGameState == GameState.Playing)
         {

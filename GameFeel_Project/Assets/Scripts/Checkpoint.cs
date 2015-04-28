@@ -23,8 +23,18 @@ public class Checkpoint : MonoBehaviour
         _hasSatCheckpoint = false;
     }
 
+    /*void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("PlayerCheckpointBox"))
+        {
+            _myPlayer.CheckpointPosition = _myTransform.position;
+            Debug.Log("Checkpoint: " + gameObject.name);
+        }
+
+    }*/
+
     // Update is called once per frame
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if (_hasSatCheckpoint)
             return;
@@ -34,5 +44,5 @@ public class Checkpoint : MonoBehaviour
             _hasSatCheckpoint = true;
             _myPlayer.CheckpointPosition = _myTransform.position;
         }
-    }
+    }*/
 }

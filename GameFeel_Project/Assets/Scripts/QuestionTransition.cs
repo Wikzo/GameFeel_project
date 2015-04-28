@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuestionTransition : MonoBehaviour
 {
     public GameObject BackgroundPlane;
+    public RectTransform BackgroundPlaneRect;
     public List<GameObject> ObjectsToMove;
     public Button KeepPlayingButton;
     public Text KeepPlayingButtonText;
@@ -20,10 +21,16 @@ public class QuestionTransition : MonoBehaviour
     private float _backgroundPlaneStartPosY;
     private int _sequenceNumber = 0;
 
-    private Vector3 _backupOffset;
-    private Vector3 _backupStartPos;
-    private float _offset = 620f;
-    
+    int numberOfElements = 1;
+
+
+    private bool hideButtonLerp;
+    public float hideButtoCurrentLerpTime;
+    private float hideButtonLerpTime = 0.3f;//
+    private Vector2 hideButtonStartPos, hideButtonEndPos;
+    private bool hideButtonGoingUp;
+
+
     private void Awake()
     {
         _objectsDefaultPos = new List<Vector3>(ObjectsToMove.Count);
@@ -31,200 +38,125 @@ public class QuestionTransition : MonoBehaviour
             _objectsDefaultPos.Add(ObjectsToMove[index].transform.position);
 
 
-        _backgroundPlaneStartPosY = BackgroundPlane.transform.position.y;
-        _backupOffset = new Vector3(BackgroundPlane.transform.position.x, _backgroundPlaneStartPosY + _offset, BackgroundPlane.transform.position.z);
-        _backupStartPos = new Vector3(BackgroundPlane.transform.position.x, _backgroundPlaneStartPosY, BackgroundPlane.transform.position.z);
-
-
-        _hideQuestions = false;
-        _showHideButton = true;
+        hideButtonLerp = false;
+        nextQuestionLerp = false;
+        KeepPlayingButton.interactable = false;
         KeepPlayingButtonText.text = "Resume Playing";
+    }
+
+    void Start()
+    {
+        ShowNextQuestionsLerp();
     }
 
     public void StartTransition()
     {
-        NextTransition(0);
+        ShowNextQuestionsLerp();
     }
 
-    int numberOfElements = 1;
-
-    private bool _hideQuestions;
-    private bool _showHideButton;
-
-    public void CompletedHideTransition()
+    protected void Update()
     {
-        _showHideButton = true;
+        // UP-DOWN LERP ----------------------
+        // lerping the canvas moving up/down (using anchoredPosition)
 
-        if (_hideQuestions)
+        if (hideButtonLerp)
         {
-            // backup if position doesn't align
-            BackgroundPlane.transform.position = _backupOffset;
+            hideButtoCurrentLerpTime += Time.deltaTime;
 
-            KeepPlayingButtonText.text = "Resume Questions";
-            
-            
-            Demographics.Instance.MyGameState = GameState.Playing;
+            if (hideButtoCurrentLerpTime > hideButtonLerpTime)
+            {
+                hideButtoCurrentLerpTime = hideButtonLerpTime;
+                hideButtonLerp = false;
+                KeepPlayingButton.interactable = true;
+            }
 
+            float perc = hideButtoCurrentLerpTime/hideButtonLerpTime;
+            BackgroundPlaneRect.anchoredPosition = Vector2.Lerp(hideButtonStartPos, hideButtonEndPos, perc);
         }
-        else
+        
+        // LEFT-RIGHT lerp -------------
+        else if (nextQuestionLerp)
         {
-            // backup if position doesn't align
-            BackgroundPlane.transform.position = _backupStartPos;
+            nextQuestionCurrentLerpTime += Time.deltaTime;
 
-            KeepPlayingButtonText.text = "Resume Playing";
-            
-            
-            Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
-            
-            
-            //_keepPlayingButtonOutline.StopColorAnimation();
+            if (nextQuestionCurrentLerpTime > nextQuestionLerpTime)
+            {
+                nextQuestionCurrentLerpTime = nextQuestionLerpTime;
+                nextQuestionLerp = false;
+                KeepPlayingButton.interactable = true;
+
+                if (questionIndex >= 4)
+                    StartCoroutine(GoToNextRound());
+            }
+
+            float perc_ = nextQuestionCurrentLerpTime / nextQuestionLerpTime;
+            BackgroundPlaneRect.anchoredPosition = Vector2.Lerp(nextQuestionStartPos, nextQuestionEndPos, perc_);
         }
+        // --------------------
 
-        KeepPlayingButton.interactable = true;
+
+    }
+
+    IEnumerator GoToNextRound()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        StateManager.Instance.ContinueToNextRound();
+    }
+
+    public int questionIndex = 0;
+    private bool nextQuestionLerp;
+    private float nextQuestionCurrentLerpTime;
+    private float nextQuestionLerpTime = 0.5f;
+    private Vector2 nextQuestionStartPos, nextQuestionEndPos;
+
+    public void ShowNextQuestionsLerp()
+    {
+        // width = 960 * 4, height = 600
+
+        if (nextQuestionLerp)
+            return;
+
+        questionIndex++;
+        float endPos = 960 * questionIndex;
+
+        nextQuestionLerp = true;
+        nextQuestionCurrentLerpTime = 0f;
+
+        nextQuestionStartPos = BackgroundPlaneRect.anchoredPosition;
+        nextQuestionEndPos = new Vector2(-endPos, 0);
+
+        KeepPlayingButton.interactable = false;
 
     }
 
     public void ToggleHideQuestions()
     {
-        _hideQuestions = !_hideQuestions;
+        // using anchoredPosition instead of setting Transform directly
+        // seems to work more reliable (in web) with the parent/children transforms
 
-        float endPos = 0;
+        if (hideButtonLerp)
+            return;
 
-        // 617 = height
+        hideButtonLerp = true;
+        hideButtoCurrentLerpTime = 0f;
+        hideButtonGoingUp = !hideButtonGoingUp;
 
-        if (_hideQuestions)
+        if (hideButtonGoingUp)
         {
-            endPos = _backgroundPlaneStartPosY + _offset;
+            hideButtonEndPos = new Vector2(BackgroundPlaneRect.anchoredPosition.x, 600);
             KeepPlayingButtonText.text = "Resume Questions";
             Demographics.Instance.MyGameState = GameState.Playing;
-
         }
         else
         {
-            endPos = _backgroundPlaneStartPosY;
+            hideButtonEndPos = new Vector2(BackgroundPlaneRect.anchoredPosition.x, 0);
             KeepPlayingButtonText.text = "Resume Playing";
             Demographics.Instance.MyGameState = GameState.MidQuestionnaire;
-
         }
 
-        Hashtable t = new Hashtable();
-        t.Add("y", endPos);
-        t.Add("time", TransitionTime);
-        t.Add("delay", 0.1f);
-        t.Add("oncomplete", "CompletedHideTransition");
-        t.Add("oncompletetarget", this.gameObject);
+        hideButtonStartPos = BackgroundPlaneRect.anchoredPosition;
 
-        iTween.MoveTo(BackgroundPlane, t);
         KeepPlayingButton.interactable = false;
-
-
     }
-
-    public void NextTransition(int sequenceNumber)
-    {
-        KeepPlayingButton.interactable = false;
-
-        _sequenceNumber = sequenceNumber;
-
-        int offset = 0;
-
-        switch (sequenceNumber)
-        {
-            case 1: // 0-2
-                numberOfElements = 3;
-                break;
-            case 2: // 3-9
-                numberOfElements = 7;
-                break;
-            case 3: // 10-15
-                numberOfElements = 6;
-                break;
-
-            default:
-                numberOfElements = 0;
-                break;
-
-        }
-
-        for (int index = 0; index < ObjectsToMove.Count; index++)
-        {
-            if (sequenceNumber > 3)
-                ObjectsToMove[index].transform.position = _objectsDefaultPos[index];
-
-
-            //if (offset > numberOfElements)
-            //    offset = numberOfElements;
-
-            Vector3 startPos = ObjectsToMove[index].transform.position;
-            Hashtable ht = new Hashtable();
-
-            if (sequenceNumber == 0)
-            {
-                if (index < 2)
-                {
-                    offset++;
-                    ht.Add("easetype", EasingTypeOut);
-                }
-
-            }
-
-            if (sequenceNumber == 1)
-            {
-                if (index < 2)
-                    offset++;
-                ht.Add("easetype", EasingTypeIn);
-            }
-            else if (sequenceNumber == 2)
-            {
-                if (index > 2 && index < 10)
-                    offset++;
-
-                ht.Add("easetype", EasingTypeIn);
-            }
-            else if (sequenceNumber == 3)
-            {
-                if (index > 10)
-                {
-                    offset++;
-
-                    ht.Add("easetype", EasingTypeIn);
-                }
-                //else
-                    //ht.Add("easetype", EasingTypeOut);
-
-            }
-
-            ht.Add("x", startPos.x - MoveToOffset.x);
-            ht.Add("time", TransitionTime + offset * TransitionTimeIncrement);
-            //ht.Add("looptype", iTween.LoopType.pingPong);
-            ht.Add("delay", 0.1f);
-            ht.Add("oncomplete", "TransitionComplete");
-
-            iTween.MoveTo(ObjectsToMove[index], ht);
-        }
-    }
-
-    public void TransitionComplete()
-    {
-        /*Debug.Log("turninig off: " + numberOfElements);
-        for (int i = 0; i < numberOfElements; i++)
-        {
-            ObjectsToMove[i].SetActive(false);
-        }*/
-
-        KeepPlayingButton.interactable = true;
-
-
-        if (_sequenceNumber >= 3)
-            StartCoroutine(WaitAndThenGoToNewRound());
-    }
-
-    IEnumerator WaitAndThenGoToNewRound()
-    {
-        yield return new WaitForSeconds(TransitionTime + 6*TransitionTimeIncrement);
-
-        StateManager.Instance.ContinueToNextRound();
-
-    }
-
 }
