@@ -7,5 +7,21 @@ Web short: http://bit.ly/1QdBdm8
 Windows mirror original: http://tunnelvisiongames.com/g/GameFeel_Windows.zip
 Windows mirror short: http://bit.ly/1cUkBk2
 
-Windows Google Drive original: https://drive.google.com/uc?export=download&id=0B07s70jhEgF4VmlScmpNWW9wVjg
-Windows Google Drive short: http://bit.ly/1JybMKc
+Windows Google Drive original: https://drive.google.com/uc?export=download&id=0B07s70jhEgF4eTRjTlFmT1R2M3c
+Windows Google Drive short: http://bit.ly/1JByXn6
+
+University project about game feel - help me by playing this game
+
+Hi,
+
+I am currently doing a university project on the topic of game feel.
+
+I have created a small 2D platforming game that I would like you to play, and then answer some simple questions.
+
+As a token of appreciation, one randomly-chosen participant will win a $10 gift card for Amazon or Steam.
+
+All you have to do is go to [url=http://bit.ly/1HcUbXl]this link[/url] and either play the game in your browser (requires Unity web plugin) or download the file to your computer (Windows only).
+
+[url=http://bit.ly/1HcUbXl][img]http://tunnelvisiongames.com/g/gf.png[/img][/url]
+
+Thanks a lot in advance! :)
