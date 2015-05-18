@@ -1,6 +1,6 @@
 \section{Experimental Design} \label{experimentalDesign}
 \subsection{Research Question}
-How does the acceleration and deceleration of a player avatar influence the game feel of a 2D platformer? What types of words to players use to describe the game feeling, and what parameters result in these words?
+How does the acceleration and deceleration of a player avatar influence the game feel of a 2D platformer? What types of words do players use to describe the game feeling, and what parameters result in these words?
 
 \subsection{Stimuli}
 The time it took for the player avatar to accelerate and decelerate changed between rounds.
@@ -13,51 +13,37 @@ The experiment was designed as a repeated-measures, within-participant design \c
 \subsubsection{Latin Squares} \label{latinSection}
 There are four possible combinations, as shown in Table \ref{tab:combinations}. One of the strengths with within-participant designs is that it doesn't require as many participants as a between-participant design, since each participant will try all the conditions. However, one disadvantage of within-participant designs is the risk of carry-over effects \cite{experimental1}. This might be due to fatigue (e.g., the participants become bored after having experienced the multiple conditions) or practice (e.g., the participants are better at the end than when they started).
 
-%%% This is how to insert a table %%%
-\begin{table}[htbp]
-\small
-\centering
-\begin{tabular}{|c|c|c|}
-\hline  & \textbf{Acceleration}
-& \textbf{Deceleration}\\\hline
-\textbf{Stimulus 1} & Fast (A)
-& Fast (A)
-\\\hline
-\textbf{Stimulus 2} & Slow (B)
-& Slow (B)
-\\\hline
-\textbf{Stimulus 3} & Fast (A)
-& Slow (B)
-\\\hline
-\textbf{Stimulus 4} & Slow (B)
-& Fast (A)
-\\\hline
-\end{tabular}
+\begin{table} \centering
 \caption{Four different combinations.}
 \label{tab:combinations}
+\begin{tabular}{ccc}
+\toprule
+& \textbf{Acceleration} & \textbf{Deceleration} \\
+\midrule
+\textbf{Stimulus 1} & Fast (A) & Fast (A)\\
+\textbf{Stimulus 2} & Slow (B) & Slow (B)\\
+\textbf{Stimulus 3} & Fast (A) & Slow (B)\\
+\textbf{Stimulus 4} & Slow (B) & Fast (A)\\
+\bottomrule
+\end{tabular}
 \end{table}
 
-The order in which the different stimuli is shown can affect the participant's behaviour.  A way to prevent this is to use a counter-balanced design. This method reduces the chances of the order influencing the results \cite{experimental2}. Ideally, since there are four possible conditions (see Table \ref{tab:combinations}), there should be 4x3x2x1 different orders, i.e., 24 orders of treatment. The number of participants must also be a multiple of 24, since there should be an equal number in each group \cite{experimental2}. Having 24 different combinations was deemed too complex, so instead an incomplete balanced design in the form of Latin squares have been used (see Table \ref{table:latin}). Even though the order effects aren't eliminated completely, they become balanced. Latin squares are arranged in rows and columns such that each of the stimuli conditions only occur once in each row and column. For experiments with an even number of conditions, the first row of a Latin square follows the formula $1, 2, n, 3, n-1, 4, n-2...$, where $n$ is the number of conditions. For subsequent rows, 1 is added to the previous and returning to 1 after $n$ \cite{experimental2}. Using this method, only four different orders are needed. This means that the first player will experience order 1, the second player order 2, etc.
+The order in which the different stimuli are shown can affect the participant's behaviour.  A way to prevent this is to use a counter-balanced design. This method reduces the chances of the order influencing the results \cite{experimental2}. Ideally, since there are four possible conditions (see Table \ref{tab:combinations}), there should be 4x3x2x1 different orders, i.e., 24 orders of treatment. The number of participants must also be a multiple of 24, since there should be an equal number in each group \cite{experimental2}. Having 24 different combinations was deemed too complex; thus, an incomplete balanced design in the form of Latin squares has been used instead (see Table \ref{table:latin}). Even though the order effects aren't eliminated completely, they become balanced. Latin squares are arranged in rows and columns such that each of the stimuli conditions only occur once in each row and column. For experiments with an even number of conditions, the first row of a Latin square follows the formula $1, 2, n, 3, n-1, 4, n-2...$, where $n$ is the number of conditions. For subsequent rows, 1 is added to the previous and returning to 1 after $n$ \cite{experimental2}. Using this method, only four different orders are needed. This means that the first player will experience order 1, the second player order 2, etc.
 
-%%% This is how to insert a table %%%
-\begin{table}[htbp]
+\begin{table} \centering
 \scriptsize
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
- & \textbf{Stimulus 1} & \textbf{Stimulus 2} & \textbf{Stimulus 3} & \textbf{Stimulus 4}\\
- \hline
-\textbf{Seq. 1} & AA & BB & BA & AB\\
-\hline
-\textbf{Seq. 2} & BB & AB & AA & BA\\
-\hline
-\textbf{Seq. 3} & AB & BA & BB & AA\\
-\hline
-\textbf{Seq. 4} & BA & AA & AB & BB\\
-\hline
-\end{tabular}
 \caption{Latin squares showing the four possible sequences. The first letter is the acceleration, the second letter is the deceleration. A means fast and B means slow.}
 \label{table:latin}
+\begin{tabular}{ccccc}
+\toprule
+& \textbf{Stimulus 1} & \textbf{Stimulus 2} & \textbf{Stimulus 3} & \textbf{Stimulus 4}\\
+\midrule
+\textbf{Seq. 1} & AA & BB & BA & AB\\
+\textbf{Seq. 2} & BB & AB & AA & BA\\
+\textbf{Seq. 3} & AB & BA & BB & AA\\
+\textbf{Seq. 4} & BA & AA & AB & BB\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 \subsection{Task} \label{task}
@@ -79,7 +65,25 @@ Afterwards, the game starts and players are asked to find and collect three star
 \label{fig:level}
 \end{figure*}
 
-Each time players collect three stars, the game is paused and a questionnaire is shown (see Figure \ref{fig:questionnaire}). The questionnaire consists of three sets of questions. The first asks players to try and describe the feeling of controlling the ball on the ground and in the air, with their own words. Inspired by Section \ref{colour}, it is stressed that the chosen word(s) should be something that the player would use to describe the feeling to e.g. a friend. As in Section \ref{colour}, there are no restriction on what types of words players use (the only limit is the length of the input field). A few examples are shown to give players an idea of what could be used. These words are chosen randomly and include adjectives such as `rigid', `reduced', `slow', `dry', `mechanical' and `juicy'. Players are asked to describe the feeling both on the ground and in air. Even though only horizontal movement is changed in the form of the acceleration and deceleration (both apply on ground and in air), there is a possibility that players perceive the game feel differently on ground and in air. Instead of trying to describe both at the same time, players are shown two input fields.
+Each time players collect three stars, the game is paused and a questionnaire is shown (see Figure \ref{fig:questionnaire}). The questionnaire consists of three sets of questions. The first asks players to try and describe the feeling of controlling the ball on the ground and in the air, with their own words. Inspired by Section \ref{colour}, it is stressed that the chosen word(s) should be something that the player would use to describe the feeling to e.g. a friend. As in Section \ref{colour}, there are no restriction on what types of words players use (the input field's length is equivalent to approximately 66 characters, but it is possible to scroll forward/backward if a participant writes more words than this). Each input field includes five example words to give participants an idea of what could be used (see Table \ref{table:wordsExamples}). These are chosen randomly and include adjectives such as `rigid', `reduced', `slow', `dry', `mechanical' and `juicy'. Participants were asked to describe the feeling both on the ground and in air. Even though only horizontal movement is changed in the form of the acceleration and deceleration (both apply on ground and in air), there is a possibility that players perceive the game feel differently on ground and in air. Instead of trying to describe both at the same time, players are shown two input fields.
+
+\begin{table} \centering
+\scriptsize
+\caption{Participants are randomly shown five words to give them an idea of what they could write themselves.}
+\label{table:wordsExamples}
+\begin{tabular}{ccccc}
+\midrule
+Fragile & Rigid & Firm & Solid & Thick\\
+Fixed & Robust & Sore & Steadfast & Wild\\
+Constant & Free & Hard & Tough & Restricted\\
+Limited & Reduced & Fast & Heavy & Slow\\
+Enjoyable & Stressful & Annoying & Realistic & Normal\\
+Difficult & Easy & Dry & Juicy & Mechanical\\
+Automatic & Organic & Exciting & Wet & Simple\\
+Complicated & Direct & Inert & Unrealistic & Light\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 After describing the game feel with the players' own words, a new set of questions are shown. Here, players are asked to rate the game feel on a 7-point Likert scale. Taking inspiration from Swink's book \cite{swink}, players rate the game feeling on how `twitchy', `fluid', `stiff', `floaty' and `responsive' they felt the controls were. Lastly, players are asked about how \textit{enjoyable}, \textit{difficult} and \textit{frustrating} it was to control the ball, as well as \textit{how much they liked} the control of the ball. In case players forget how it felt to control the ball, they can always click on the \textit{Resume Playing} button and refresh their memories.
 

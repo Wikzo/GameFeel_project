@@ -1,6 +1,6 @@
 \section{Design \& Implementation} \label{design}
 \subsection{Modulating Acceleration and Deceleration}
-Swink discussed different ways to modulate the player avatar movement in the chapter \textit{Response Metrics} \cite{swink}. Inspired by ADSR envelopes (Attack-Decay-Sustain-Release), which are often used in order make an electronic musical instrument mimic the sound of a mechanical instrument \cite{adsr}, he proposed the idea of using velocity modulation to change the game feel. Even though the input signal from the controller is discrete and binary (button is either pressed down or released), the software can modulate it into a continuous signal. By altering the attack and release phase (or, acceleration and deceleration), it is possible to create different game feel, as illustrated by Figures \ref{fig:adsr_stiff} and \ref{fig:adsr_loose}.
+Swink discussed different ways to modulate the player avatar movement in the chapter \textit{Response Metrics} \cite{swink}. Inspired by ADSR envelopes (Attack-Decay-Sustain-Release), which are often used in order make an electronic musical instrument mimic the sound of a mechanical instrument \cite{adsr}, he proposed the idea of using velocity modulation to change the game feel. Even if the input signal from the controller is discrete and binary (button is either pressed down or released), the software can modulate it into a continuous signal. By altering the attack and release phase (or, acceleration and deceleration), it is possible to create different game feel, as illustrated by Figures \ref{fig:adsr_stiff} and \ref{fig:adsr_loose}.
 
 %, e.g., the sound of a pipe organ or a guitar string. This is achieved by modulating the amplitude over time.
 
@@ -29,26 +29,24 @@ To keep the experiment as simple as possible, only linear curves were considered
 
 %Depending on how big a delay there is from the player triggering an event to getting feedback, the game will gradually feel less responsive.
 
-Two intervals were chosen, inspired by Swink's model of player perception and feedback (see Figure \ref{fig:response}). The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds (staying within the limits of real-time perception). The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds (see Table \ref{tab:time}). For each round in the game, the player is assigned randomly-chosen time values within the two intervals. The reason for choosing random values instead of fixed values is that it isn't perfectly clear at what exact point a game goes from feeling responsive to unresponsive (it's a gradual scale, as shown in Figure \ref{fig:response}). Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. Additionally, the model in Figure \ref{fig:response} depicts the perception of getting discrete feedback, e.g., clicking on a button turns on a light bulb after 50 milliseconds. In the case of avatar movement, there is a continuous stream feedback while the player is holding the movement button, since the avatar is gradually moving forward (in this game, the player controls a rolling ball). However, if the acceleration/deceleration time is very big, the avatar will take some time before it gathers a velocity that can be perceived by the player. In other words, the time values change the total amount of time it takes from when a player presses a button to when the avatar reaches its maximum velocity (or, when releasing the button, reaches a velocity of zero). The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
+Two intervals were chosen, inspired by Swink's model of player perception and feedback (see Figure \ref{fig:response}). The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds (staying within the limits of real-time perception). The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds (see Table \ref{tab:time}). For each round in the game, the player is assigned randomly-chosen time values within the two intervals. The reason for choosing random values instead of fixed values is that it isn't perfectly clear at what exact point a game goes from feeling responsive to unresponsive (it's a gradual scale, as shown in Figure \ref{fig:response}). Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. Additionally, the model in Figure \ref{fig:response} depicts the perception of getting discrete feedback, e.g., clicking on a button turns on a light bulb after 50 milliseconds. In the case of avatar movement, there is a continuous stream of feedback while the player is holding the movement button, since the avatar is gradually moving forward (in this game, the player controls a rolling ball). However, if the acceleration/deceleration time is very big, the avatar will take some time before it gathers a velocity that can be perceived by the player. In other words, the time values change the total amount of time it takes from when a player presses a button to when the avatar reaches its maximum velocity (or, when releasing the button, reaches a velocity of zero). The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
 \begin{equation} \label{eq:erl} %% source: http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
-a = (v - v_0)/t
+a = (v - v_0)/{\Delta}t
 \end{equation} 
-where $a$ is the acceleration/deceleration, $v$ is the target (maximum) velocity, $v_0$ is the initial velocity and $t$ is the time.
+where $a$ is the acceleration/deceleration, $v$ is the target (maximum) velocity, $v_0$ is the initial velocity and ${\Delta}t$ is the time after which the target velocity is reached.
 
-%%% This is how to insert a table %%%
-\begin{table}[htbp]
-\small
-\centering
-\begin{tabular}{|c|c|}
-\hline \textbf{Fast}
-& \textbf{Slow}\\\hline
-[1 ms - 240 ms]
-& [241 ms - 1500 ms]
-\\\hline
-\end{tabular}
-\caption{Time intervals for the acceleration/deceleration.}
+\begin{table} \centering
 \label{tab:time}
+\caption{Time intervals for the acceleration/deceleration.}
+\begin{tabular}{cc}
+\toprule
+\textbf{Fast} & \textbf{Slow} \\
+\midrule
+1 ms - 240 ms & 241 ms - 1500 ms\\
+\bottomrule
+\end{tabular}
 \end{table}
+
 
 The game features other parameters, such as friction, gravity, jump velocity and the aforementioned ghost jump, but only the horizontal ground acceleration and deceleration changed between rounds. The values for these other parameters \textbf{can be found in APPENDIX A. (?)}
 
@@ -59,4 +57,4 @@ The game features other parameters, such as friction, gravity, jump velocity and
 \label{fig:game}
 \end{figure}
 
-The game was developed using the Unity game engine, which allows for exporting to both web and standalone platforms. The game was released for web\footnote{Unity recently made it possible to export to the WebGL platform, but at the time of writing there are bugs and performance issues, so it was chosen to use the standard web player using a browser plug-in.} and Windows. It's a traditional 2D side-scrolling platform game in which players move a small soccer ball from left to right to collect three stars (see Figure \ref{fig:game}). The game is controlled with the arrow keys and the spacebar. Graphics and sound effects are held to a minimal, since the influence of polishing effects (see Section \ref{polishSection}) is outside the scope of this project. The ball has a rolling animation that is linearly mapped to the horizontal velocity. The level has been designed to be simple and not too challenging.
+The game was developed using the Unity game engine, which allows for exporting to both web and standalone platforms. The game was released for web\footnote{Unity recently made it possible to export to the WebGL platform, but at the time of writing there are bugs and performance issues, so it was chosen to use the standard web player using a browser plug-in.} and Windows. It's a traditional 2D side-scrolling platform game in which players move a small soccer ball from left to right to collect three stars (see Figure \ref{fig:game}). The game is controlled with the arrow keys and the spacebar. Graphics and sound effects are held to a minimum, since the influence of polishing effects (see Section \ref{polishSection}) is outside the scope of this project. The ball has a rolling animation that is linearly mapped to the horizontal velocity. The level has been designed to be simple and not too challenging.
