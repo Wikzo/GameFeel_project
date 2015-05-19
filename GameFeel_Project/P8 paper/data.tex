@@ -10,7 +10,7 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 \label{table:demographics1}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{cccc}
-\midrule
+\toprule
 \textbf{Platform} & Windows Web: & Windows Exe: & Mac Web: \\
                   & 55.2\%      & 30.7\%      & 14.1\%  \\
 \textbf{Gender}   & Male:        & Female:      & Other:   \\
@@ -27,7 +27,7 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 \label{table:demographics2}
 %\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{lcc}
-\midrule
+\toprule
 \textbf{Regions}                      &                & \textbf{}               \\ 
 \textit{Europe}                      & 70.6\%         &                         \\
 \textit{Americas}                    & 26.7\%         &                         \\
@@ -48,6 +48,8 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 \end{table}
 
 As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to either players quitting halfway, or that participants for some reason lost the Internet connection while trying to access the current Latin square number (in this case, the sequence was chosen randomly). Each time a participant collects three stars and answers the mid-questionnaire, data is logged. In total, 701 data logs were collected. Figure \ref{fig:retention} illustrates the retention rate of the participants.
+
+Figure \ref{fig:overallDistribution} shows the overall distribution of the acceleration/deceleration combinations that participants experienced. As stated previously, the time intervals were either \textit{fast} (0-240 ms) or \textit{slow} (241-1500 ms). Since the span of the intervals are not of equal lengths, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal lengths, but this would again affect the number of possible sequences and Latin squares.
 
 \begin{table} \centering
 %\small
@@ -75,32 +77,57 @@ As stated in Section \ref{latinSection}, ideally there should be an equal amount
 \subsection{Mid-questionnaire}
 Whenever players collected three stars, they were met with a set of questions (see Figure \ref{fig:questionnaire}). In the first part, participants describe the game feel in their own words, while in the second part they rate pre-defined words on a 7-point Likert scale (1 = \textit{not at all}; 7 = \textit{a lot}).
 
-\subsubsection{Describing Game Feel in Own Words}
-To get an overview of the words participants used, a word cloud has been generated (see Figure \ref{fig:wordcloud}). This illustrates the most commonly-used words, such as \textit{ball}, \textit{control}, \textit{fast}, \textit{heavy}, \textit{slow}, \textit{like}, \textit{responsive}, \textit{sluggish}, \textit{easy} and \textit{momentum}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\columnwidth]{Pics/Classes/overall_distribution}
+\caption{Scatter plot of all the different acceleration/deceleration combinations participants experienced.}
+\label{fig:overallDistribution}
+\end{figure}
 
-The words that the participants used to describe the game feel have manually, by a the author, been put into one or more of following nine categories (see Figure \ref{fig:coding1}). Note that a description can include words from multiple categories at once. The average word count for ground descriptions is 5,4 words.
+\subsubsection{Describing Game Feel in Own Words}
+Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the game feel (both on ground and in air). Additionally, these words have manually, by the author, been put into one or more of following nine categories (see Figure \ref{fig:coding1}). Note that a description can include words from multiple categories at once. The average word count was 3.4 words for ground description and 5.1 words for air description.
+
 \begin{itemize}[noitemsep,nolistsep]
 \item Single words or multiple words?
 \item Basic or complex words (basic words are root words that can stand on their own, e.g., \textit{heavy} and \textit{laggy}, whereas complex words consist of modifiers that somehow change the meaning of the root words, e.g., \textit{very fast} or \textit{a bit sluggish})?
 \item Did the words describe a quality/opinion (using words such as \textit{fun}, \textit{too fast} or \textit{very annoying} or \textit{unrealistic})?
-\item Did the words describe anything related to the difficulty; did the words use physical properties (\textit{like dragging through light mud}, using words such as \textit{force} and \textit{momentum})?
+\item Did the words describe anything related to the difficulty; did the words use physical properties (\textit{like dragging through light mud}, using words such as \textit{force}, \textit{friction} and \textit{momentum})?
 \item Did the words make comparisons to other games (\textit{like Mario} or \textit{like Mega Man})?
-\item Did the words make comparisons to previous rounds of the game (\textit{similar to last round})?
+\item Did the words make comparisons to previous rounds of the game (\textit{felt no difference from last game})?
 \end{itemize}
+
+\begin{table} \centering
+\caption{The 30 most commonly-used words (among the 701 data entries). Numbers in parenthesis indicate usage frequency. Common grammar words have been excluded.}
+\label{table:mostWords}
+\begin{tabular}{lll}
+\toprule
+heavy (165) & slow (132) & ball (122)\\
+responsive (104) & fast (94) & like (90)\\
+control (87) & very (83) & too (80)\\ 
+easy (78) & momentum (61) & realistic (61)\\
+sluggish (58) & floaty (58) & bit (54)\\
+air  (52) & good (51) & unrealistic (51)\\
+feels (50) & little (45) & hard (42)\\
+felt (40) & fluid (39) & still (38)\\
+ground (37) & jump (37) & same (36)\\
+speed (35) & time (34) & stop (31)\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\columnwidth]{Pics/coding1}
-\caption{Coding1. NOTE: Coding not done yet.}
+\caption{The different types of words participant used to describe the game feel.}
 \label{fig:coding1}
 \end{figure}
 
-\begin{figure*}[htbp]
-\centering
-\includegraphics[width=1\textwidth]{Pics/wordcloud}
-\caption{The 130 most commonly-used words to describe the feel of the controls (both on ground and in air). Bigger means a word has been used more frequently. Common words such as \textit{a}, \textit{also}, \textit{and}, \textit{have}, \textit{could}, etc. have been excluded. Created with WordItOut.com.}
-\label{fig:wordcloud}
-\end{figure*}
+%\begin{figure*}[htbp]
+%\centering
+%\includegraphics[width=1\textwidth]{Pics/wordcloud}
+%\caption{The 130 most commonly-used words to describe the feel of the controls (both on ground and %in air). Bigger means a word has been used more frequently. Common words such as \textit{a}, %\textit{also}, \textit{and}, \textit{have}, \textit{could}, etc. have been excluded. Created with %WordItOut.com.}
+%\label{fig:wordcloud}
+%\end{figure*}
 
 \subsubsection{Rating Game Feel with Pre-Defined Words}
 Using a 7-point Likert scale, participants rated the game feel on the following pre-defined words.
@@ -123,80 +150,110 @@ Using a 7-point Likert scale, participants rated the game feel on the following 
 %\label{fig:average_rating}
 %\end{figure}
 
-One way to illustrate the responses is to plot the average ratings using acceleration and deceleration times, respectively (see Figures \ref{fig:acc_average_response} and \ref{fig:dec_average_response}). Even though one might be able to spot some slight tendencies, this way of showing the data is not accurate, since it splits up the acceleration and deceleration. The participants did not experience either in a vacuum; both were apparent all the time.
+\textbf{Scatter Plots with Acceleration or Deceleration}\\
+One way to illustrate the responses is to plot the Likert ratings along the axes of either acceleration or deceleration, as shown in Figures \ref{fig:twitchy_both} \ref{fig:fluid_both}, \ref{fig:stiff_both}, \ref{fig:floaty_both} and \ref{fig:responsive_both}. Even though one might be able to spot some slight tendencies, this way of showing the data is not accurate, since it splits up the acceleration and deceleration. The participants did not experience either in a vacuum; both were apparent all the time.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.97\columnwidth]{Pics/acc_average_response}
-\caption{Average ratings with acceleration.}
-\label{fig:acc_average_response}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.97\columnwidth]{Pics/dec_average_response}
-\caption{Average ratings with deceleration.}
-\label{fig:dec_average_response}
-\end{figure}
-
-A different way to plot the data is to use both acceleration and deceleration at the same time. The following graphs show how the participants rated the game across the different words. For the case of clarity, only answers 1, 4 and 7 on the Likert scale are shown. Looking at the data, it appears as if the perceived contribution of the acceleration and deceleration times, respectively, aren't always equal.
-
-When looking at Figure \ref{fig:twitchy}, it seems like the acceleration have a bigger influence than the deceleration when it comes to how \textit{twitchy} the game felt. Even with relatively high deceleration times (> 1 second), some participants still rated the game to feel very twitchy.
-
-Figure \ref{fig:fluid} shows how \textit{fluid} participants perceived the game. Again, it is difficult to find a strong pattern, since participants with both small (< 0.4 seconds) and high (> 0.6 seconds) acceleration/deceleration times report the game to feel relatively fluid. However, it is clear that high acceleration time (> 0.6 seconds) results in a perception of low fluid.
-
-With \textit{stiffness}, it appears that the deceleration has a greater influence than acceleration. This is evident in Figure \ref{fig:stiff}. Even with high acceleration times (> 0.6 seconds), participants still reported the game to feel stiff, as long as the deceleration time was below about 0.4 seconds.
-
-Figure \ref{fig:floaty} shows a slight tendency towards high deceleration times (> 1 second) for a more \textit{floaty} feel. That being said, many reported gave the rating 4 around deceleration time 0.2 seconds.
-
-With \textit{responsiveness}, there is a clear tendency towards acceleration having a bigger influence than deceleration. It seems like acceleration times below 0.2 seconds makes the game feel responsive. Likewise, when it comes to \textit{frustration}, Figure \ref{fig:frustration} shows that acceleration and deceleration times above 0.2 seconds makes participant feel frustration.
-
-%width=\columnwidth
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Twitchy_classes}
-\caption{Players' self-reported perception on how twitchy the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:twitchy}
+\includegraphics[width=0.95\textwidth]{Pics/Classes/twitchy_both}
+\caption{Looking at twitchy for acceleration and deceleration.}
+\label{fig:twitchy_both}
 \end{figure*}
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Fluid_classes}
-\caption{Players' self-reported perception on how fluid the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:fluid}
+\includegraphics[width=0.95\textwidth]{Pics/Classes/fluid_both}
+\caption{Looking at fluid for acceleration and deceleration.}
+\label{fig:fluid_both}
 \end{figure*}
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Stiff_classes}
-\caption{Players' self-reported perception on how stiff the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:stiff}
+\includegraphics[width=0.95\textwidth]{Pics/Classes/stiff_both}
+\caption{Looking at stiff for acceleration and deceleration.}
+\label{fig:stiff_both}
 \end{figure*}
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Floaty_classes}
-\caption{Players' self-reported perception on how floaty the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:floaty}
+\includegraphics[width=0.95\textwidth]{Pics/Classes/floaty_both}
+\caption{Looking at floaty for acceleration and deceleration.}
+\label{fig:floaty_both}
 \end{figure*}
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Responsive_classes}
-\caption{Players' self-reported perception on how responsive the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:responsive}
+\includegraphics[width=0.95\textwidth]{Pics/Classes/responsive_both}
+\caption{Looking at responsive for acceleration and deceleration.}
+\label{fig:responsive_both}
+\end{figure*}
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.97\columnwidth]{Pics/acc_average_response}
+%\caption{Average ratings with acceleration.}
+%\label{fig:acc_average_response}
+%\end{figure}
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.97\columnwidth]{Pics/dec_average_response}
+%\caption{Average ratings with deceleration.}
+%\label{fig:dec_average_response}
+%\end{figure}
+
+\textbf{Scatter Plots with Acceleration and Deceleration}\\
+The data can also be plotted by using acceleration and deceleration at the same time. The following graphs visualize how the participants rated the game across the different pre-defined words. Looking at the data, it appears as if the perceived contribution of the acceleration and deceleration values, respectively, aren't always equal. Generally, there are no clear correlations between the acceleration/deceleration values and the ratings provided by the participants. This might be due to difficulties in understanding and/or interpreting the words. Still, looking at the extremes (1 = \textit{not at all}; 7 = \textit{a lot}), some patterns seem to emerge.
+
+Figure \ref{fig:twitchyFluid} shows  how \textit{twitchy} the game felt. There appears to be one main cluster of 1-ratings. It seems like if the deceleration was low (< 0.2 seconds), participants tended to rate the game less twitchy. A similar, yet not as strong, cluster can be seen with low acceleration (< 0.2 seconds) where participants rated the game more twitchy.
+
+When it comes to how \textit{fluid} the game felt (Figure \ref{fig:twitchyFluid}), the data suggests that with low deceleration (< 0.1 seconds), the game didn't feel fluid. There is also a small cluster of 7-ratings around acceleration/deceleration values between 0.1 and 0.3 seconds.
+
+Figure \ref{fig:stiff_floaty} shows the \textit{stiffness} and \textit{floatyness}. These appear to be inversely proportional to each other, meaning that if both the acceleration and deceleration are low, the game feels more stiff, whereas it also feels less floaty. Additionally, there are two clusters with stiffness. These present two different interpretations of the word \textit{stiff}. The first is with high acceleration values (> 0.8 seconds), which might mean that the avatar is stiff in the sense that it resists change in motion, at least for a while. The other cluster is with lower acceleration values (< 0.3 seconds), where there is an immediate and direct relation between input and avatar motion (similar to to Figure \ref{fig:adsr_stiff}). Conversely, with higher deceleration values (> 0.2 seconds), the game doesn't appear very stiff.
+
+Figure \ref{fig:stiff_floaty} also shows a slight tendency towards high deceleration values (> 1 second) for a more \textit{floaty} feel.
+
+With \textit{responsiveness}, as shown in Figure \ref{fig:responsive_enjoyable}, there is a clear indication that values below 0.3 seconds appear most responsive. That being said, it seems like acceleration have a bigger influence than deceleration, since many participants reported high responsiveness even with deceleration values above 0.8 seconds. When looking at how \textit{enjoyable} the game felt (see Figure \ref{fig:responsive_enjoyable}), there seems to be a correlation with responsiveness, since most participants enjoyed acceleration and deceleration values below 0.3 seconds. The same can be said about how much participants \textit{liked} the controls and how \textit{difficult} the game felt, as Figure \ref{fig:difficult_liked} shows within the same interval as responsiveness.
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/twitchy_fluid}
+\caption{Players' self-reported perception on how twitchy and fluid the controls felt, rated using a 7-point Likert scale (only 1, 2, 6 and 7 are shown).}
+\label{fig:twitchyFluid}
 \end{figure*}
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=0.67\textwidth]{Pics/Classes/Frustration_classes}
-\caption{Players' self-reported perception on how frustrating the controls felt, rated using a 7-point Likert scale (only 1, 4 and 7 are shown).}
-\label{fig:frustration}
+\includegraphics[width=0.67\textwidth]{Pics/Classes/Stiff_floaty}
+\caption{Players' self-reported perception on how stiff and floaty the controls felt, rated using a 7-point Likert scale (only 1, 2, 6 and 7 are shown).}
+\label{fig:stiff_floaty}
 \end{figure*}
 
-A different way to visualize the data is to take the averages of the acceleration/deceleration times for each of the ratings, e.g., what are the average acceleration/deceleration times for twitchy rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of e.g. 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (not at all) and 7 (a lot), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curve consists of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curve consists of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} consists of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw attack/deceleration curves (see Figures \ref{fig:curve_twitchy}, \ref{fig:curve_fluid}, \ref{fig:curve_stiff}, \ref{fig:curve_floaty} and \ref{fig:curve_floaty}). For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration times.
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/Responsive_enjoyable}
+\caption{Players' self-reported perception on how responsive and enjoyable the controls felt, rated using a 7-point Likert scale (only 1, 2, 6 and 7 are shown).}
+\label{fig:responsive_enjoyable}
+\end{figure*}
 
-At first glance, most of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration time in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the difference words are not mutually exclusive, i.e., the controls can feel floaty and fluid at the same time.
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/difficult_like}
+\caption{Players' self-reported perception on how difficult and how much they liked the controls, rated using a 7-point Likert scale (only 1, 2, 6 and 7 are shown).}
+\label{fig:difficult_liked}
+\end{figure*}
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.9\columnwidth]{Pics/Classes/frustrated_alone}
+%\caption{Players' self-reported perception on how frustrated they felt the controls were, rated using %a 7-point Likert scale (only 1, 2, 6 and 7 are shown).}
+%\label{fig:frustration}
+%\end{figure}
+
+\textbf{Curves}\\
+A different way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for twitchy rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of e.g. 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curve consists of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curve consists of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} consists of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:curve_twitchy}, \ref{fig:curve_fluid}, \ref{fig:curve_stiff}, \ref{fig:curve_floaty} and \ref{fig:curve_floaty}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration times.
+
+At first glance, many of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the difference words are not mutually exclusive, i.e., the controls can feel floaty and fluid at the same time.
 
 \begin{figure}[htbp]
 \centering
@@ -234,4 +291,40 @@ At first glance, most of the curves seem similar. However, when comparing the th
 \end{figure}
 
 \subsection{Post-questionnaire}
-When completing the fourth round of the game, a link was shown to a Google Forms questionnaire. At the time of writing, 146 participants have taken part in this post-questionnaire.
+When completing the fourth round of the game, a link was shown to a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer the following questions, as well as describing the feel of six other 2D platforming games.
+\begin{itemize}[noitemsep,nolistsep]
+\item What parameters do you think changed between each round in the ball game?
+\item Name one game you think feels good (different from the ball game you just played)
+\item In your own words, how would you define the feel of games?
+\item In general, how important do you find the feel of games? (1-7)
+\item How would you describe the feel of each of the following games/series?
+\begin{itemize}[noitemsep,nolistsep]
+\item Mega Man
+\item LittleBigPlanet
+\item Donkey Kong
+\item Super Meat Boy
+\item Prince of Persia (1989)
+\item Super Mario Bros.
+\end{itemize}
+\end{itemize}
+
+Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the feel of the six 2D platforming games.
+
+\begin{table} \centering
+\caption{The 30 most commonly-used words (among the 153 data entries). Numbers in parenthesis indicate usage frequency. Common grammar words have been excluded.}
+\label{table:mostWords}
+\begin{tabular}{lll}
+\toprule
+game (207) & controls (145) & very (134)\\
+feel (130) & played (97) & responsive (85)\\
+feels (84) & like (80) & jump (63)\\
+control (61) & never (58) & fast (57)\\
+character (57) & good (56) & really (52)\\
+mario (51) & slow (49) & floaty (47)\\
+great (47) & because (46) & too (45)\\
+fun (45) & time (44) & just (43)\\
+games (42) & bit (42) & movement (41)\\
+hard (41) & precise (40) & super (40)\\
+\bottomrule
+\end{tabular}
+\end{table}
