@@ -2,7 +2,7 @@
 The data is split into three main parts: \textit{demographics} (before playing the game), \textit{mid-questionnaire} (while playing the game) and \textit{post-questionnaire} (after playing the game). The mid-questionnaire consists of two parts. In the first part, participants described the game feel in their own words. In the second part, participants rated the game feel on pre-defined words using Likert scales. The post-questionnaire is about game feel in general. The following analyzes the data from the three parts.
 
 \subsection{Demographics}
-As stated previously, the game was mainly shared on gaming websites. At the time of writing, 274 participants have played the game. Tables \ref{table:demographics1} and \ref{table:demographics2} show demographical data about the participants. Most of the participants rated themselves quite experienced with both playing videogames in general and playing 2D platforming games. The average framerate for the participants was 59.7 FPS, and the average time spent per level was 61 seconds/level.
+As stated previously, the game was mainly shared on gaming websites. At the time of writing, 274 participants have played the game. Tables \ref{table:demographics1} and \ref{table:demographics2} show demographical data about the participants. Most of the participants rated themselves quite experienced with both playing videogames in general and playing 2D platforming games. The average death count was 5, the average framerate 59.7 FPS and the average time spent per level was 61 seconds/level.
 
 \begin{table} \centering
 \small
@@ -47,17 +47,17 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 \end{tabular}
 \end{table}
 
-As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to either players quitting halfway, or that participants for some reason lost their Internet connection while trying to access the current Latin square number (in this case, the sequence was chosen randomly). Each time a participant collects three stars and answers the mid-questionnaire, data is logged. In total, 701 data logs were collected. Figure \ref{fig:retention} illustrates the retention rate of the participants.
+As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to players either quitting halfway, or that participants for some reason lost their Internet connection while trying to access the current Latin square number (in this case, the sequence was chosen randomly). Each time a participant collected three stars and answered the mid-questionnaire, data was logged. In total, 701 data logs were collected. Figure \ref{fig:retention} illustrates the retention rate of the participants.
 
-Figure \ref{fig:overallDistribution} shows the overall distribution of the acceleration/deceleration combinations that participants experienced. As stated previously, the time intervals were either \textit{fast} (0-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would again affect the number of possible sequences and Latin squares.
+Figure \ref{fig:overallDistribution} shows the overall distribution of the acceleration/deceleration combinations that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
 
 \begin{table} \centering
 %\small
-\caption{The number of participants in each of the four Latin square sequences.}
+\caption{The number of data entries in each of the four Latin square sequences.}
 \label{table:latinSequenceNumber}
 \begin{tabular}{cc}
 \toprule
-& \textbf{Number of participants}\\
+& \textbf{Number of data entries}\\
 \midrule
 \textbf{Sequence 1} & 190\\
 \textbf{Sequence 2} & 179\\
@@ -85,7 +85,7 @@ Whenever players collected three stars, they were met with a set of questions (s
 \end{figure}
 
 \subsubsection{Describing Game Feel in Own Words}
-Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the game feel (both on ground and in air). Additionally, these words have manually, by the author, been put into one or more of following nine categories (see Figure \ref{fig:coding1}).
+Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the game feel (both on ground and in air). Additionally, these words have manually, by the author, been put into one or more of following nine categories (see Figures \ref{fig:coding1} and \ref{fig:coding2}).
 \begin{itemize}[noitemsep,nolistsep]
 \item Single words or multiple words?
 \item Basic or complex words? (basic words are root words that can stand on their own, e.g., \textit{heavy} and \textit{laggy}, whereas complex words consist of modifiers that somehow change the meaning of the root words, e.g., \textit{very fast} and \textit{a bit sluggish})
@@ -116,7 +116,7 @@ Below are some selected quotes and their corresponding acceleration and decelera
 \item Heavy like a bowling ball, smooth \textbf{[0.38;0.74]}
 \item Unrealistic, stiff. The fact that it stops on a dime, except when you press in the opposite direction feels odd \textbf{[0.52;0.07]}
 \item The ball felt really good, and I liked that it didn't stop completely when I stopped pushing the button \textbf{[0.52;0.26]}
-\item BAD!!! not like a ball at all it is confusing \textbf{[0.93;0.07]}
+\item BAD!!! Not like a ball at all. It is confusing \textbf{[0.93;0.07]}
 \item Extremely annoying and heavy. Way too slow acceleration and reaction time in change of direction was truly painful \textbf{[0.97;0.29]}
 \item Slow, annoying, snappy \textbf{[1.0;0.03]}
 \item Fast, but also slippery \textbf{[1.06;1.17]}
@@ -156,8 +156,15 @@ speed (35) & time (34) & stop (31)\\
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\columnwidth]{Pics/coding1}
-\caption{The different types of words participant used to describe the game feel on ground.}
+\caption{The different types of words participants used to describe the game feel on ground.}
 \label{fig:coding1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{Pics/coding2}
+\caption{The different types of words participants used to describe the game feel in air.}
+\label{fig:coding2}
 \end{figure}
 
 %\begin{figure*}[htbp]
@@ -242,7 +249,9 @@ Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is pos
 \end{figure*}
 
 \textbf{Looking at Acceleration and Deceleration Simultaneously}\\
-The data can also be plotted using acceleration and deceleration simultaneously. The following graphs visualize how the participants rated the game across the different pre-defined words. Looking at the data, it appears as if the perceived contribution of the acceleration and deceleration values aren't always equal. Generally, there are no strong correlations between the acceleration/deceleration times and the ratings provided by the participants. This might be due to difficulties in understanding and/or interpreting the words. Still, looking at the extremes (1 = \textit{not at all}; 7 = \textit{a lot}), some patterns seem to emerge.
+The data can also be plotted using acceleration and deceleration simultaneously. The following graphs visualize how the participants rated the game across the different pre-defined words.
+
+Looking at the data, it appears as if the perceived contribution of the acceleration and deceleration values aren't always equal. Generally, there are no strong correlations between the acceleration/deceleration times and the ratings provided by the participants. This might be due to difficulties in understanding and/or interpreting the words. Still, looking at the extremes (1 = \textit{not at all}; 7 = \textit{a lot}), some patterns seem to emerge.
 
 Figure \ref{fig:twitchyFluid} shows  how \textit{twitchy} the game felt. There appears to be one main cluster of 1-ratings. It seems like if the deceleration was low (< 0.2 seconds), participants tended to rate the game less \textit{twitchy}. A similar, yet not as strong, cluster can be seen with low acceleration (< 0.2 seconds) where participants rated the game more \textit{twitchy}. However, due to the uneven sampling (\textit{fast} and \textit{slow} intervals), it is difficult to tell whether this is significant or not.
 
@@ -291,8 +300,46 @@ When looking at how \textit{enjoyable} the game felt (see Figure \ref{fig:respon
 %\label{fig:frustration}
 %\end{figure}
 
+\textbf{Looking at Acceleration and Deceleration Simultaneously (Averages)}\\
+Since the distribution of the acceleration/deceleration times wasn't equal (due two the two intervals, \textit{fast} and \textit{slow}), a different way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average. These are shown in Figures \ref{fig:twitchyFluid_avg}, \ref{fig:stiff_floaty_avg}, \ref{fig:responsive_enjoyable_avg}, \ref{fig:difficult_liked_avg} and \ref{fig:frustrated_avg}.
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/averages/twitchy_fluid_avg}
+\caption{Participants' average responses. Each box is 0.25x0.25}
+\label{fig:twitchyFluid_avg}
+\end{figure*}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/averages/Stiff_floaty_avg}
+\caption{Participants' average responses. Each box is 0.25x0.25}
+\label{fig:stiff_floaty_avg}
+\end{figure*}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/averages/Responsive_enjoyable_avg}
+\caption{Participants' average responses. Each box is 0.25x0.25}
+\label{fig:responsive_enjoyable_avg}
+\end{figure*}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/averages/difficult_like_avg}
+\caption{Participants' average responses. Each box is 0.25x0.25}
+\label{fig:difficult_liked_avg}
+\end{figure*}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.67\textwidth]{Pics/Classes/averages/frustrated_frustrated}
+\caption{Participants' average responses. Each box is 0.25x0.25}
+\label{fig:frustrated_avg}
+\end{figure*}
+
 \textbf{Curves}\\
-A different way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:curve_twitchy}, \ref{fig:curve_fluid}, \ref{fig:curve_stiff}, \ref{fig:curve_floaty} and \ref{fig:curve_responsive}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
+Yet another way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:curve_twitchy}, \ref{fig:curve_fluid}, \ref{fig:curve_stiff}, \ref{fig:curve_floaty} and \ref{fig:curve_responsive}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
 
 At first glance, many of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the different curves are not mutually exclusive, i.e., the controls can feel \textit{floaty} and \textit{fluid} at the same time.
 
@@ -332,12 +379,12 @@ At first glance, many of the curves seem similar. However, when comparing the th
 \end{figure}
 
 \subsection{Post-questionnaire}
-When completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer the following questions, as well as describing the feel of six other 2D platforming games.
+After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer the following questions, as well as describing the feel of six other 2D platforming games.
 \begin{itemize}[noitemsep,nolistsep]
 \item What parameters do you think changed between each round in the ball game?
 \item Name one game you think feels good (different from the ball game you just played)
 \item In your own words, how would you define the feel of games?
-\item In general, how important do you find the feel of games? (1-7)
+\item In general, how important do you find the feel of games?
 \item How would you describe the feel of each of the following games/series?
 \begin{itemize}[noitemsep,nolistsep]
 \item Mega Man
@@ -352,14 +399,14 @@ When completing the fourth round of the game, participants were asked to complet
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\columnwidth]{Pics/whatChanged}
-\caption{What the participants think changed between rounds.}
+\caption{What the participants thought changed between rounds.}
 \label{fig:whatChanged}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\columnwidth]{Pics/good_games}
-\caption{Game titles/series that the participants think feel good. Only those with more than one vote are included.}
+\caption{Game titles/series that the participants though feel good. Only those with more than one vote are included.}
 \label{fig:good_games}
 \end{figure}
 
@@ -401,14 +448,13 @@ jumping (40) & jumps (36) & frustrating (35)\\
 \end{tabular}
 \end{table}
 
-Figure \ref{fig:whatChanged} shows what the participants think changed between the rounds. Even though only acceleration and deceleration changed, many participants perceived other changes as well, most notably changes about how the controls felt in the air, such as how gravity and jumping worked. This might partially be due to the variable jump that some players may have missed in the first few rounds. Many also focused on the ball's properties, such as its mass and how ``ball-like" it behaved. In regards to acceleration and deceleration, more than double as many mentioned acceleration. When looking at the responses, it seems like many participants weren't aware of the term \textit{deceleration}, often times talking about how the ball gradually would slow down to a halt.
+Figure \ref{fig:whatChanged} shows what the participants thought had changed between the rounds. Even though only acceleration and deceleration changed, participants also perceived other changes as well, most notably changes about how the controls felt in the air, such as how gravity and jumping worked. This might partially be due to the variable jump that some players may have missed in the first few rounds. Some also focused on the ball's properties, such as its mass and how ``ball-like" it behaved. In regards to acceleration and deceleration, more than double as many mentioned acceleration. When looking at the responses, it seems like participants were unaware of the term \textit{deceleration}, often times talking about how the ball gradually would slow down to a halt.
 
 Figure \ref{fig:good_games} shows the games that the participants think feel good. Even though the question was phrased as \textit{Name one game you think feels good (different from the ball game you just played)}, many thought that they should name a 2D platforming game.
 
 Table \ref{table:mostWordsPost_GF} shows the 30 most-commonly used words that participants used when trying to answer the question \textit{In your own words, how would you define the feel of games?}
 
 Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that participants used to describe the feel of the six 2D platforming games. Below are some selected quotes for describing the feel of each of the games (some quotes have been combined for the sake of clarity).
-
 \textbf{Mega Man (1987)}
 \vspace{-5mm}
 \begin{itemize}[noitemsep,nolistsep]
@@ -419,7 +465,7 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item Responsive, since Mega Man moves when you press the button, and stops when you don't. The game, however, sometimes feels a bit clunky since you can only shoot straight, but the level design makes up for this most of the time.
 \item Very solid ground and air control. You have proper air control and Mega Man doesn't stop at the exact moment you let go of the d-pad. He slides a few pixels further, which feels natural.
 \item Super tight, super retro, no wiggle room. The fact that Mega Man stops completely when you let go of the button takes a bit of getting used to, but allows for precision in ways you wouldn't expect. Our brains are wired for natural physical projectile motion (IE parabolic), but Mega Man forces you to ignore that, which takes some getting used to.
-\item Feels very flat, the controls are too tight for proper game feel, but the responsiveness of the controls warrant a lot of the positive renown the series has attained.
+\item Feels very flat, the controls are too tight for proper game feel.
 \end{itemize}
 
 \textbf{LittleBigPlanet (2008)}
@@ -427,7 +473,7 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \begin{itemize}[noitemsep,nolistsep]
 \item Incredibly floaty to the point where it just isn't enjoyable. It feels like you have NO control over the character.
 \item Floaty and squishy, inertia-based - character has sense of inertia - height and length of jumps are determined by speed of character movement and button press duration. Jumps are slow and floaty etc
-\item Nice and fluid. sort of "organic". Everything moves naturally according to things like gravity, force-impact, etc.
+\item Nice and fluid. Sort of "organic". Everything moves naturally according to things like gravity, force-impact, etc.
 \item Just terrible to control. Everything about the controls is too floaty, making precise jumping a chore. A lot could have been improved by enabling D-pad controls, as the analog sticks tend to increase the floaty feel, and it's generally much more imprecise for this type of game.
 \item Game is very responsive but the control schemes are convoluted and overly complicated. 
 \item Laid back and relaxed. It's fun and easy, it's responsive and the controls are pretty straightforward.
@@ -455,21 +501,20 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item Awesome. Smooth and fast-paced movement that requires skill. Very good acceleration and deceleration of the character. The air control feels natural and is influenced greatly by the characters momentum. 
 \item Fluid, precise, controlled, reactive, tight, streamlined.
 \item Very twitchy and quick, but wasn't hard to maintain control. The control over Meat Boy is so total that it's very easy to mess up at any point even when you're very close to doing the right thing, and his movement speed and acceleration are high enough that you need to react very fast.
-\item Raw, brutal, unforgiving, sarcastic.
+\item Raw, brutal, unforgiving, sarcastic, energetic.
 \item Meat Boy is slidey on the ground, but sticks to the walls, making the wall jumps almost like beats in the rhythm of the game. Responsive, slippery but consistent.
-\item It feels very energetic and awesome.
 \item Fun because the controls are very easy to use and learn. And very intuitive too. Also the graphics sound/aesthetics match the game and the controls very well somehow.
 \item Free, fluid, unstoppable, flowing, sloppy. Smooth and comfortable.
 \item Massively floaty. The controls are often hailed as "tight", but that only seems to come from the responsiveness, not the actual movement physics, which are very floaty and unpredictable.
-\item Part of the game feel, is sound design. In Meat Boy, you see him run up to speed, and as he gets faster you hear his little wet footsteps. It's rewarding to the player to get that feedback, it makes you FEEL fast. If Meat Boy was a red featureless square with no sound, it'd be a vastly inferior 'feeling' game.
+\item Part of the game feel is sound design. In Meat Boy, you see him run up to speed, and as he gets faster you hear his little wet footsteps. It's rewarding to the player to get that feedback, it makes you FEEL fast. If Meat Boy was a red featureless square with no sound, it'd be a vastly inferior 'feeling' game.
 \item It's often praised for having tight controls, but in my opinion, they're a bit loose. For the most part you feel in control.
 \end{itemize}
 
 \textbf{Prince of Persia (1989)}
 \vspace{-5mm}
 \begin{itemize}[noitemsep,nolistsep]
-\item Ugh. Super limited. Static animations, no chance of survival. It's more of a strategy game than a platformer, honestly.
-\item Old and mushy. You can't really control your character easily (jumps, moves, etc), and the controls don't feel responsive.
+\item Super limited. Static animations, no chance of survival. It's more of a strategy game than a platformer, honestly.
+\item Old and mushy. You can't really control your character easily (jumps, moves, etc.), and the controls don't feel responsive.
 \item The controls are very difficult to master because when you stop pressing a button the prince will still be moving, and therefore it is very hard to time you jump. One of the rounds in your game had the same kind of feel.
 \item Controls are responsive, but the movement is completely unpredictable due to the environment seemingly actually affecting the velocity and acceleration of the character, where it normally would just intervene in other games. More apparent rules for the character's steps or jump lengths would help tighten the game feel, but as it stands, it's very weighty and unpredictable.
 \item Slow, imprecise and sloppy as hell. You would have to play around the controls, and have it in mind all the time.
@@ -478,7 +523,6 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item Delayed responsiveness and a little twitchy. You're never quite sure where the character's hitbox actually is, making jumping very frustrating.
 \item Great controls. Tight and a yet a good sense of weight behind the character.
 \item Adventurous. Unforgiving, slippery.
-\item Felt very realistic and frustrating. It was something new that I hadn't really seen in games before. It's on the verge of being non-entertaining, but the short length of the game makes you accept it as a challenge.
 \item Squarish and clunky, but also very responsive... but in a weird sort of unresponsive way
 \item Deliberate, heavy, cumbersome, delayed, planned. 
 \end{itemize}
@@ -501,7 +545,7 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item Perfectly middle-of-the-pack in terms of physics. A little bit slippery and a little bit floaty, but not noticeably so in either category.
 \end{itemize}
 
-As the above quotes show, players tend to focus on different elements when it comes to game feel. What feels unresponsive and floaty to some may feel more responsive and relaxed to others. It all depends on the context of use, as one participant expresses when describing the feel of \textit{LittleBigPlanet}. If playing in a casual/social setting, it might not matter that the feel is floaty and imprecise: \textit{``The slightly imprecise nature of the platforming makes for interesting mistakes to occur when playing with friends"}. It all comes down to what type of game it is and how challenging it's supposed to be. For instance, one participants described the feel of \textit{Super Mario Bros.} to be clunky, but that is acceptable, since the game doesn't feature many big and precise jumps.
+As the above quotes show, players tend to focus on different elements when it comes to game feel. What feels `unresponsive' and `floaty' to some may feel more responsive and relaxed to others. It all depends on the context of use, as one participant expressed when describing the feel of \textit{LittleBigPlanet}. If playing in a casual/social setting, it might not matter that the feel is `floaty' and `imprecise': \textit{``The slightly imprecise nature of the platforming makes for interesting mistakes to occur when playing with friends"}. It all comes down to what type of game it is and how challenging it's supposed to be. For instance, one participant described the feel of \textit{Super Mario Bros.} to be `clunky', but found it acceptable, since the game doesn't feature many big and precise jumps.
 
 Some also mentioned the usage of animation and sound effects, which again confirms that game feel is about the overall player perception. In general, as shown in Figure \ref{fig:games_important}, most participants find the feel of games very important.
 
