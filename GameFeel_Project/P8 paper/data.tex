@@ -186,8 +186,7 @@ Using a 7-point Likert scale, participants also rated the game feel on the follo
 \item Frustration
 \end{itemize}
 
-\textbf{Looking at Acceleration/Deceleration Separately}\\
-%One way to illustrate the responses is to plot the Likert ratings along the axes of either acceleration or deceleration, as shown in Figures \ref{fig:twitchy_both} \ref{fig:fluid_both}, \ref{fig:stiff_both}, \ref{fig:floaty_both} and \ref{fig:responsive_both}. Even though one might be able to spot some slight tendencies, 
+\subsubsection{Looking at Acceleration \& Deceleration Values Separately}
 Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is possible to spot a few tendencies, e.g., acceleration having a negative correlation with how \textit{twitchy}, \textit{fluid}, \textit{floaty} and \textit{responsive} the game felt. Meanwhile, deceleration has a positive correlation with how \textit{twitchy} and \textit{floaty} the game felt. However, this way of showing the data is not accurate, since it splits the acceleration and deceleration. The participants did not experience either separately; both were apparent when playing.
 
 %\begin{figure*}[htbp]
@@ -239,14 +238,7 @@ Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is pos
 %\label{fig:dec_average_response}
 %\end{figure}
 
-\begin{figure*}[htbp]
-\centering
-\includegraphics[width=0.98\textwidth]{Pics/correlationMatrix_final}
-\caption{Pearson correlation matrix.}
-\label{fig:correlationMatrix}
-\end{figure*}
-
-\textbf{Looking at Acceleration/Deceleration Simultaneously}\\
+\subsubsection{Looking at Acceleration \& Deceleration Values Simultaneously}
 Since the distribution of the acceleration/deceleration times wasn't equal (due two the two intervals, \textit{fast} and \textit{slow}), a different way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
 
 It appears that the game felt most \textit{twitchy} with high acceleration values (> 1 second) and low deceleration values (< 0.25 seconds) (see Figure \ref{fig:twitchy_fluid_stiff_avg}). This might be due to the feeling of having slow acceleration, but when releasing the button, the avatar stops very suddenly.
@@ -263,73 +255,65 @@ Looking at how \textit{enjoyable} (see Figure \ref{fig:floaty_responsive_enjoyab
 
 Lastly, Figure \ref{fig:difficult_like_frustration_avg} suggests that the game feels most \textit{difficult} and \textit{frustrating} with higher values in general, which is to expected, since the time from input to feedback is longer and thus makes the avatar more difficult to control.
 
-\begin{figure*}[htbp]
+\begin{figure*}[!htb]
 \centering
 \includegraphics[width=0.97\textwidth]{Pics/Classes/averages/twitchy_fluid_stiff_avg}
 \caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
 \label{fig:twitchy_fluid_stiff_avg}
 \end{figure*}
 
-\begin{figure*}[htbp]
+\begin{figure*}[!htb]
 \centering
 \includegraphics[width=0.97\textwidth]{Pics/Classes/averages/floaty_responsive_enjoyable_avg.png}
 \caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
 \label{fig:floaty_responsive_enjoyable_avg}
 \end{figure*}
 
-\begin{figure*}[htbp]
+\begin{figure*}[!htb]
 \centering
 \includegraphics[width=0.97\textwidth]{Pics/Classes/averages/difficult_like_frustration_avg}
 \caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
 \label{fig:difficult_like_frustration_avg}
 \end{figure*}
 
-\textbf{Curves}\\
-Yet another way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:curve_twitchy}, \ref{fig:curve_fluid}, \ref{fig:curve_stiff}, \ref{fig:curve_floaty}, \ref{fig:curve_responsive} and \ref{fig:curve_difficult}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{Pics/correlationMatrix_final}
+\caption{Pearson correlation matrix.}
+\label{fig:correlationMatrix}
+\end{figure*}
+
+\subsubsection{Curves}
+Another way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is now possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:twitchy_fluid}, \ref{fig:stiff_floaty}, \ref{fig:responsive_enjoyable} and \ref{fig:difficult_frustrated}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
 
 At first glance, many of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the different curves are not mutually exclusive, i.e., the controls can feel \textit{floaty} and \textit{fluid} at the same time.
-
-\begin{figure}[htbp]
+\begin{figure*}[!htb]
 \centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Twitchy_curve}
-\caption{Average curves of twitchy controls.}
-\label{fig:curve_twitchy}
-\end{figure}
+\includegraphics[width=0.97\textwidth]{Pics/Curves/twitchy_fluid}
+\caption{Twitchy and fluid curves.}
+\label{fig:twitchy_fluid}
+\end{figure*}
 
-\begin{figure}[htbp]
+\begin{figure*}[!htb]
 \centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Fluid_curve}
-\caption{Average curves of fluid controls.}
-\label{fig:curve_fluid}
-\end{figure}
+\includegraphics[width=0.97\textwidth]{Pics/Curves/stiff_floaty}
+\caption{Stiff and floaty curves.}
+\label{fig:stiff_floaty}
+\end{figure*}
 
-\begin{figure}[htbp]
+\begin{figure*}[!htb]
 \centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Stiff_curve}
-\caption{Average curves of stiff controls.}
-\label{fig:curve_stiff}
-\end{figure}
+\includegraphics[width=0.97\textwidth]{Pics/Curves/responsive_enjoyable}
+\caption{Responsive and enjoyable curves.}
+\label{fig:responsive_enjoyable}
+\end{figure*}
 
-\begin{figure}[htbp]
+\begin{figure*}[!htb]
 \centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Floaty_curve}
-\caption{Average curves of floaty controls.}
-\label{fig:curve_floaty}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Responsive_curve}
-\caption{Average curves of responsive controls.}
-\label{fig:curve_responsive}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\columnwidth]{Pics/Curves/Difficult_Curve}
-\caption{Average curves of difficult controls.}
-\label{fig:curve_difficult}
-\end{figure}
+\includegraphics[width=0.97\textwidth]{Pics/Curves/difficult_frustrated}
+\caption{Difficult and frustrated curves.}
+\label{fig:difficult_frustrated}
+\end{figure*}
 
 \subsection{Post-questionnaire}
 After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer questions about what they thought changed between each round in the game. Even though only the acceleration and deceleration changed, the participants might have perceived more than this. Participants were also asked to try and define the feel of games with their own words. Additionally, they were asked to describe the feel of six commercially-released platforming games. This was to get a better understanding of how players describe game feel for platformers in general. The chosen games can be seen in Figure \ref{fig:rate_games_all}.
