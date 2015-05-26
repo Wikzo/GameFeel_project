@@ -6,7 +6,7 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 
 \begin{table} \centering
 \small
-\caption{Demographics data 1.}
+\caption{Demographical data 1.}
 \label{table:demographics1}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{cccc}
@@ -23,7 +23,7 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 
 \begin{table} \centering
 \small
-\caption{Demographics data 2.}
+\caption{Demographical data 2.}
 \label{table:demographics2}
 %\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{lcc}
@@ -47,9 +47,9 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 \end{tabular}
 \end{table}
 
-As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to players either quitting halfway, or that participants for some reason lost their Internet connection while trying to access the current Latin square number (in this case, the sequence was chosen randomly). Each time a participant collected three stars and answered the mid-questionnaire, data was logged. In total, 701 data logs were collected. Figure \ref{fig:retention} illustrates the retention rate of the participants.
+As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to players quitting halfway. Each time a participant collected three stars and answered the mid-questionnaire, data was logged. In total, 701 data logs were collected. Figure \ref{fig:retention} illustrates the retention rate of the participants.
 
-Figure \ref{fig:overallDistribution} shows the overall distribution of the acceleration/deceleration combinations that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
+Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time values that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.\\
 
 \begin{table} \centering
 %\small
@@ -74,15 +74,15 @@ Figure \ref{fig:overallDistribution} shows the overall distribution of the accel
 \label{fig:retention}
 \end{figure}
 
-\subsection{Mid-questionnaire}
-Whenever players collected three stars, they were met with a set of questions (see Figure \ref{fig:questionnaire}). In the first part, participants described the game feel in their own words, while in the second part they were asked to rate pre-defined words on a 7-point Likert scale (1 = \textit{not at all}; 7 = \textit{a lot}).
-
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\columnwidth]{Pics/Classes/overall_distribution}
-\caption{Scatter plot of all the different acceleration/deceleration combinations participants experienced.}
+\caption{Scatter plot of all the different acceleration/deceleration combinations that participants experienced.}
 \label{fig:overallDistribution}
 \end{figure}
+
+\subsection{Mid-questionnaire}
+Whenever players collected three stars, they were met with a set of questions (see Figure \ref{fig:questionnaire}). In the first part, participants described the game feel in their own words, while in the second part they were asked to rate pre-defined words on a 7-point Likert scale (1 = \textit{not at all}; 7 = \textit{a lot}).
 
 \subsubsection{Describing Game Feel in Own Words}
 Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the game feel (both on ground and in air). Additionally, these words have manually, by the author, been put into one or more of following nine categories (see Figures \ref{fig:coding1} and \ref{fig:coding2}).
@@ -188,7 +188,7 @@ Using a 7-point Likert scale, participants also rated the game feel on the follo
 \item Frustration
 \end{itemize}
 
-\textbf{Looking at Acceleration and Deceleration Separately}\\
+\textbf{Looking at Acceleration/Deceleration Separately}\\
 %One way to illustrate the responses is to plot the Likert ratings along the axes of either acceleration or deceleration, as shown in Figures \ref{fig:twitchy_both} \ref{fig:fluid_both}, \ref{fig:stiff_both}, \ref{fig:floaty_both} and \ref{fig:responsive_both}. Even though one might be able to spot some slight tendencies, 
 Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is possible to spot a few tendencies, e.g., acceleration having a negative correlation with how \textit{twitchy}, \textit{fluid}, \textit{floaty} and \textit{responsive} the game felt. Meanwhile, deceleration has a positive correlation with how \textit{twitchy} and \textit{floaty} the game felt. However, this way of showing the data is not accurate, since it splits the acceleration and deceleration. The participants did not experience either in a vacuum; both were apparent when playing.
 
@@ -248,7 +248,7 @@ Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is pos
 \label{fig:correlationMatrix}
 \end{figure*}
 
-\textbf{Looking at Acceleration and Deceleration Simultaneously}\\
+\textbf{Looking at Acceleration/Deceleration Simultaneously}\\
 The data can also be plotted using acceleration and deceleration simultaneously. The following graphs visualize how the participants rated the game across the different pre-defined words.
 
 Looking at the data, it appears as if the perceived contribution of the acceleration and deceleration values aren't always equal. Generally, there are no strong correlations between the acceleration/deceleration times and the ratings provided by the participants. This might be due to difficulties in understanding and/or interpreting the words. Still, looking at the extremes (1 = \textit{not at all}; 7 = \textit{a lot}), some patterns seem to emerge.
@@ -300,7 +300,7 @@ When looking at how \textit{enjoyable} the game felt (see Figure \ref{fig:respon
 %\label{fig:frustration}
 %\end{figure}
 
-\textbf{Looking at Acceleration and Deceleration Simultaneously (Averages)}\\
+\textbf{Looking at Acceleration/Deceleration Simultaneously (Averages)}\\
 Since the distribution of the acceleration/deceleration times wasn't equal (due two the two intervals, \textit{fast} and \textit{slow}), a different way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average. These are shown in Figures \ref{fig:twitchyFluid_avg}, \ref{fig:stiff_floaty_avg}, \ref{fig:responsive_enjoyable_avg}, \ref{fig:difficult_liked_avg} and \ref{fig:frustrated_avg}.
 
 \begin{figure*}[htbp]
@@ -379,22 +379,7 @@ At first glance, many of the curves seem similar. However, when comparing the th
 \end{figure}
 
 \subsection{Post-questionnaire}
-After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer the following questions, as well as describing the feel of six other 2D platforming games (see Figure \ref{fig:rate_games_all}).
-\begin{itemize}[noitemsep,nolistsep]
-\item What parameters do you think changed between each round in the ball game?
-\item Name one game you think feels good (different from the ball game you just played)
-\item In your own words, how would you define the feel of games?
-\item In general, how important do you find the feel of games?
-\item How would you describe the feel of each of the following games/series?
-\begin{itemize}[noitemsep,nolistsep]
-\item Mega Man
-\item LittleBigPlanet
-\item Donkey Kong
-\item Super Meat Boy
-\item Prince of Persia (1989)
-\item Super Mario Bros.
-\end{itemize}
-\end{itemize}
+After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer questions about what they thought changed between each round in the game. Even though only the acceleration and deceleration changed, the participants might have perceived more than this. Participants were also asked to try and define the feel of games with their own words. Additionally, they were asked to describe the feel of six commercially-released platforming games. This was to get a better understanding of how players describe game feel for platformers in general. The chosen games can be seen in Figure \ref{fig:rate_games_all}.
 
 \begin{figure*}[htbp]
 \centering
@@ -468,25 +453,22 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \begin{itemize}[noitemsep,nolistsep]
 \item Very responsive and you feel in control in general. It does lack on game feel though, because some jumps require pixel-perfect positioning which makes you think actively about mechanics.
 \item Stiff, rigid, bland, cold, futuristic, direct and robotic.
-\item It isn't fast and fluid like Super Meat Boy, you feel more like a robot in a heavy armored suit, but the feel is still perfectly paired with it's level and enemy design.
-\item The controls in Mega Man are very slow and floaty. However, the game is based around moving slowly and attacking from a distance. The jumping is floaty, yet responsive to player inputs, such as changing direction in midair, or stopping the jump early. 
+\item Very slow and floaty. However, the game is based around moving slowly and attacking from a distance. The jumping is floaty, yet responsive to player inputs, such as changing direction in midair, or stopping the jump early. 
 \item Responsive, since Mega Man moves when you press the button, and stops when you don't. The game, however, sometimes feels a bit clunky since you can only shoot straight, but the level design makes up for this most of the time.
-\item Very solid ground and air control. You have proper air control and Mega Man doesn't stop at the exact moment you let go of the d-pad. He slides a few pixels further, which feels natural.
-\item Super tight, super retro, no wiggle room. The fact that Mega Man stops completely when you let go of the button takes a bit of getting used to, but allows for precision in ways you wouldn't expect. Our brains are wired for natural physical projectile motion (IE parabolic), but Mega Man forces you to ignore that, which takes some getting used to.
-\item Feels very flat, the controls are too tight for proper game feel.
+\item Very solid ground and air control. You have proper air control and Mega Man doesn't stop at the exact moment you let go of the D-pad. He slides a few pixels further, which feels natural.
+\item Super tight, super retro, no wiggle room. The fact that Mega Man stops completely when you let go of the button takes a bit of getting used to, but allows for precision in ways you wouldn't expect. Our brains are wired for natural physical projectile motion (i.e., parabolic), but Mega Man forces you to ignore that, which takes some getting used to.
 \end{itemize}
 
 \textbf{LittleBigPlanet (2008)}
 \vspace{-5mm}
 \begin{itemize}[noitemsep,nolistsep]
 \item Incredibly floaty to the point where it just isn't enjoyable. It feels like you have NO control over the character.
-\item Floaty and squishy, inertia-based - character has sense of inertia - height and length of jumps are determined by speed of character movement and button press duration. Jumps are slow and floaty etc
-\item Nice and fluid. Sort of "organic". Everything moves naturally according to things like gravity, force-impact, etc.
+\item Floaty and squishy, inertia-based --- character has sense of inertia --- height and length of jumps are determined by speed of character movement and button press duration. Jumps are slow and floaty etc
+\item Nice and fluid. Sort of ``organic". Everything moves naturally according to things like gravity, force-impact, etc.
 \item Just terrible to control. Everything about the controls is too floaty, making precise jumping a chore. A lot could have been improved by enabling D-pad controls, as the analog sticks tend to increase the floaty feel, and it's generally much more imprecise for this type of game.
 \item Game is very responsive but the control schemes are convoluted and overly complicated. 
 \item Laid back and relaxed. It's fun and easy, it's responsive and the controls are pretty straightforward.
-\item Floaty and with inertia controls. The slightly imprecise nature of the platforming makes for interesting mistakes to occur when playing with friends, but it is not so egregious that it is game breaking. 
-\item On ground the game has a brilliant feel. It has the perfect speed and momentum. In air I found this game very frustrating.
+\item The slightly imprecise nature of the platforming makes for interesting mistakes to occur when playing with friends, but it is not so egregious that it is game breaking. 
 \item Child-like. Super happy. The animations really make a huge difference in how this game feels.
 \end{itemize}
 
@@ -496,17 +478,16 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item A bit sluggish, lends either a feeling of panic or frustration to me depending on whether I win or lose. Mario feels a bit difficult to control, the jumps are hard to gauge and he never seems to move quite quickly enough. It feels like slogging through a chest-high swamp.
 \item Good decent controls. It's very precise with no room for errors. But completely lacks any kind of air control. Mario is definitely floaty, but with almost slow-motion jump physics.
 \item Mario feels responsive on the ground, if a bit slow, but his jumping feels far too floaty, and he's locked into his jumping trajectory, which almost never works in a game centered around jumping over obstacles and pits.
-\item Squarish - hard to explain.
+\item Squarish --- hard to explain.
 \item Direct, unforgiving, repetitive, snappy.
 \item Precise and sloppy. Two words wide from each other, but it's the best I can describe it. It requires precision to jump the barrels, and the controls and overall feel provides that, but in the same time, it doesn't feel like you got much else control of Mario.
 \item Clunky, odd hitboxes and arcade-like. Twitchy, inflexible, stiff, light.
-\item Frustrating. The timing required for everything is so precise that even beating a single level is a challenge.
 \end{itemize}
 
 \textbf{Super Meat Boy (2010)}
 \vspace{-5mm}
 \begin{itemize}[noitemsep,nolistsep]
-\item Awesome. Smooth and fast-paced movement that requires skill. Very good acceleration and deceleration of the character. The air control feels natural and is influenced greatly by the characters momentum. 
+\item Smooth and fast-paced movement that requires skill. Very good acceleration and deceleration of the character. The air control feels natural and is influenced greatly by the characters momentum. 
 \item Fluid, precise, controlled, reactive, tight, streamlined.
 \item Very twitchy and quick, but wasn't hard to maintain control. The control over Meat Boy is so total that it's very easy to mess up at any point even when you're very close to doing the right thing, and his movement speed and acceleration are high enough that you need to react very fast.
 \item Raw, brutal, unforgiving, sarcastic, energetic.
@@ -514,25 +495,22 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \item Fun because the controls are very easy to use and learn. And very intuitive too. Also the graphics sound/aesthetics match the game and the controls very well somehow.
 \item Free, fluid, unstoppable, flowing, sloppy. Smooth and comfortable.
 \item Massively floaty. The controls are often hailed as "tight", but that only seems to come from the responsiveness, not the actual movement physics, which are very floaty and unpredictable.
-\item Part of the game feel is sound design. In Meat Boy, you see him run up to speed, and as he gets faster you hear his little wet footsteps. It's rewarding to the player to get that feedback, it makes you FEEL fast. If Meat Boy was a red featureless square with no sound, it'd be a vastly inferior 'feeling' game.
-\item It's often praised for having tight controls, but in my opinion, they're a bit loose. For the most part you feel in control.
+\item Part of the game feel is sound design. In Meat Boy, you see him run up to speed, and as he gets faster you hear his little wet footsteps. It's rewarding to the player to get that feedback, it makes you FEEL fast. If Meat Boy was a red featureless square with no sound, it'd be a vastly inferior `feeling' game.
 \end{itemize}
 
 \textbf{Prince of Persia (1989)}
 \vspace{-5mm}
 \begin{itemize}[noitemsep,nolistsep]
 \item Super limited. Static animations, no chance of survival. It's more of a strategy game than a platformer, honestly.
-\item Old and mushy. You can't really control your character easily (jumps, moves, etc.), and the controls don't feel responsive.
+\item Old and mushy. You can't really control your character easily, and the controls don't feel responsive.
 \item The controls are very difficult to master because when you stop pressing a button the prince will still be moving, and therefore it is very hard to time you jump. One of the rounds in your game had the same kind of feel.
 \item Controls are responsive, but the movement is completely unpredictable due to the environment seemingly actually affecting the velocity and acceleration of the character, where it normally would just intervene in other games. More apparent rules for the character's steps or jump lengths would help tighten the game feel, but as it stands, it's very weighty and unpredictable.
 \item Slow, imprecise and sloppy as hell. You would have to play around the controls, and have it in mind all the time.
-\item Quite unstable. You are never sure whether what you are doing will result in the wished action. Jumping seems rather hit and miss.
 \item Prince of Persia was absolutely amazing when it came out. The body dynamics were unlike anything I'd seen in a computer game before. It was sometimes hit-and-miss with the timing of jumps, but overall very responsive.
 \item Delayed responsiveness and a little twitchy. You're never quite sure where the character's hitbox actually is, making jumping very frustrating.
 \item Great controls. Tight and a yet a good sense of weight behind the character.
 \item Adventurous. Unforgiving, slippery.
-\item Squarish and clunky, but also very responsive... but in a weird sort of unresponsive way
-\item Deliberate, heavy, cumbersome, delayed, planned. 
+\item Squarish and clunky, but also very responsive --- but in a weird sort of unresponsive way
 \end{itemize}
 
 \textbf{Super Mario Bros. (1985)}
@@ -540,13 +518,12 @@ Table \ref{table:mostWordsPost} shows the 30 most commonly-used words that parti
 \begin{itemize}[noitemsep,nolistsep]
 \item It feels very responsive. Actions are quick and takes zero effort to master.
 \item Fast and loose.
-\item The movement is a bit clunky since Mario slides around, but its okay since the game doesn't have many big precise jumps.
+\item The movement is a bit clunky, since Mario slides around, but it's okay, since the game doesn't have many big precise jumps.
 \item Smooth, strange and foreign, also classic.
 \item Floaty, awkward jumping and running. Momentum really holds and it feels like you are piloting a brick.
 \item Tight, predictable acceleration and momentum velocities. Instantly responsive controls, and although the character portrays a lot of acceleration and momentum after having stopped, it's always the same, becoming predictable and thus, enjoyable.
-\item A bit draggy - slow acceleration and long jump time.
+\item A bit draggy --- slow acceleration and long jump time.
 \item Fairly responsive but a bit twitchy because Mario's movement in midair is difficult to control. The capacity to run by pressing one button is clever as it provides a better move control for difficult parts.
-\item Very swift, easy to control, rewarding.
 \item Simple and predictable. No stress. You can focus on tasks instead of the controls.
 \item Great overall feel which is why it was/is so popular. The run button pretty much allowed you to switch between two separate feels, one slow and one fast.
 \item Slow to accelerate, but the levels are designed around it. Top speed is fast, jump arc is nice (the top of it is weird, he hangs there a bit, outside of a standard arc). Basically, Mario gives you the freedom to go slow or fast, and provides enough wide open space for it to feel good.
