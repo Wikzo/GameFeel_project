@@ -698,17 +698,17 @@
  \null
  \setbox\@acmtitlebox\vbox{%
 \baselineskip 20pt
-\vskip 0.5em                   % Vertical space above title.
+%\vskip 0.5em                   % Vertical space above title.
    \begin{center}
     {\ttlfnt \@title\par}       % Title set in 18pt Helvetica (Arial) bold size.
-    \vskip 0.1em                % Vertical space after title.
+    %\vskip 0.1em                % Vertical space after title.
 %This should be the subtitle.
 {\subttlfnt \the\subtitletext\par}\vskip 1.25em%\fi
     {\baselineskip 16pt\aufnt   % each author set in \12 pt Arial, in a
      \lineskip .5em             % tabular environment
      \begin{tabular}[t]{c}\@author
      \end{tabular}\par}
-    \vskip 0.1em               % Vertical space after author.
+    %\vskip 0.1em               % Vertical space after author.
    \end{center}}
  \dimen0=\ht\@acmtitlebox
  %\advance\dimen0 by -12.75pc\relax % Increased space for title box -- KBT %%% REMOVE SPACE GUSTAV - https://tex.stackexchange.com/questions/57505/how-to-reduce-the-space-between-the-author-block-and-paper-text-sig-alternate-c
