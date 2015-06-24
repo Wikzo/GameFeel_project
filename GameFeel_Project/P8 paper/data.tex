@@ -2,81 +2,81 @@
 The data is split into three main parts: \textit{demographics} (before playing the game), \textit{mid-questionnaire} (while playing the game) and \textit{post-questionnaire} (after playing the game). The mid-questionnaire consists of two parts. In the first part, participants described the game feel in their own words. In the second part, participants rated the game feel on pre-defined words using Likert scales. The post-questionnaire is about game feel in general. The following analyzes the data from the three parts.
 
 \subsection{Demographics}
-As stated previously, the game was mainly shared on gaming websites. At the time of writing, 274 participants have played the game. Tables \ref{table:demographics1} and \ref{table:demographics2} show demographical data about the participants. Most of the participants rated themselves quite experienced with both playing videogames in general and playing 2D platforming games. The average death count was 5, the average framerate was 59.7 FPS and the average time spent per level was 61 seconds/level.
+As stated previously, the game was mainly shared on gaming websites. At the time of writing, 274 participants have played the game. The majority of the participants rated themselves very experienced with both videogames in general and 2D platformers. 70.6\% of the participants came from Europe and 26.7\% from USA. 93.6\% were male and 5.7\% female, with an average age of 24 years. Playing the game, the average death count was 5, the average framerate was 59.7 FPS and the average time spent per level was 61 seconds.
 
-\begin{table} \centering
-\small
-\caption{Demographical data 1.}
-\label{table:demographics1}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{cccc}
-\toprule
-\textbf{Platform} & Windows Web: & Windows Exe: & Mac Web: \\
-                  & 55.2\%      & 30.7\%      & 14.1\%  \\
-\textbf{Gender}   & Male:        & Female:      & Other:   \\
-                  & 93.6\%      & 5.7\%       & 0.7\%   \\
-\textbf{Age}      & Male:     & Female:            & Other:        \\
-                  & 24.6 years  & 23.9 years           & 25 years        \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table} \centering
-\small
-\caption{Demographical data 2.}
-\label{table:demographics2}
-%\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcc}
-\toprule
-\textbf{Regions}                      &                & \textbf{}               \\ 
-\textit{Europe}                      & 70.6\%         &                         \\
-\textit{Americas}                    & 26.7\%         &                         \\
-\textit{Asia}                        & 1.9\%          &                         \\
-\textit{Oceania}                     & 0\%            &                         \\
-\textit{Africa}                      & 0.6\%          &                         \\
-\textit{Other}                       & 0.2\%          &                         \\
-\textbf{Experience with...} & \textbf{Videogames} & \textbf{2D platformers} \\
-\textit{1 (none)}                           & 0\%            & 0\%                     \\
-\textit{2}                           & 0\%            & 3.1\%                   \\ 
-\textit{3}                           & 0.6\%          & 10.1\%                  \\
-\textit{4}                           & 4\%            & 14.1\%                  \\ 
-\textit{5}                           & 9.6\%          & 23.2\%                  \\ 
-\textit{6}                           & 22.5\%         & 16.9\%                  \\
-\textit{7 (a lot)}                           & 63.3\%         & 32.6\%                  \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, as shown in Table \ref{table:latinSequenceNumber}, this is not the case. This might be due to players quitting halfway, which is illustrated in Figure \ref{fig:retention}. Each time a participant collected three stars and answered the mid-questionnaire, data was logged. In total, 701 data logs were collected.
-
-Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time values that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.\\
-
-\begin{table} \centering
+%\begin{table} \centering
 %\small
-\caption{The number of data entries in each of the four Latin square sequences.}
-\label{table:latinSequenceNumber}
-\begin{tabular}{cc}
-\toprule
-& \textbf{Number of data entries}\\
-\midrule
-\textbf{Sequence 1} & 190\\
-\textbf{Sequence 2} & 179\\
-\textbf{Sequence 3} & 165\\
-\textbf{Sequence 4} & 167\\
-\bottomrule
-\end{tabular}
-\end{table}
+%\caption{Demographical data 1.}
+%\label{table:demographics1}
+%\renewcommand{\arraystretch}{1.2}
+%\begin{tabular}{cccc}
+%\toprule
+%\textbf{Platform} & Windows Web: & Windows Exe: & Mac Web: \\
+%                  & 55.2\%      & 30.7\%      & 14.1\%  \\
+%\textbf{Gender}   & Male:        & Female:      & Other:   \\
+%                  & 93.6\%      & 5.7\%       & 0.7\%   \\
+%\textbf{Age}      & Male:     & Female:            & Other:        \\
+%                  & 24.6 years  & 23.9 years           & 25 years        \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+
+%\begin{table} \centering
+%\small
+%\caption{Demographical data 2.}
+%\label{table:demographics2}
+%%\renewcommand{\arraystretch}{1.2}
+%\begin{tabular}{lcc}
+%\toprule
+%\textbf{Regions}                      &                & \textbf{}               \\ 
+%\textit{Europe}                      & 70.6\%         &                         \\
+%\textit{Americas}                    & 26.7\%         &                         \\
+%\textit{Asia}                        & 1.9\%          &                         \\
+%\textit{Oceania}                     & 0\%            &                         \\
+%\textit{Africa}                      & 0.6\%          &                         \\
+%\textit{Other}                       & 0.2\%          &                         \\
+%\textbf{Experience with...} & \textbf{Videogames} & \textbf{2D platformers} \\
+%\textit{1 (none)}                           & 0\%            & 0\%                     \\
+%\textit{2}                           & 0\%            & 3.1\%                   \\ 
+%\textit{3}                           & 0.6\%          & 10.1\%                  \\
+%\textit{4}                           & 4\%            & 14.1\%                  \\ 
+%\textit{5}                           & 9.6\%          & 23.2\%                  \\ 
+%\textit{6}                           & 22.5\%         & 16.9\%                  \\
+%\textit{7 (a lot)}                           & 63.3\%         & 32.6\%                  \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+
+As stated in Section \ref{latinSection}, ideally there should be an equal amount of participants in each of the four Latin square sequences. However, not all of the sequences received the same amount of participants. This might be due to players quitting halfway, presumably due to fatigue or boredom. Each time a participant collected three stars and answered the mid-questionnaire, data was logged. In total, 701 data logs were collected.
+
+Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time values that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
+
+%\begin{table} \centering
+%\small
+%\caption{The number of data entries in each of the four Latin square sequences.}
+%\label{table:latinSequenceNumber}
+%\begin{tabular}{cc}
+%\toprule
+%& \textbf{Number of data entries}\\
+%\midrule
+%\textbf{Sequence 1} & 190\\
+%\textbf{Sequence 2} & 179\\
+%\textbf{Sequence 3} & 165\\
+%\textbf{Sequence 4} & 167\\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.4\textwidth]{Pics/retetionRate}
+%\caption{274 participants started the game, but not all completed the four rounds, presumably due to %fatigue or boredom.}
+%\label{fig:retention}
+%\end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.4\textwidth]{Pics/retetionRate}
-\caption{274 participants started the game, but not all completed the four rounds, presumably due to fatigue or boredom.}
-\label{fig:retention}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.7\columnwidth]{Pics/Classes/overall_distribution}
+\includegraphics[width=0.5\columnwidth]{Pics/Classes/overall_distribution}
 \caption{Scatter plot of all the different acceleration/deceleration combinations that participants experienced.}
 \label{fig:overallDistribution}
 \end{figure}
@@ -85,7 +85,7 @@ Figure \ref{fig:overallDistribution} shows the overall distribution of the combi
 Whenever players collected three stars, they were met with a set of questions (see Figure \ref{fig:questionnaire}). In the first part, participants described the game feel in their own words, while in the second part they were asked to rate pre-defined words on a 7-point Likert scale (1 = \textit{not at all}; 7 = \textit{a lot}).
 
 \subsubsection{Describing Game Feel in Own Words}
-Table \ref{table:mostWords} shows the 30 most commonly-used words that participants used to describe the game feel (both on ground and in air). Similar to what is described in Section \ref{colour}, the words have manually, by the author, been put into one or more of the following nine categories (see Figures \ref{fig:coding1} and \ref{fig:coding2}).
+The game feel descriptions provided by the test participants have manually, by the author, been put into one or more of the following nine categories (see Figure \ref{fig:coding1}).
 \begin{itemize}[noitemsep,nolistsep]
 \item Single words or multiple words?
 \item Basic or complex words? (basic words are root words that can stand on their own, e.g., \textit{heavy} and \textit{laggy}, whereas complex words consist of modifiers that somehow change the meaning of the root words, e.g., \textit{very fast} and \textit{a bit sluggish})
@@ -109,7 +109,6 @@ Below are some selected quotes and their corresponding acceleration and decelera
 \item Icy. \textbf{[0.07;1.16]}
 \item Super twitchy, ball moves right when you press keys. \textbf{[0.09;0.14]}
 \item Annoying, no fine control, noticeable input delay. \textbf{[0.1;0.18]}
-\item Very static. Actually easier once you're used to it, but less intuitive and fun. \textbf{[0.22;0.49]}
 \item Feels like you're rolling a big ball down a hill almost --- it takes a bit of time to get going. \textbf{[0.27;1.47]}
 \item It feels really heavy and has a bit of after roll that adds a bit of reality feeling physics to it. \textbf{[0.3;0.52]}
 \item Like Super Mario (which is good). \textbf{[0.34;0.14]}
@@ -132,38 +131,38 @@ Below are some selected quotes and their corresponding acceleration and decelera
 
 Ostensibly, there are different opinions on what feels ``right". As one would expect, some of the higher values yield more frustrating results, since there is a longer delay before the participant sees the result on the screen. Some participants tried to describe the feeling using words from the physical world, such as \textit{momentum}, \textit{acceleration} and \textit{friction}. Others expressed themselves whenever they felt that the controls were \textit{too heavy} or \textit{too unresponsive}. Some compared it to \textit{a heavy tank moving through mud}, while others critiqued that the movement was \textit{unrealistic} and \textit{didn't feel like a ball at all}. Some participants were eager to express how much more \textit{difficult} or \textit{easier} the game was due to the controls, while others emphasized personal opinions, such as it feeling \textit{too fast} or \textit{not fun}.
 
-\begin{table} \centering
-\caption{The 30 most commonly-used words to describe the feel of the ball game. Numbers in parenthesis indicate usage frequency. Common grammar words have been excluded.}
-\label{table:mostWords}
-\begin{tabular}{lll}
-\toprule
-heavy (165) & slow (132) & ball (122)\\
-responsive (104) & fast (94) & like (90)\\
-control (87) & very (83) & too (80)\\ 
-easy (78) & momentum (61) & realistic (61)\\
-sluggish (58) & floaty (58) & bit (54)\\
-air  (52) & good (51) & unrealistic (51)\\
-feels (50) & little (45) & hard (42)\\
-felt (40) & fluid (39) & still (38)\\
-ground (37) & jump (37) & same (36)\\
-speed (35) & time (34) & stop (31)\\
-\bottomrule
-\end{tabular}
-\end{table}
+%\begin{table} \centering
+%\caption{The 30 most commonly-used words to describe the feel of the ball game. Numbers in %parenthesis indicate usage frequency. Common grammar words have been excluded.}
+%\label{table:mostWords}
+%\begin{tabular}{lll}
+%\toprule
+%heavy (165) & slow (132) & ball (122)\\
+%responsive (104) & fast (94) & like (90)\\
+%control (87) & very (83) & too (80)\\ 
+%easy (78) & momentum (61) & realistic (61)\\
+%sluggish (58) & floaty (58) & bit (54)\\
+%air  (52) & good (51) & unrealistic (51)\\
+%feels (50) & little (45) & hard (42)\\
+%felt (40) & fluid (39) & still (38)\\
+%ground (37) & jump (37) & same (36)\\
+%speed (35) & time (34) & stop (31)\\
+%\bottomrule
+%\end{tabular}
+%\end{table}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\columnwidth]{Pics/coding1}
+\includegraphics[width=0.8\columnwidth]{Pics/coding1}
 \caption{The different types of words participants used to describe the game feel on ground.}
 \label{fig:coding1}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\columnwidth]{Pics/coding2}
-\caption{The different types of words participants used to describe the game feel in air.}
-\label{fig:coding2}
-\end{figure}
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=\columnwidth]{Pics/coding2}
+%\caption{The different types of words participants used to describe the game feel in air.}
+%\label{fig:coding2}
+%\end{figure}
 
 %\begin{figure*}[htbp]
 %\centering
@@ -186,8 +185,8 @@ Using a 7-point Likert scale, participants also rated the game feel on the follo
 \item Frustration
 \end{itemize}
 
-\subsubsection{Looking at Acceleration \& Deceleration Values Separately}
-Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is possible to spot a few tendencies, e.g., acceleration having a negative correlation with how \textit{twitchy}, \textit{fluid}, \textit{floaty} and \textit{responsive} the game felt. Meanwhile, deceleration has a positive correlation with how \textit{twitchy} and \textit{floaty} the game felt. However, this way of showing the data is not accurate, since it splits the acceleration and deceleration. The participants did not experience either separately; both were always apparent when playing.
+%\subsubsection{Looking at Acceleration \& Deceleration Values Separately}
+%Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is possible to spot a few tendencies, e.g., acceleration having a negative correlation with how \textit{twitchy}, \textit{fluid}, \textit{floaty} and \textit{responsive} the game felt. Meanwhile, deceleration has a positive correlation with how \textit{twitchy} and \textit{floaty} the game felt. However, this way of showing the data is not accurate, since it splits the acceleration and deceleration. The participants did not experience either separately; both were always apparent when playing.
 
 %\begin{figure*}[htbp]
 %\centering
@@ -238,8 +237,8 @@ Figure \ref{fig:correlationMatrix} shows the correlation matrix. Here, it is pos
 %\label{fig:dec_average_response}
 %\end{figure}
 
-\subsubsection{Looking at Acceleration \& Deceleration Values Simultaneously}
-Since the distribution of the acceleration/deceleration times wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), a different way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
+\subsubsection{Looking at Acceleration \& Deceleration}
+Since the distribution of the acceleration/deceleration times wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), one way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
 
 It appears that the game felt most \textit{twitchy} with high acceleration values (> 1 second) and low deceleration values (< 0.25 seconds) (see Figure \ref{fig:twitchy_fluid_stiff_avg}). This might be due to the feeling of having slow acceleration, but when releasing the button, the avatar stops very suddenly.
 
@@ -276,54 +275,54 @@ Lastly, Figure \ref{fig:difficult_like_frustration_avg} suggests that the game f
 \label{fig:difficult_like_frustration_avg}
 \end{figure*}
 
-\begin{figure*}[htbp]
-\centering
-\includegraphics[width=0.98\textwidth]{Pics/correlationMatrix_final}
-\caption{Pearson correlation matrix.}
-\label{fig:correlationMatrix}
-\end{figure*}
+%\begin{figure*}[htbp]
+%\centering
+%\includegraphics[width=0.98\textwidth]{Pics/correlationMatrix_final}
+%\caption{Pearson correlation matrix.}
+%\label{fig:correlationMatrix}
+%\end{figure*}
 
-\subsubsection{Curves}
-Another way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:twitchy_fluid}, \ref{fig:stiff_floaty}, \ref{fig:responsive_enjoyable} and \ref{fig:difficult_frustrated}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
+%\subsubsection{Curves}
+%Another way to visualize the data is to take the averages of the acceleration/deceleration values for each of the ratings, e.g., the average acceleration/deceleration values for \textit{twitchy} rating 1, rating 2, rating 3, etc. However, since a Likert scale consists of ordinal values, there is no guarantee that a rating difference of 1 represents an equal conceptual change, since the scale might be used differently by different participants. For instance, some participants might be hesitant to use the extreme values 1 (\textit{not at all}) and 7 (\textit{a lot}), while others might spread their answers across the whole scale \cite{cunningham}. Because of this, in the following graphs, the averages have been put into three weighted categories, so that the extreme ends contribute more. The \textit{low rating} curves consist of ratings 1 (70\%), 2 (20\%) and 3 (10\%). The \textit{mid rating} curves consist of ratings 3 (25\%), 4 (50\%) and 5 (25\%). The \textit{high rating} curves consist of ratings 5 (10\%), 6 (20\%) and 7 (70\%). Using these numbers, it is possible to draw acceleration/deceleration curves, as seen in Figures \ref{fig:twitchy_fluid}, \ref{fig:stiff_floaty}, \ref{fig:responsive_enjoyable} and \ref{fig:difficult_frustrated}. For all curves, the sustain time is 1 second. The numbers in square brackets represent acceleration and deceleration values.
 
-At first glance, many of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the different curves are not mutually exclusive, i.e., the controls can feel \textit{floaty} and \textit{fluid} at the same time.
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Curves/twitchy_fluid}
-\caption{Twitchy and fluid curves.}
-\label{fig:twitchy_fluid}
-\end{figure*}
+%At first glance, many of the curves seem similar. However, when comparing the three curves from the same word, there are some differences. For instance, there is a difference of about 360 milliseconds between the deceleration in \textit{low rating} and \textit{high rating} in the \textit{floaty}. curve. Also, it should be noted that the different curves are not mutually exclusive, i.e., the controls can feel \textit{floaty} and \textit{fluid} at the same time.
+%\begin{figure*}[!htb]
+%\centering
+%\includegraphics[width=0.97\textwidth]{Pics/Curves/twitchy_fluid}
+%\caption{Twitchy and fluid curves.}
+%\label{fig:twitchy_fluid}
+%\end{figure*}
 
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Curves/stiff_floaty}
-\caption{Stiff and floaty curves.}
-\label{fig:stiff_floaty}
-\end{figure*}
+%\begin{figure*}[!htb]
+%\centering
+%\includegraphics[width=0.97\textwidth]{Pics/Curves/stiff_floaty}
+%\caption{Stiff and floaty curves.}
+%\label{fig:stiff_floaty}
+%\end{figure*}
 
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Curves/responsive_enjoyable}
-\caption{Responsive and enjoyable curves.}
-\label{fig:responsive_enjoyable}
-\end{figure*}
+%\begin{figure*}[!htb]
+%\centering
+%\includegraphics[width=0.97\textwidth]{Pics/Curves/responsive_enjoyable}
+%\caption{Responsive and enjoyable curves.}
+%\label{fig:responsive_enjoyable}
+%\end{figure*}
 
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Curves/difficult_frustrated}
-\caption{Difficult and frustrated curves.}
-\label{fig:difficult_frustrated}
-\end{figure*}
+%\begin{figure*}[!htb]
+%\centering
+%\includegraphics[width=0.97\textwidth]{Pics/Curves/difficult_frustrated}
+%\caption{Difficult and frustrated curves.}
+%\label{fig:difficult_frustrated}
+%\end{figure*}
 
 \subsection{Post-questionnaire}
-After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer questions about what they thought changed between each round in the game. Even though only the acceleration and deceleration changed, the participants might have perceived more than this. Participants were also asked to try and define the feel of games, in general, with their own words. Additionally, they were asked to describe the feel of six commercially-released platforming games. This was to get a better understanding of how players describe game feel for platformers in general. The six games can be seen in Figure \ref{fig:rate_games_all}.
+After completing the fourth round of the game, participants were asked to complete a Google Forms questionnaire. At the time of writing, 153 participants have taken part in this post-questionnaire. Participants were asked to answer questions about what they thought changed between each round in the game. Even though only the acceleration and deceleration changed, the participants might have perceived more than this. Participants were also asked to try and define the feel of games, in general, with their own words. Additionally, they were asked to describe the feel of six commercially-released platforming games. This was to get a better understanding of how players describe game feel for platformers in general.
 
-\begin{figure*}[htbp]
-\centering
-\includegraphics[width=1\textwidth]{Pics/rate_games_all}
-\caption{Participants described the feel of six platforming games. From left to right: \textit{Mega Man}, \textit{LittleBigPlanet}, \textit{Donkey Kong}, \textit{Super Meat Boy}, \textit{Prince of Persia} and \textit{Super Mario Bros.}}
-\label{fig:rate_games_all}
-\end{figure*}
+%\begin{figure*}[htbp]
+%\centering
+%\includegraphics[width=1\textwidth]{Pics/rate_games_all}
+%\caption{Participants described the feel of six platforming games. From left to right: \textit{Mega %Man}, \textit{LittleBigPlanet}, \textit{Donkey Kong}, \textit{Super Meat Boy}, \textit{Prince of %Persia} and \textit{Super Mario Bros.}}
+%\label{fig:rate_games_all}
+%\end{figure*}
 
 \begin{figure}[htbp]
 \centering
@@ -332,31 +331,31 @@ After completing the fourth round of the game, participants were asked to comple
 \label{fig:whatChanged}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\columnwidth]{Pics/good_games}
-\caption{Game titles/series that the participants though feel good. Only those with more than one vote are included.}
-\label{fig:good_games}
-\end{figure}
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.9\columnwidth]{Pics/good_games}
+%\caption{Game titles/series that the participants though feel good. Only those with more than one %vote are included.}
+%\label{fig:good_games}
+%\end{figure}
 
-\begin{table} \centering
-\caption{The 30 most commonly-used words to define game feel in general. Numbers in parenthesis indicate usage frequency. Common grammar words have been excluded. Words with duplicate entries such as \textit{games} and \textit{game} have been combined into one.}
-\label{table:mostWordsPost_GF}
-\begin{tabular}{lll}
-\toprule
-game (193) & feel (160) & control (87)\\
-how (46) & like (42) & player (34)\\
-good (26) & way (23) & character (22)\\
-really (18) & too (18) & something (17)\\
-should (17) & me (17) & play (16)\\
-gameplay (13) & responsive (13) & don't (13 times)\\
-get (13) & question (12) & easy (11)\\
-world (11) & bad (11) & responsiveness (11)\\
-will (11) & between (10) & actions (10)\\
-time (10) & important (10) & playing (9)\\
-\bottomrule
-\end{tabular}
-\end{table}
+%\begin{table} \centering
+%\caption{The 30 most commonly-used words to define game feel in general. Numbers in parenthesis %indicate usage frequency. Common grammar words have been excluded. Words with duplicate entries such %as \textit{games} and \textit{game} have been combined into one.}
+%\label{table:mostWordsPost_GF}
+%\begin{tabular}{lll}
+%\toprule
+%game (193) & feel (160) & control (87)\\
+%how (46) & like (42) & player (34)\\
+%good (26) & way (23) & character (22)\\
+%really (18) & too (18) & something (17)\\
+%should (17) & me (17) & play (16)\\
+%gameplay (13) & responsive (13) & don't (13 times)\\
+%get (13) & question (12) & easy (11)\\
+%world (11) & bad (11) & responsiveness (11)\\
+%will (11) & between (10) & actions (10)\\
+%time (10) & important (10) & playing (9)\\
+%\bottomrule
+%\end{tabular}
+%\end{table}
 
 %\begin{table} \centering
 %\caption{The 30 most commonly-used words to describe six other platform games in the post-questionnaire. Numbers in parenthesis indicate usage frequency. Common grammar words have been excluded. Words with duplicate entries such as \textit{games} and \textit{game} have been combined into one.}
@@ -379,11 +378,8 @@ time (10) & important (10) & playing (9)\\
 
 Figure \ref{fig:whatChanged} shows what the participants thought had changed between the rounds. Even though only acceleration and deceleration changed, participants also perceived other changes as well, most notably changes about how the controls felt in the air, such as how gravity and jumping worked. This might partially be due to the variable jump that some players may have missed in the first few rounds. Some also focused on the ball's properties, such as its mass and how ``ball-like" it behaved. In regards to acceleration and deceleration, more than double as many mentioned acceleration. When looking at the responses, it seems like participants were unaware of the term \textit{deceleration}, often times talking about how the ball gradually would slow down to a halt.
 
-Figure \ref{fig:good_games} shows the games that the participants think feel good. Even though the question was phrased as \textit{Name one game you think feels good (different from the ball game you just played)}, many thought that they should name a 2D platforming game.
 
-Table \ref{table:mostWordsPost_GF} shows the 30 most-commonly used words that participants used when trying to answer the question \textit{In your own words, how would you define the feel of games?}
-
-Participants were also asked to decribe the feel of six platforming games. Below are some selected quotes for describing the feel of each (some quotes have been combined for the sake of clarity).
+Participants were also asked to describe the feel of six platforming games. Below are some selected quotes for describing the feel of each (some quotes have been combined for the sake of clarity).
 
 \textbf{Mega Man (1987)}
 \vspace{-5mm}
@@ -464,12 +460,3 @@ Participants were also asked to decribe the feel of six platforming games. Below
 \end{itemize}
 
 As the above quotes illustrate, players tend to focus on different elements when it comes to game feel. What feels `unresponsive' and `floaty' to some may feel more responsive and relaxing to others. It all depends on the context of use, as one participant expressed when describing the feel of \textit{LittleBigPlanet}. If playing in a casual/social setting, it might not matter that the feel is `floaty' and `imprecise': \textit{``The slightly imprecise nature of the platforming makes for interesting mistakes to occur when playing with friends"}. It all comes down to what type of game it is and how challenging it's supposed to be. For instance, one participant described the feel of \textit{Super Mario Bros.} to be `clunky', but found it acceptable, since the game doesn't feature many big and precise jumps.
-
-Some also mentioned the usage of animation and sound effects, which again confirms that game feel is about the overall player perception. In general, as shown in Figure \ref{fig:games_important}, most participants find the feel of games very important.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\columnwidth]{Pics/games_important}
-\caption{Participants found game feel to be quite important.}
-\label{fig:games_important}
-\end{figure}
