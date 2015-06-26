@@ -2,7 +2,7 @@
 The data is split into three main parts: \textit{demographics} (before playing the game), \textit{mid-questionnaire} (while playing the game) and \textit{post-questionnaire} (after playing the game). The mid-questionnaire consists of two parts. In the first part, participants described the game feel in their own words. In the second part, participants rated the game feel on pre-defined words using Likert scales. The post-questionnaire is about game feel in general. The following analyzes the data from the three parts.
 
 \subsection{Demographics}
-As stated previously, the game was mainly shared on gaming websites. At the time of writing, 274 participants have played the game. The majority of the participants rated themselves very experienced with both videogames in general and 2D platformers. 70.6\% of the participants came from Europe and 26.7\% from USA. 93.6\% were male and 5.7\% female, with an average age of 24 years. Playing the game, the average death count was 5, the average framerate was 59.7 FPS and the average time spent per level was 61 seconds.
+At the time of writing, 274 participants have played the game. The majority of the participants rated themselves very experienced with both videogames in general and 2D platformers. 70.6\% of the participants came from Europe and 26.7\% from USA. 93.6\% were male and 5.7\% female, with an average age of 24 years. Playing the game, the average death count per level was 5, the average framerate was 59.7 FPS and the average time spent per level was 61 seconds.
 
 %\begin{table} \centering
 %\small
@@ -49,7 +49,7 @@ As stated previously, the game was mainly shared on gaming websites. At the time
 
 Ideally, there should be an equal amount of participants in each of the four Latin square sequences. However, not all of the sequences received the same amount of participants. This might be due to players quitting halfway, presumably due to fatigue or boredom. Each time a participant collected three stars and answered the questionnaire, data was logged. In total, 701 data logs were collected.
 
-Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time values that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
+Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time values that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the two intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
 
 %\begin{table} \centering
 %\small
@@ -76,7 +76,7 @@ Figure \ref{fig:overallDistribution} shows the overall distribution of the combi
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\columnwidth]{Pics/Classes/overall_distribution}
+\includegraphics[width=0.55\columnwidth]{Pics/Classes/overall_distribution}
 \caption{Scatter plot of all the different acceleration/deceleration combinations that participants experienced.}
 \label{fig:overallDistribution}
 \end{figure}
@@ -228,7 +228,7 @@ Below are some selected quotes and their corresponding acceleration and decelera
 
 \subsubsection{Rating Game Feel with Pre-Defined Words}
 %\subsubsection{Looking at Acceleration \& Deceleration}
-Since the distribution of the acceleration/deceleration values wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), one way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
+Since the distribution of the acceleration/deceleration values wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), one way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25 seconds. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
 
 It appears that the game felt most \textit{twitchy} with high acceleration values (> 1 second) and low deceleration values (< 0.25 seconds) (see Figure \ref{fig:twitchy_fluid_stiff_avg}). This might be due to the feeling of having slow acceleration, but when releasing the button, the avatar stops very suddenly.
 

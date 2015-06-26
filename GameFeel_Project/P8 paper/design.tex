@@ -1,6 +1,6 @@
 \section{Design \& Implementation} \label{design}
 \subsection{Modulating Acceleration and Deceleration}
-Swink discussed different ways to modulate the player avatar's movement in the chapter \textit{Response Metrics} \cite{swink}. Inspired by ADSR envelopes (Attack-Decay-Sustain-Release), Swink proposed the idea of using velocity modulation to change the game feel. Even if the input signal from the controller is discrete and binary (button is either pressed down or released), the software can modulate it into a continuous signal. By altering the attack and release phase (or, acceleration and deceleration), it is possible to create different game feel, as illustrated in Figures \ref{fig:adsr_stiff} and \ref{fig:adsr_loose}.
+Swink discussed different ways to modulate the player avatar's movement in the chapter \textit{Response Metrics} \cite{swink}. Inspired by ADSR envelopes (Attack-Decay-Sustain-Release), Swink proposed the idea of using velocity modulation to change the game feel. Even if the input signal from the game controller is discrete and binary (button is either pressed down or released), the software can modulate it into a continuous signal. By altering the attack and release phase (or, acceleration and deceleration), it is possible to create different game feel, as illustrated in Figures \ref{fig:adsr_stiff} and \ref{fig:adsr_loose}.
 
 %, e.g., the sound of a pipe organ or a guitar string. This is achieved by modulating the amplitude over time.
 
@@ -23,15 +23,13 @@ Swink discussed different ways to modulate the player avatar's movement in the c
 \label{fig:adsr_loose}
 \end{figure}
 
-Taking inspiration from Swink, a 2D side-scrolling platformer game was developed in which players move a soccer ball from left to right to collect stars (see Figure \ref{fig:game}). The game is controlled with the keyboard. Similar to \textit{Super Mario Bros.}, there is a variable jump, meaning that holding down the button results in higher jumps.
-
-Two parameters change between each round: how fast the ball accelerates and how fast it decelerates (when moving horizontally). Hence, the velocity of the player's avatar is modulated over time. This means that when the player presses the movement button, the ball takes a certain amount of time before it reaches its maximum velocity. The same is applied when the player releases the button: the ball gradually slows down, until it stops.
+Taking inspiration from Swink, a 2D side-scrolling platformer game was developed in Unity. Using the keyboard, players control a soccer ball from left to right to collect stars (see Figure \ref{fig:game}). Two parameters change between each round: how fast the ball accelerates and how fast it decelerates (when moving horizontally). Hence, the velocity of the player's avatar is modulated over time. This means that when the player presses the movement button, the ball takes a certain amount of time before it reaches its maximum velocity. The same is applied when the player releases the button: the ball gradually slows down, until it stops.
 
 %To keep the experiment as simple as possible, only linear curves were considered for this project. Also, the decay phase was deemed unnecessary, since it wouldn't make sense for an avatar to accelerate, then decay a little, and then sustain the maximum velocity.
 
 %Depending on how big a delay there is from the player triggering an event to getting feedback, the game will gradually feel less responsive.
 
-Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen values within the two intervals. 
+Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen values within these two intervals. 
 %The reason for choosing random values instead of fixed values is that it isn't perfectly clear at which exact point a game goes from feeling responsive to unresponsive. Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. 
 The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
 \begin{equation} \label{eq:erl} %% source: http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
