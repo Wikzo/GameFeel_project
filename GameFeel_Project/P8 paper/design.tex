@@ -23,7 +23,7 @@ Swink discussed different ways to modulate the player avatar's movement in the c
 \label{fig:adsr_loose}
 \end{figure}
 
-Taking inspiration from Swink, a 2D side-scrolling platformer game was developed in which players move a soccer ball from left to right to collect stars (see Figure \ref{fig:game}). The game is controlled with the arrow keys and the spacebar. Similar to \textit{Super Mario Bros.}, there is a variable jump, meaning that holding down the button results in higher jumps.
+Taking inspiration from Swink, a 2D side-scrolling platformer game was developed in which players move a soccer ball from left to right to collect stars (see Figure \ref{fig:game}). The game is controlled with the keyboard. Similar to \textit{Super Mario Bros.}, there is a variable jump, meaning that holding down the button results in higher jumps.
 
 Two parameters change between each round: how fast the ball accelerates and how fast it decelerates (when moving horizontally). Hence, the velocity of the player's avatar is modulated over time. This means that when the player presses the movement button, the ball takes a certain amount of time before it reaches its maximum velocity. The same is applied when the player releases the button: the ball gradually slows down, until it stops.
 
@@ -31,7 +31,9 @@ Two parameters change between each round: how fast the ball accelerates and how 
 
 %Depending on how big a delay there is from the player triggering an event to getting feedback, the game will gradually feel less responsive.
 
-Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen time values within the two intervals. The reason for choosing random values instead of fixed values is that it isn't perfectly clear at which exact point a game goes from feeling responsive to unresponsive. Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
+Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen values within the two intervals. 
+%The reason for choosing random values instead of fixed values is that it isn't perfectly clear at which exact point a game goes from feeling responsive to unresponsive. Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. 
+The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
 \begin{equation} \label{eq:erl} %% source: http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
 a = (v - v_0)/{\Delta}t
 \end{equation} 
@@ -49,7 +51,7 @@ where $a$ is the acceleration/deceleration, $v$ is the target velocity, $v_0$ is
 %\end{tabular}
 %\end{table}
 
-The game features other parameters, such as gravity, jump velocity and the aforementioned ``ghost jump", but only the horizontal ground acceleration and deceleration changed between rounds.
+The game features other parameters, such as gravity, jump velocity and the aforementioned ``ghost jump", but only the horizontal ground acceleration and deceleration changed between rounds. Graphics and sound effects have been held to a minimum, since the influence of polishing effects is outside the scope of this project. Only a small trail renderer is attached to the ball. The ball also has a rolling animation that is linearly mapped to the horizontal velocity.
 
 \begin{figure}[htbp]
 \centering
@@ -58,5 +60,5 @@ The game features other parameters, such as gravity, jump velocity and the afore
 \label{fig:game}
 \end{figure}
 
-Graphics and sound effects have been held to a minimum, since the influence of polishing effects is outside the scope of this project. Only a small trail renderer is attached to the ball. The ball also has a rolling animation that is linearly mapped to the horizontal velocity. Since the aim is to allow for players to experience the game feel as much as possible, the level has been designed to be simple and not too challenging, ensuring that most participants would complete the level without too much trouble.
+%Since the aim is to allow for players to experience the game feel as much as possible, the level has been designed to be simple and not too challenging, ensuring that most participants would complete the level without too much trouble.
 %To ensure that all participants had comparable experiences, the game was fixed at a 960x600 resolution, no matter if played in a browser or as a standalone program. Also, the camera is set to follow the player avatar directly; however, small deadzones for vertical and horizontal movement were implemented, meaning that the camera will only move when the player moves outside these zones (e.g., by jumping more than a few pixels).
