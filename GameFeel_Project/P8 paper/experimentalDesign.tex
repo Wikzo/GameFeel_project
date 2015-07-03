@@ -5,7 +5,7 @@
 %The time it took for the player avatar to accelerate and decelerate changed between rounds.
 
 \subsection{Stimulus Presentation}
-Participants played four rounds of the game. Each round had different acceleration and deceleration values. All other factors were held constant, e.g., the level design, sound effects and the parameters for jumping. Between rounds, participants were asked to describe how it felt to play the game. The term \textit{game feel} was explicitly not explained, so that participants would try to describe the feel of the game from their own understanding of what game feel might be.
+Participants played four rounds of the game. Each round had different acceleration and deceleration times. All other factors were held constant, e.g., the level design, sound effects and the parameters for jumping. Between rounds, participants were asked to describe how it felt to play the game. The term \textit{game feel} was explicitly not explained, so that participants would try to describe the feel of the game from their own understanding of what game feel might be.
 
 The experiment was designed as a repeated-measures, within-participant design \cite{cunningham}. There are a total of four possible combinations, as is shown in Table \ref{tab:combinations}. One of the strengths with within-participant designs is that it doesn't require as many participants as a between-participant design, since each participant will try all the conditions. However, one disadvantage is the risk of carry-over effects \cite{experimental1}. This might be due to fatigue (e.g., participants becoming bored after having experienced the multiple conditions) or practice (e.g., participants are better at the end than when they started). To balance potential ordering effects, a Latin square design was used (see Table \ref{table:latin}).
 
@@ -44,7 +44,7 @@ The experiment was designed as a repeated-measures, within-participant design \c
 \end{table}
 
 \subsection{Task} \label{task}
-In order to gather responses from the test participants, a questionnaire was built into the game. Players are tasked with collecting three stars in each round. The purpose of the stars is to ensure that players move/jump around enough in order to experience the feel of controlling the ball. The stars have been placed in the beginning, middle and end of the level, so players have to experience the whole level each time. The level consists of traditional platforming elements, as well as obstacles in the form of a few moving enemies and spikes. Figure \ref{fig:level} shows an overview of the game's level.
+Players are tasked with collecting three stars in each round. The purpose of the stars is to ensure that players move/jump around enough in order to experience the feel of controlling the ball. The stars have been placed in the beginning, middle and end of the level, so players have to experience the whole level each time. The level consists of traditional platforming elements, as well as obstacles in the form of a few moving enemies and spikes. Figure \ref{fig:level} shows an overview of the game's level.
 
 \begin{figure*}[htbp]
 \centering
@@ -53,7 +53,7 @@ In order to gather responses from the test participants, a questionnaire was bui
 \label{fig:level}
 \end{figure*}
 
-Each time players collect three stars, the game is paused and a questionnaire is shown (see Figure \ref{fig:questionnaire}). The questionnaire consists of three sets of questions. The first asks players to try and describe the feeling of controlling the ball on the ground and in the air, with their own words. It is stressed that the chosen word(s) should be something that the player would use to describe the feeling to a friend. There were no restrictions on what types of words players could use (the input field's length is equivalent to approximately 66 characters, but it is possible to scroll forward/backward if a participant writes more than this). Each input field includes five randomly-chosen example words to give participants an idea of what could be used (see Table \ref{table:wordsExamples}).
+In order to gather responses from the test participants, a questionnaire was built into the game. Each time players collect three stars, the game is paused and a questionnaire is shown (see Figure \ref{fig:questionnaire}). The questionnaire consists of three sets of questions. The first asks players to try and describe the feeling of controlling the ball on the ground and in the air, with their own words. It is stressed that the chosen word(s) should be something that the player would use to describe the feeling to a friend. There were no restrictions on what types of words players could use (the input field's length is equivalent to approximately 66 characters, but it is possible to scroll forward/backward if a participant writes more than this). Each input field includes five randomly-chosen example words to give participants an idea of what could be used (see Table \ref{table:wordsExamples}).
 %Participants were asked to describe the feeling both on the ground and in air. Even though only horizontal movement is changed in the form of the acceleration and deceleration (both apply on ground and in air), there is a possibility that players perceived the game feel differently on ground and in air. Instead of trying to describe both at the same time, players were shown two input fields.
 
 \begin{table} \centering
@@ -88,5 +88,9 @@ After finishing the fourth round, participants were asked to complete an online 
 \subsection{Participants}
 The game was uploaded to a server and shared on social media websites and gaming forums. The primary target group was people who already play videogames; however, others were welcome to play the game as well. The participants were oblivious to the exact purpose and methods used in the experiment; they only knew that the research topic was about game feel (however, the term was never explained), but not how this was measured.
 
-A web page\footnote{The game is available here: \\ \url{http://tunnelvisiongames.com/g/GameFeel.html}} was created where participants could choose to either play the game in their browser or download a standalone build. Whenever a player completed a round (by collecting three stars and answering the questionnaire), data was sent to an MySQL database.
+A web page was created where participants could choose to either play the game in their browser or download a standalone build. Whenever a player completed a round (by collecting three stars and answering the questionnaire), data was sent to an MySQL database.
+
+%\footnote{The game is available here: \\ \url{http://tunnelvisiongames.com/g/GameFeel.html}}
+
+
 %To ensure the order in the Latin square (see Section \ref{latinSection}), players were assigned a number between 1 and 4 when starting the game. This number corresponds to the sequences in Table \ref{table:latin}. This was achieved by taking modulus 4 of the total amount of participants having completed the experiment and adding 1 to it. For instance, if 26 participants had played the game before entering, the next player would be assigned the sequence number (26 \% 4) + 1 = 3.

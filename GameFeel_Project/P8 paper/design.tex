@@ -11,14 +11,14 @@ Swink discussed different ways to modulate the player avatar's movement in the c
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.30\textwidth]{Pics/adsr_stiff}
+\includegraphics[width=0.7\columnwidth]{Pics/stiff2}
 \caption{Short acceleration/deceleration gives a responsive, but stiff, feel. Figure inspired by Swink \cite{swink}.}
 \label{fig:adsr_stiff}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.30\textwidth]{Pics/adsr_loose}
+\includegraphics[width=0.7\columnwidth]{Pics/loose2}
 \caption{Long acceleration gives a loose, but fluid, feel. Figure inspired by Swink \cite{swink}.}
 \label{fig:adsr_loose}
 \end{figure}
@@ -29,7 +29,7 @@ Taking inspiration from Swink, a 2D side-scrolling platformer game was developed
 
 %Depending on how big a delay there is from the player triggering an event to getting feedback, the game will gradually feel less responsive.
 
-Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen values within these two intervals. 
+Two intervals were chosen, inspired by Swink's model of player perception and feedback. The first interval, \textit{fast}, is between 1 millisecond and 240 milliseconds. The second interval, \textit{slow}, is from 241 milliseconds to 1500 milliseconds. For each round in the game, the player is assigned randomly-chosen values within these two time intervals. 
 %The reason for choosing random values instead of fixed values is that it isn't perfectly clear at which exact point a game goes from feeling responsive to unresponsive. Instead of choosing arbitrary fixed numbers, the system randomly assigns numbers within the two intervals. 
 The acceleration/deceleration is thus scaled depending on the time values, using Equation \ref{eq:erl}.
 \begin{equation} \label{eq:erl} %% source: http://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
