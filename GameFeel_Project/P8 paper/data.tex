@@ -49,7 +49,7 @@ At the time of writing, 274 participants have played the game. The majority of t
 
 Ideally, there should be an equal amount of participants in each of the four Latin square sequences. However, not all of the sequences received the same amount of participants. This might be due to players quitting halfway, presumably due to fatigue or boredom. Each time a participant collected three stars and answered the questionnaire, data was logged. In total, 701 data logs were collected.
 
-Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time time that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the two intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would also affect the number of possible sequences and Latin squares.
+Figure \ref{fig:overallDistribution} shows the overall distribution of the combinations of acceleration/deceleration time that participants experienced. As stated previously, the time intervals were either \textit{fast} (1-240 ms) or \textit{slow} (241-1500 ms). Since the lengths of the two intervals are not of equal size, neither are the distribution, as shown in the figure. A way to counter this would be to divide the \textit{slow} category into multiple smaller intervals of equal sizes, but this would in turn affect the number of possible sequences and Latin squares.
 
 %\begin{table} \centering
 %\small
@@ -231,41 +231,27 @@ Figure \ref{fig:overallDistribution} shows the overall distribution of the combi
 
 Whenever players collected three stars, they were met with a set of questions (see Figure \ref{fig:questionnaire}). In the first part, participants described the game feel in their own words, while in the second part they were asked to rate pre-defined words on a 7-point Likert scale (1 = \textit{not at all}; 7 = \textit{a lot}). In the following, only the second part will be presented.
 
-Because the distribution of the acceleration/deceleration times wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), one way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25 seconds. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
+Because the distribution of the acceleration/deceleration times wasn't equal (due to the two intervals, \textit{fast} and \textit{slow}), one way to approach the data is to look at averages. In the following plots, the data has been divided into 36 boxes of size 0.25x0.25 seconds, as shown in Figure \ref{fig:all_classes}. The Likert ratings were counted for each of the boxes and then divided by the number of ratings in that particular box, resulting in an overall average.
 
-It appears that the game felt most \textit{twitchy} with high acceleration times (> 1 second) and low deceleration times (< 0.25 seconds) (see Figure \ref{fig:twitchy_fluid_stiff_avg}). This might be due to the feeling of having slow acceleration, but when releasing the button, the avatar stops very suddenly.
+It appears that the game felt most \textit{twitchy} with high acceleration times (> 1 second) and low deceleration times (< 0.25 seconds). This might be due to the feeling of having slow acceleration, but when releasing the button, the avatar stops very suddenly.
 
-Looking at Figure \ref{fig:twitchy_fluid_stiff_avg}, it seems that the game felt relatively fluid overall, especially with acceleration times above 0.75 seconds. However, with deceleration times above 1 seconds, it appears that the game feels less \textit{fluid}, even though the deceleration phase is longer and thus slower.
+Looking at Figure \ref{fig:all_classes}, it seems that the game felt relatively fluid overall, especially with acceleration times above 0.75 seconds. However, with deceleration times above 1 seconds, it appears that the game feels less \textit{fluid}, even though the deceleration phase is longer and thus slower.
 
-Considering the \textit{stiffness}, Figure \ref{fig:twitchy_fluid_stiff_avg} suggests that deceleration has a bigger influence. Times above 1 second resulted in the game feeling more \textit{stiff}. This can be understood in the sense that the avatar is slow to decelerate, or in other words, feels \textit{stiff} to move around.
+Considering the \textit{stiffness}, the figure suggests that deceleration has a bigger influence. Times above 1 second resulted in the game feeling more \textit{stiff}. This can be understood in the sense that the avatar is slow to decelerate, or in other words, feels \textit{stiff} to move around.
 
-The \textit{floaty} aspect seems to be influenced more by the acceleration, since times above 1 second yields a more \textit{floaty} feel (see Figure \ref{fig:floaty_responsive_enjoyable_avg}).
+The \textit{floaty} aspect seems to be influenced more by the acceleration, since times above 1 second yields a more \textit{floaty} feel.
 
-Figure \ref{fig:floaty_responsive_enjoyable_avg} depicts the \textit{responsiveness}. As already evident with the previously-shown quotes, low acceleration and deceleration generally makes the game feel more \textit{responsive}. It is interesting, though, that even if the acceleration times are relatively high, as long as the deceleration stays around 0.25 seconds, participants still reported the game to feel \textit{responsive}.
+Low acceleration and deceleration generally makes the game feel more \textit{responsive}. It is interesting, though, that even if the acceleration times are relatively high, as long as the deceleration stays around 0.25 seconds, participants still reported the game to feel \textit{responsive}.
 
-Looking at how \textit{enjoyable} (see Figure \ref{fig:floaty_responsive_enjoyable_avg}) and how much participants \textit{liked} the controls (see Figure \ref{fig:difficult_like_frustration_avg}), there don't appear any strong tendencies.
+Looking at how \textit{enjoyable} and how much participants \textit{liked} the controls, there don't appear any strong tendencies.
 
-Lastly, Figure \ref{fig:difficult_like_frustration_avg} suggests that the game feels most \textit{difficult} and \textit{frustrating} with higher times in general, which is to be expected, since the time from input to feedback is longer and thus makes the avatar more difficult to control.
-
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Classes/averages/twitchy_fluid_stiff_avg}
-\caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
-\label{fig:twitchy_fluid_stiff_avg}
-\end{figure*}
+Lastly, Figure \ref{fig:all_classes} suggests that the game feels most \textit{difficult} and \textit{frustrating} with higher times in general, which is to be expected, since the time from input to feedback is longer and thus makes the avatar more difficult to control.
 
 \begin{figure*}[!htb]
 \centering
-\includegraphics[width=0.97\textwidth]{Pics/Classes/averages/floaty_responsive_enjoyable_avg.png}
+\includegraphics[width=0.97\textwidth]{Pics/Classes/averages/all_together}
 \caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
-\label{fig:floaty_responsive_enjoyable_avg}
-\end{figure*}
-
-\begin{figure*}[!htb]
-\centering
-\includegraphics[width=0.97\textwidth]{Pics/Classes/averages/difficult_like_frustration_avg}
-\caption{Participants' average responses. Each box is 0.25x0.25 seconds.}
-\label{fig:difficult_like_frustration_avg}
+\label{fig:all_classes}
 \end{figure*}
 
 %\begin{figure*}[htbp]
